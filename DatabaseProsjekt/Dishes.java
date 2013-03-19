@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Dishes {
-    public int dishID; // genereres i database //
-    public String name;
-    public ArrayList<Ingredients> ingredients; // hentes fra database//
-    public double price;
+    private int dishID; // genereres i database //
+    private String name;
+    private ArrayList<Ingredients> ingredients; // hentes fra database//
+    private double price;
     
-    public Dishes(int dishID, String name,Ingredients ingredients, double price){
+    public Dishes(int dishID, String name,ArrayList<Ingredients> ingredients, double price){
         if(dishID == 0 || name== null || ingredients == null || price == 0){
             throw new IllegalArgumentException("Ingen av argumentene kan være null");
         }
         this.dishID = dishID;
         this.name = name.trim();
-        this.ingredients = ingredients;
+        this.ingredients = new ArrayList<Ingredients>();
         this.price = price;
         
     }
