@@ -4,7 +4,7 @@ public class Dishes {
     private int dishID; // genereres i database //
     private String name;
     private ArrayList<Ingredients> ingredients; // hentes fra database//
-    private double price;
+    private double price; // yo//
     
     public Dishes(int dishID, String name,ArrayList<Ingredients> ingredients, double price){
         if(dishID == 0 || name== null || ingredients == null || price == 0){
