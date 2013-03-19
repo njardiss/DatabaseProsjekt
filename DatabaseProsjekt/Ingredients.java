@@ -1,7 +1,7 @@
 class Ingredients {
-	private static String name;
-	private static int ingredientid;
-	private static String metric;
+	private String name;
+	private int ingredientid;
+	private String metric;
 	private int amount;
 
 	public Ingredients(String name, int ingredientid, String metric, int amount) {
