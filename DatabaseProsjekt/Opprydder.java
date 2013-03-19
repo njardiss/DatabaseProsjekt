@@ -1,5 +1,5 @@
-package mittBibliotek;
 import java.sql.*;
+
 public class Opprydder {
   public static void lukkResSet(ResultSet res) {
     try {

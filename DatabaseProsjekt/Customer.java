@@ -32,9 +32,6 @@ class Customer {
 	public int getType() {
 		return type;
 	}
-	public void setKid(int newKid) {
-		kid = newKid;
-	}
 	public String setName(String newName) {
 		name = newName;
 		String sql = "update customer set name = '" + name + "' where kid = " + kid + "";
