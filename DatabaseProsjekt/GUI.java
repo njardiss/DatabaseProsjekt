@@ -50,7 +50,18 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
-				case 0:}
+				case 1:
+					String name = showInputDialog(null, "Skriv inn rettens navn:");
+					String ingredients = showInputDialog(null, "skriv inn ingredient:");
+					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
+					String sql = methods.setNewDish(name, ingredients, price);
+					int i = state.executeUpdate(sql);
+					if(i>0){
+						showMessageDialog(null,"Registreringen er vellykket");
+					}else{
+						showMessageDialog(null,"Ingen oppdatering gjort");
+					}
+				}
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);
 			switch(ecochoice){
