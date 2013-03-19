@@ -5,6 +5,7 @@ class clientMethods {
 		return sql;
 	}
 	
+	// njardiss sicke ducks
 	public String getCustomer(int kid) {
 		String sql = "SELECT * from customer where kid = ('" + kid + "')";
 		return sql;
