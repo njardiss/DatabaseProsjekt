@@ -3,15 +3,13 @@ class Customer {
 	private String name;
 	private int phone;
 	private String adress;
-	private String deliveryAdress;
 	private final int type;
 
-	public Customer(int kid, String name, int phone, String adress, String deliveryAdress, int type) {
+	public Customer(int kid, String name, int phone, String adress, int type) {
 		this.kid = kid;
 		this.name = name;
 		this.phone = phone;
 		this.adress =  adress;
-		this.deliveryAdress = deliveryAdress;
 		this.type = type;
 	}
 	public int getKid() {
@@ -25,9 +23,6 @@ class Customer {
 	}
 	public String getAdress() {
 		return adress;
-	}
-	public String getDeliveryAdress() {
-		return deliveryAdress;
 	}
 	public int getType() {
 		return type;
@@ -45,11 +40,6 @@ class Customer {
 	public String setAdress(String newAdress) {
 		adress = newAdress;
 		String sql = "update customer set adress = '" + adress + "' where kid = " + kid + "";
-		return sql;
-	}
-	public String setDeliveryAdress(String newDeliveryAdress) {
-		deliveryAdress = newDeliveryAdress;
-		String sql = "update customer set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + "";
 		return sql;
 	}
 }

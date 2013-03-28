@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
 
 class GUI {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
  	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
 	Class.forName(dbdriver);
     String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
@@ -29,9 +29,8 @@ class GUI {
 					String name = showInputDialog(null,"Skriv inn kundens navn:");
 					int phone = Integer.parseInt(showInputDialog(null,"Skriv inn kundens telefonnummer:"));
 					String adress = showInputDialog(null,"Skriv inn kundens bolig adresse:");
-					String deliveryAdress = showInputDialog(null,"Skriv inn kundens vanlige leveringsadresse:");
 					int type = Integer.parseInt(showInputDialog(null,"Velg om kunden er en bedriftskunde(0) eller privatkunde(1):"));
-					String sql = methods.regNewCustomer(name, phone, adress, deliveryAdress, type);
+					String sql = methods.regNewCustomer(name, phone, adress, type);
 					int i = state.executeUpdate(sql);
 					if(i>0){
 						showMessageDialog(null,"Registreringen er vellykket");
@@ -51,7 +50,7 @@ class GUI {
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
 				case 1:
-					String name = showInputDialog(null, "Skriv inn rettens navn:");
+					/*String name = showInputDialog(null, "Skriv inn rettens navn:");
 					String ingredients = showInputDialog(null, "skriv inn ingredient:");
 					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
 					String sql = methods.setNewDish(name, ingredients, price);
@@ -60,7 +59,7 @@ class GUI {
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort");
-					}
+					}*/
 				}
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);

@@ -1,19 +1,21 @@
 import java.util.ArrayList;
 
 class Order {
-	public final int orderid;
-	public int kid;
-	public String status;
-	public int orderTime;
-	public int deliveryTime;
-	public ArrayList<Dishes> orderContent;
+	private final int orderid;
+	private int kid;
+	private String status;
+	private int orderTime;
+	private int deliveryTime;
+	private String deliveryAdress;
+	private ArrayList<Dishes> orderContent;
 	
-	public Order(int orderid,int kid, String status, int orderTime, int deliveryTime, ArrayList<Dishes> orderContent) {
+	public Order(int orderid,int kid, String status, int orderTime, int deliveryTime, String deliveryAdress, ArrayList<Dishes> orderContent) {
 		this.orderid = orderid;
 		this.kid = kid;
 		this.status = status;
 		this.orderTime = orderTime;
 		this.deliveryTime = deliveryTime;
+		this.deliveryAdress = deliveryAdress;
 		this.orderContent = new ArrayList<Dishes>();
 	}
 	public int getOrderid() {
@@ -31,6 +33,9 @@ class Order {
 	public int deliveryTime() {
 		return deliveryTime;
 	}
+	public String getDeliveryAdress() {
+		return deliveryAdress;
+	}
 	public ArrayList<Dishes> getOrderContent() {
 		return orderContent;
 	}
@@ -42,6 +47,11 @@ class Order {
 	public String setDeliveryTime(int newTime) {
 		deliveryTime = newTime;
 		String sql = "update orders set deliverytime = '" + deliveryTime + "' where orderid = " + orderid + "";
+		return sql;
+	}
+	public String setDeliveryAdress(String newDeliveryAdress) {
+		deliveryAdress = newDeliveryAdress;
+		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
 		return sql;
 	}
 }
