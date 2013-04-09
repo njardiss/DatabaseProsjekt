@@ -67,6 +67,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
+					String status;
 					String sql = methods.findOrdersByStatus(status);
 					ResultSet res = state.executeQuery(sql);
 					int orderId;
@@ -74,7 +75,6 @@ class GUI {
 					String ordertime;
 					String deliverytime;
 					String deliveryadress;
-					String status;
 					int typen = 0;
 					ArrayList<Order> orders = new ArrayList<Order>();
 					ArrayList<Dish> dishes = new ArrayList<Dish>();
