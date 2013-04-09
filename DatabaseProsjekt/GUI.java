@@ -22,10 +22,10 @@ class GUI {
     int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
 
     switch(choice){
-		case 0:
+		case 0: //Customers
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
-				case 0:
+				case 0: //Add Customer
 					String name = showInputDialog(null,"Skriv inn kundens navn:");
 					int phone = Integer.parseInt(showInputDialog(null,"Skriv inn kundens telefonnummer:"));
 					String adress = showInputDialog(null,"Skriv inn kundens bolig adresse:");
@@ -37,6 +37,26 @@ class GUI {
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort");
 					}
+				case 1: //Find Customer
+					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
+					int kid = Integer.parseInt(kundeid);
+					sql = methods.getCustomer(kid);
+					ResultSet res = state.executeQuery(sql);
+					String navn = "";
+					int telefonnr = 0;
+					String adresse = "";
+					int typen = 0;
+					while(res.next()){
+						kid = Integer.parseInt(res.getString("kid"));
+						navn = res.getString("name");
+						telefonnr = Integer.parseInt(res.getString("phone"));
+						adresse = res.getString("adress");
+						typen = Integer.parseInt(res.getString("type"));
+					}
+					res.close();
+					Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
+					String kundeinfo = hanher.toString();
+					System.out.println(kundeinfo);
 				}	
 		case 1:
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);

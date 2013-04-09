@@ -42,4 +42,8 @@ class Customer {
 		String sql = "update customer set adress = '" + adress + "' where kid = " + kid + "";
 		return sql;
 	}
+	public String toString() {
+		String x = "Kid: " + kid + ". Name: " + name + ". Phone: " + phone + ". Adress: " + adress + ". Type: " + type;
+		return x;
+	}
 }
