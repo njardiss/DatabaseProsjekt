@@ -12,6 +12,10 @@ class ClientMethods {
 		String sql = "SELECT * from orders where kid = " + kid + "";
 		return sql;
 	}
+	public String findOrdersByStatus(int status) {
+		String sql = "SELECT * from orders where status = " + status + "";
+		return sql;
+	}
 	/*public String setNewDish(String name, String ingredients, double price){
 	 	String sql = "INSERT INTO Dish(name, ingredients, price)values('" + name + "'
 	 	,'" + ingredients + "', '" + price + "');

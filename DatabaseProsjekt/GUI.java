@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
 
@@ -57,11 +59,39 @@ class GUI {
 					Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
 					String kundeinfo = hanher.toString();
 					System.out.println(kundeinfo);
+				case 2: //Edit Customer
+					kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
+					kid = Integer.parseInt(kundeid);
 				}	
-		case 1:
+		case 1: //Orders
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
-				case 0:}
+				case 0: //List orders
+					int status = 1;
+					String sql = methods.findOrdersByStatus(status);
+					ResultSet res = state.executeQuery(sql);
+					int orderId;
+					int kid = 0;
+					time ordertime;
+					time deliverytime;
+					String deliveryadress;
+					int typen = 0;
+					ArrayList<Order> orders = new ArrayList<Order>();
+					while(res.next()){
+						orderId = Integer.parseInt(res.getString("orderid"));
+						kid = Integer.parseInt(res.getString("kid"));
+						ordertime = res.getString("ordertime");
+						deliverytime = res.getString("deliverytime");
+						deliveryadress = res.getString("adress");
+						Order order = new Order(orderId, kid, ordertime, deliverytime, deliveryadress);
+						orders.add(order);
+					}
+					res.close();
+					for(Order enOrder : orders) {
+						String kundeinfo = enOrder.toString();
+						System.out.print(kundeinfo);
+					}
+			}
 		case 2:
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){

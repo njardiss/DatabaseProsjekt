@@ -54,4 +54,10 @@ class Order {
 		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
 		return sql;
 	}
+	public String toString() {
+		String x = "Order ID: " + orderid + ". Kid: " + kid + ". Status: " + status + 
+				". Ordertime: " + orderTime + ". Deliverytime: " + deliveryTime +
+				". Delivery Adress: " + deliveryAdress + ". OrderContent: " + orderContent;
+		return x;
+	}
 }
