@@ -4,19 +4,19 @@ class Order {
 	private final int orderid;
 	private int kid;
 	private String status;
-	private int orderTime;
-	private int deliveryTime;
+	private String orderTime;
+	private String deliveryTime;
 	private String deliveryAdress;
-	private ArrayList<Dishes> orderContent;
+	private ArrayList<Dish> orderContent;
 	
-	public Order(int orderid,int kid, String status, int orderTime, int deliveryTime, String deliveryAdress, ArrayList<Dishes> orderContent) {
+	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent) {
 		this.orderid = orderid;
 		this.kid = kid;
 		this.status = status;
 		this.orderTime = orderTime;
 		this.deliveryTime = deliveryTime;
 		this.deliveryAdress = deliveryAdress;
-		this.orderContent = new ArrayList<Dishes>();
+		this.orderContent = new ArrayList<Dish>();
 	}
 	public int getOrderid() {
 		return orderid;
@@ -27,16 +27,16 @@ class Order {
 	public String getStatus() {
 		return status;
 	}
-	public int orderTime() {
+	public String orderTime() {
 		return orderTime;
 	}
-	public int deliveryTime() {
+	public String deliveryTime() {
 		return deliveryTime;
 	}
 	public String getDeliveryAdress() {
 		return deliveryAdress;
 	}
-	public ArrayList<Dishes> getOrderContent() {
+	public ArrayList<Dish> getOrderContent() {
 		return orderContent;
 	}
 	public String setStatus(String newStatus) {
@@ -44,7 +44,7 @@ class Order {
 		String sql = "update orders set status = '" + status + "' where orderid = " + orderid + "";
 		return sql;
 	}
-	public String setDeliveryTime(int newTime) {
+	public String setDeliveryTime(String newTime) {
 		deliveryTime = newTime;
 		String sql = "update orders set deliverytime = '" + deliveryTime + "' where orderid = " + orderid + "";
 		return sql;

@@ -11,16 +11,16 @@ class GUI {
     String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
     Connection connect = DriverManager.getConnection(dbname);
     Statement state = connect.createStatement();
-    
+
     ClientMethods methods = new ClientMethods();
-    
+
     String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
     String[] cust = {"Add customer", "Find customer", "EDIT_CUSTOMER", "BACK"}; // debt/payment remaining
     String[] ord = {"LIST_ORDERS", "ADD_ORDER", "FIND_ORDER", "BACK"};
     String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
     String[] stock = {"LIST_STOCKPILE", "FIND_INGREDIENT", "EDIT_INGREDIENT", "BACK"};
     String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
-    
+
     int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
 
     switch(choice){
@@ -62,28 +62,30 @@ class GUI {
 				case 2: //Edit Customer
 					kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
 					kid = Integer.parseInt(kundeid);
-				}	
+				}
 		case 1: //Orders
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					int status = 1;
 					String sql = methods.findOrdersByStatus(status);
 					ResultSet res = state.executeQuery(sql);
 					int orderId;
 					int kid = 0;
-					time ordertime;
-					time deliverytime;
+					String ordertime;
+					String deliverytime;
 					String deliveryadress;
+					String status;
 					int typen = 0;
 					ArrayList<Order> orders = new ArrayList<Order>();
+					ArrayList<Dish> dishes = new ArrayList<Dish>();
 					while(res.next()){
 						orderId = Integer.parseInt(res.getString("orderid"));
 						kid = Integer.parseInt(res.getString("kid"));
 						ordertime = res.getString("ordertime");
 						deliverytime = res.getString("deliverytime");
 						deliveryadress = res.getString("adress");
-						Order order = new Order(orderId, kid, ordertime, deliverytime, deliveryadress);
+						status = res.getString("status");
+						Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes);
 						orders.add(order);
 					}
 					res.close();
