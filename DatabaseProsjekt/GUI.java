@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
 
@@ -23,7 +22,7 @@ class GUI {
 
     int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
 
-    switch(choice){
+    switch(choice) {
 		case 0: //Customers
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
@@ -67,7 +66,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					String status;
+					String status = "Bestilt"; //må spørre om status
 					String sql = methods.findOrdersByStatus(status);
 					ResultSet res = state.executeQuery(sql);
 					int orderId;
@@ -78,6 +77,7 @@ class GUI {
 					int typen = 0;
 					ArrayList<Order> orders = new ArrayList<Order>();
 					ArrayList<Dish> dishes = new ArrayList<Dish>();
+					ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 					while(res.next()){
 						orderId = Integer.parseInt(res.getString("orderid"));
 						kid = Integer.parseInt(res.getString("kid"));
@@ -85,6 +85,27 @@ class GUI {
 						deliverytime = res.getString("deliverytime");
 						deliveryadress = res.getString("adress");
 						status = res.getString("status");
+						sql = ""; //må addes
+						ResultSet res2 = state.executeQuery(sql);
+						while(res2.next()) {
+							int dishID = Integer.parseInt(res2.getString("dishid"));
+							String name = res2.getString("name");
+							double price = Double.parseDouble(res2.getString("price"));
+							
+							sql = ""; //må addes
+							ResultSet res3 = state.executeQuery(sql);
+							while(res3.next()) {
+								String name2 = res3.getString("name");
+								int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
+								String metric = res3.getString("metric");
+								int amount = Integer.parseInt(res3.getString("amount"));
+								
+								Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+								ingredients.add(ingredient);
+							}
+							Dish dish2 = new Dish(dishID, name, ingredients, price);
+							dishes.add(dish2);
+						}
 						Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes);
 						orders.add(order);
 					}
@@ -127,5 +148,3 @@ class GUI {
 		}
 	}
 }
-
-

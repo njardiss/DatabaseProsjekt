@@ -3,16 +3,16 @@ import java.util.ArrayList;
 public class Dish {
     private int dishID; // genereres i database //
     private String name;
-    private ArrayList<Ingredients> ingredients; // hentes fra database//
+    private ArrayList<Ingredient> ingredients; // hentes fra database//
     private double price; // yo//
     
-    public Dish(int dishID, String name,ArrayList<Ingredients> ingredients, double price){
+    public Dish(int dishID, String name,ArrayList<Ingredient> ingredients, double price){
         if(dishID == 0 || name== null || ingredients == null || price == 0){
             throw new IllegalArgumentException("Ingen av argumentene kan være null");
         }
         this.dishID = dishID;
         this.name = name.trim();
-        this.ingredients = new ArrayList<Ingredients>();
+        this.ingredients = new ArrayList<Ingredient>();
         this.price = price;
         
     }
@@ -25,7 +25,7 @@ public class Dish {
         return name;
     }
     
-    public ArrayList<Ingredients> getingredients(){
+    public ArrayList<Ingredient> getIngredients(){
         return ingredients;
     }
     
