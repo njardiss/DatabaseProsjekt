@@ -36,21 +36,7 @@ class GUI {
 				case 1: //Find Customer
 					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
 					int kid = Integer.parseInt(kundeid);
-					sql = methods.getCustomer(kid);
-					ResultSet res = state.executeQuery(sql);
-					String navn = "";
-					int telefonnr = 0;
-					String adresse = "";
-					int typen = 0;
-					while(res.next()){
-						kid = Integer.parseInt(res.getString("kid"));
-						navn = res.getString("name");
-						telefonnr = Integer.parseInt(res.getString("phone"));
-						adresse = res.getString("adress");
-						typen = Integer.parseInt(res.getString("type"));
-					}
-					res.close();
-					Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
+					Customer hanher = methods.getCustomer(kid);
 					String kundeinfo = hanher.toString();
 					System.out.println(kundeinfo);
 				case 2: //Edit Customer

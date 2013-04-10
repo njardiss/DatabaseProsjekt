@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 class ClientMethods {
@@ -10,13 +11,29 @@ class ClientMethods {
 				"," + phone + ", '" + adress + "'," + type + ")";
 		return sql;
 	}
-	public String getCustomer(int kid) throws Exception {
+	
+	public Customer getCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
 		String sql = "SELECT * from customer where kid = " + kid + "";
-		return sql;
+		ResultSet res = state.executeQuery(sql);
+		String navn = "";
+		int telefonnr = 0;
+		String adresse = "";
+		int typen = 0;
+		while(res.next()){
+			kid = Integer.parseInt(res.getString("kid"));
+			navn = res.getString("name");
+			telefonnr = Integer.parseInt(res.getString("phone"));
+			adresse = res.getString("adress");
+			typen = Integer.parseInt(res.getString("type"));
+		}
+		res.close();
+		Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
+		return hanher;
 	}
+	
 	public String findOrders(int kid) {
 		String sql = "SELECT * from orders where kid = " + kid + "";
 		return sql;
