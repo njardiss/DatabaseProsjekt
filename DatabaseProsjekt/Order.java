@@ -5,7 +5,7 @@ class Order {
 	private int kid;
 	private String status;
 	private String orderTime;
-	private String deliveryTime;
+	private String deliveryTime; // peace/////  out ///
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
 	
