@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Customer.class
 /GUI.class
 /Ingredients.class
@@ -7,3 +8,13 @@
 /Order.class
 /.classpath
 /TestPersonDialog.class
+=======
+/Customer.class
+/GUI.class
+/Ingredients.class
+/Opprydder.class
+/clientMethods.class
+/Dishes.class
+/Order.class
+/.classpath
+>>>>>>> branch 'master' of https://github.com/njardiss/DatabaseProsjekt.git
