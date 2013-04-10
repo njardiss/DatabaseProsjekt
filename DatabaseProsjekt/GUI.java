@@ -5,11 +5,6 @@ import static javax.swing.JOptionPane.*;
 
 class GUI {
 	public static void main(String[] args) throws Exception {
- 	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
-	Class.forName(dbdriver);
-    String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
-    Connection connect = DriverManager.getConnection(dbname);
-    Statement state = connect.createStatement();
 
     ClientMethods methods = new ClientMethods();
 

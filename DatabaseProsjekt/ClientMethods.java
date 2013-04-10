@@ -1,10 +1,19 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 class ClientMethods {
-	public String regNewCustomer(String name, int phone, String adress, int type) {
+ 	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
+	public String regNewCustomer(String name,int phone, String adress, int type) {
 		String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name + "'" +"" +
 				"," + phone + ", '" + adress + "'," + type + ")";
 		return sql;
 	}
-	public String getCustomer(int kid) {
+	public String getCustomer(int kid) throws Exception {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		String sql = "SELECT * from customer where kid = " + kid + "";
 		return sql;
 	}
