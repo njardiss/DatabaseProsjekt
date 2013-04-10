@@ -91,7 +91,7 @@ class GUI {
 							int dishID = Integer.parseInt(res2.getString("dishid"));
 							String name = res2.getString("name");
 							double price = Double.parseDouble(res2.getString("price"));
-							
+
 							sql = ""; //må addes
 							ResultSet res3 = state.executeQuery(sql);
 							while(res3.next()) {
@@ -99,7 +99,7 @@ class GUI {
 								int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
 								String metric = res3.getString("metric");
 								int amount = Integer.parseInt(res3.getString("amount"));
-								
+
 								Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 								ingredients.add(ingredient);
 							}
