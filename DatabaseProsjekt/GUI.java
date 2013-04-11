@@ -22,16 +22,22 @@ class GUI {
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
 				case 0: //Add Customer
-					String name = showInputDialog(null,"Skriv inn kundens navn:");
-					int phone = Integer.parseInt(showInputDialog(null,"Skriv inn kundens telefonnummer:"));
-					String adress = showInputDialog(null,"Skriv inn kundens bolig adresse:");
-					int type = Integer.parseInt(showInputDialog(null,"Velg om kunden er en bedriftskunde(0) eller privatkunde(1):"));
-					String sql = methods.regNewCustomer(name, phone, adress, type);
-					int i = state.executeUpdate(sql);
-					if(i>0){
+					CustomerRegistration registration = new CustomerRegistration();
+					registration.setLocation(350, 350);
+					registration.setVisible(true);
+					String[] customer = new String[3];
+					if((customer = registration.regCustomer()) == null) {
+						showMessageDialog(null,"Ingen oppdatering gjort"); //dunooo
+					}
+					String name = customer[0];
+					int phone = Integer.parseInt(customer[1]);
+					String adress = customer[2];
+					int type = Integer.parseInt(customer[3]);
+					Boolean check = methods.regNewCustomer(name, phone, adress, type);
+					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort");
+						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
 					}
 				case 1: //Find Customer
 					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
@@ -47,7 +53,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					String status = "Bestilt"; //må spørre om status
+					/*String status = "Bestilt"; //må spørre om status
 					String sql = methods.findOrdersByStatus(status);
 					ResultSet res = state.executeQuery(sql);
 					int orderId;
@@ -94,13 +100,13 @@ class GUI {
 					for(Order enOrder : orders) {
 						String kundeinfo = enOrder.toString();
 						System.out.print(kundeinfo);
-					}
+					}*/
 			}
 		case 2:
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){
 				case 0:
-				case 1: // add dish //
+				case 1: /*/ add dish //
 					String name = showInputDialog(null, "Skriv inn rettens navn:");
 					String ingredients = showInputDialog(null, "skriv inn ingredient:");
 					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
@@ -112,7 +118,7 @@ class GUI {
 						showMessageDialog(null,"Ingen oppdatering gjort");
 					}*/
 					
-				case 2: // find dish//
+				case 2: /*/ find dish//
 					String name = showInputDialog(null, "Write the name of the dish");
 					String sql = methods.findDish(name);
 					ResultSet res = state.executeQuery(sql);
@@ -129,12 +135,7 @@ class GUI {
 					connect.close();
 						
 						
-					}
-					
-					
-			
-			
-			
+					}*/	
 			}
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
@@ -157,8 +158,6 @@ class GUI {
 				case 0:}
 		case 5:
 		case -1:
-			state.close();
-			connect.close();
 			System.exit(0);
 		default:
 			JOptionPane.showMessageDialog(null, "Unexpected Choice " + choice);

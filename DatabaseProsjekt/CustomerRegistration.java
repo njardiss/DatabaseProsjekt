@@ -70,9 +70,12 @@ public class CustomerRegistration extends ParentWindow {
 	    setVisible(true);
 	    if (isOk()) {
 	    	customer[0] = name.getText();
-	    	customer[2] = phone.getText();
-	    	customer[3] = adress.getText();
-	    	customer[4] = type.getText();
+	    	customer[1] = phone.getText();
+	    	customer[2] = adress.getText();
+	    	customer[3] = type.getText();
+	    	for(int i =0; i < customer.length; i++) {
+				  System.out.println(customer[i]);
+			  }
 	    	return customer;
 	    } else {
 	    	return null;
