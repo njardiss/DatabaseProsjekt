@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Dish {
     private int dishID; // genereres i database //
@@ -34,14 +35,38 @@ public class Dish {
     }
     
     public String setName(String newName){
+    	Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
         name = newName;
         String sql = " 'Update dish name '" + name + "' where dishID is = '" + dishID ;
-        return sql;
+        int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
     }
     
     public String setPrice(double newPrice){
+    	Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
         price = newPrice;
         String sql = "' Update dish price '" + price + "' where dishID is ='" + dishID;
-        return sql;
+        int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
     }
 }
