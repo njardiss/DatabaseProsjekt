@@ -2,50 +2,20 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class Foreldrevindu {
-  private Customer aCustomer = new Customer(10000, "Arne Johansen", 12345678, "Gamle Åsvei 34C", 1);
-  private CustomerRegistration registration = new CustomerRegistration();
-
-  public Foreldrevindu() {
-    setTitle("Dialogtest");
+class ParentWindow extends JFrame {
+  public ParentWindow() {
+    setTitle("Parent window");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLayout(new FlowLayout());
-    JButton knapp = new JButton("Registrer ny kunde");
-    add(knapp);
-    JButton knapp2 = new JButton("Endre registrert kunde");
-    add(knapp2);
-    knapp.addActionListener(new KnappeLytter());
-    knapp2.addActionListener(new KnappeLytter());
-    setLocation(300, 300); // plasserer foreldrevinduet
-    registration.setLocation(350, 350);  // plasserer dialogen
-  }
-
-  private class KnappeLytter implements ActionListener {
-	  public void actionPerformed(ActionEvent event) {
-		  JButton pressedButton = (JButton) event.getSource();
-		  String buttonName = pressedButton.getText();
-		  if(buttonName.equals("Endre registrert kunde")) {
-			  if (registration.editCustomer(aCustomer)) {
-				  System.out.println("OK trykket ...");
-			  } else {
-				  System.out.println("Avbryt trykket ...");
-    		  }
-    		  System.out.println(aCustomer); // bruker toString()
-		  } else if(buttonName.equals("Registrer ny kunde")) {
-			  String[] customer = registration.regCustomer();
-			  
-			  System.out.println("OK trykket ...");
-		  } else {
-		  	System.out.println("Avbryt trykket ...");
-		  }
-		  System.out.println(aCustomer); // bruker toString()
-	  }
+    setVisible(false);
   }
 }
-  class TestPersonDialog {
-	  static public void main(String[] args) {
-		  Foreldrevindu test = new Foreldrevindu();
-		  test.setSize(300, 200);  // for å få litt størrelse på vinduet
-		  test.setVisible(true);
-	  	}
+class TestPersonDialog {
+	static public void main(String[] args) {
+		ParentWindow parent = new ParentWindow();
+		CustomerRegistration registration = new CustomerRegistration(parent);
+		String[] ans = registration.regCustomer();
+		for(int i = 0; i< ans.length; i++) {
+			System.out.println(ans[i]);
+		}
+	}
 }

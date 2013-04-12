@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.text.*;
 import static javax.swing.JOptionPane.*;
 
-public class CustomerRegistration extends ParentWindow {
+public class CustomerRegistration extends BasicDialog {
 	private JTextField kid = new JTextField();
 	private JTextField name = new JTextField();
 	private JTextField phone = new JTextField();

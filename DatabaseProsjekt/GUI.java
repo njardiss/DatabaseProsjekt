@@ -5,7 +5,7 @@ import static javax.swing.JOptionPane.*;
 
 class GUI {
 	public static void main(String[] args) throws Exception {
-
+	ParentWindow parent = new ParentWindow();
     ClientMethods methods = new ClientMethods();
 
     String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
@@ -22,7 +22,7 @@ class GUI {
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
 				case 0: //Add Customer
-					CustomerRegistration registration = new CustomerRegistration(this);
+					CustomerRegistration registration = new CustomerRegistration(parent);
 					registration.setLocation(350, 350);
 					registration.setVisible(true);
 					String[] customer = new String[3];

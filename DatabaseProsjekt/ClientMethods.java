@@ -58,8 +58,8 @@ class ClientMethods {
 		return sql;
 	}
 	
-	public boolean listDishes{ // må gjøres //
-		
+	public boolean listDishes() { // må gjøres //
+		return true;	
 	}
 	
 	
