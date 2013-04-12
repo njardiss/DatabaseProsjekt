@@ -106,7 +106,31 @@ class GUI {
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){
 				case 0:
-				case 1: /*/ add dish //
+				case 1: 
+					DishRegistration registration = new DishRegistration(this);
+					registration.setLocation(350, 350);
+					registration.setVisible(true);
+					String[] dish = new String[2];
+					if((dish = registration.regCustomer()) == null) {
+						showMessageDialog(null,"Ingen oppdatering gjort"); //dunooo
+					}
+					String name = dish[0];
+					String ingredients = Integer.parseInt(dish[1]);
+					double price = dish[2];
+					Boolean check = methods.setNewDish(name, ingredients, price);
+					if(check){
+						showMessageDialog(null,"Registreringen er vellykket");
+					}else{
+						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
+					}
+					
+					
+					
+					
+					
+	
+					
+					/*/ add dish //
 					String name = showInputDialog(null, "Skriv inn rettens navn:");
 					String ingredients = showInputDialog(null, "skriv inn ingredient:");
 					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
