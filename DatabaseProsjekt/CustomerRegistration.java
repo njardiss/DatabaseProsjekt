@@ -39,23 +39,23 @@ public class CustomerRegistration extends BasicDialog {
 	   * Hvis personnr er negativt, betyr det at nummer ikke er definert.
 	   * Brukeren kan editere i feltene for for- og etternavn.
 	   */
-	public boolean editCustomer(Customer customer) {
+	public boolean editCustomer(Customer customer2) {
 		type.setEditable(false); // brukeren kan ikke endre nummeret
-		String tekstNrFelt = (customer.getKid() < 0)
-	                                  ? "ikke registrert" : "" + customer.getKid();
+		String tekstNrFelt = (customer2.getKid() < 0)
+	                                  ? "ikke registrert" : "" + customer2.getKid();
 	    kid.setText(tekstNrFelt);
-	    name.setText(customer.getName());
-	    phone.setText(Integer.toString(customer.getPhone()));
-	    adress.setText(customer.getAdress());
-	    type.setText(Integer.toString(customer.getType()));
+	    name.setText(customer2.getName());
+	    phone.setText(Integer.toString(customer2.getPhone()));
+	    adress.setText(customer2.getAdress());
+	    type.setText(Integer.toString(customer2.getType()));
 	    setOk(false);
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
 	    if (isOk()) {
-	      customer.setName(name.getText());
-	      customer.setPhone(Integer.parseInt(phone.getText()));
-	      customer.setAdress(adress.getText());
+	      customer2.setName(name.getText());
+	      customer2.setPhone(Integer.parseInt(phone.getText()));
+	      customer2.setAdress(adress.getText());
 	      return true;
 	    } else {
 	      return false;
@@ -64,7 +64,7 @@ public class CustomerRegistration extends BasicDialog {
 	public String[] regCustomer() {
 		type.setEditable(true);
 	    setOk(false);
-	    String[] customer = new String [3];
+	    String[] customer = new String [4];
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);

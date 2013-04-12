@@ -5,7 +5,6 @@ import static javax.swing.JOptionPane.*;
 
 class GUI {
 	public static void main(String[] args) throws Exception {
-	ParentWindow parent = new ParentWindow();
     ClientMethods methods = new ClientMethods();
 
     String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
@@ -22,18 +21,7 @@ class GUI {
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
 				case 0: //Add Customer
-					CustomerRegistration registration = new CustomerRegistration(parent);
-					registration.setLocation(350, 350);
-					registration.setVisible(true);
-					String[] customer = new String[3];
-					if((customer = registration.regCustomer()) == null) {
-						showMessageDialog(null,"Ingen oppdatering gjort"); //dunooo
-					}
-					String name = customer[0];
-					int phone = Integer.parseInt(customer[1]);
-					String adress = customer[2];
-					int type = Integer.parseInt(customer[3]);
-					Boolean check = methods.regNewCustomer(name, phone, adress, type);
+					boolean check = methods.regNewCustomer();
 					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
@@ -107,7 +95,7 @@ class GUI {
 			switch(dischoice){
 				case 0: // list dishes //
 					
-				case 1: 
+				case 1: /*
 					DishRegistration registration = new DishRegistration(this);
 					registration.setLocation(350, 350);
 					registration.setVisible(true);
@@ -123,7 +111,7 @@ class GUI {
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
-					}
+					}*/
 					
 					
 					

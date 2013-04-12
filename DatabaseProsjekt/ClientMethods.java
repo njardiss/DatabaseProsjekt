@@ -6,11 +6,24 @@ import java.sql.Statement;
 class ClientMethods {
  	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
     String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
+    ParentWindow parent = new ParentWindow();
     
-	public boolean regNewCustomer(String name,int phone, String adress, int type) throws Exception {
+	public boolean regNewCustomer() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
+	    
+		CustomerRegistration registration = new CustomerRegistration(parent);
+		registration.setLocation(350, 350);
+		registration.setVisible(true);
+		String[] customer = new String[4];
+		customer = registration.regCustomer();
+		
+		String name = customer[0];
+		int phone = Integer.parseInt(customer[1]);
+		String adress = customer[2];
+		int type = Integer.parseInt(customer[3]);
+		
 		String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name + "'" +"" +
 				"," + phone + ", '" + adress + "'," + type + ")";
 		int answer = state.executeUpdate(sql);

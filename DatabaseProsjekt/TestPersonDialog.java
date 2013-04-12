@@ -13,9 +13,11 @@ class TestPersonDialog {
 	static public void main(String[] args) {
 		ParentWindow parent = new ParentWindow();
 		CustomerRegistration registration = new CustomerRegistration(parent);
-		String[] ans = registration.regCustomer();
+		String[] ans = new String[4];
+		ans = registration.regCustomer();
 		for(int i = 0; i< ans.length; i++) {
 			System.out.println(ans[i]);
 		}
+		System.exit(0);
 	}
 }
