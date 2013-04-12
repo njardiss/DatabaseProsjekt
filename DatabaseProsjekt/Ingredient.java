@@ -1,3 +1,5 @@
+import java.sql.*;
+
 class Ingredient {
 	private String name;
 	private int ingredientid;
@@ -22,9 +24,22 @@ class Ingredient {
 	public int getAmount() {
 		return amount;
 	}
-	public String setAmount(int refilledAmount) {
+	public boolean setAmount(int refilledAmount) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		amount += refilledAmount;
 		String sql = "update ingredients set amount = '" + amount + "' where ingredientid = " + ingredientid + "";
-		return sql;
+		
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
 }
