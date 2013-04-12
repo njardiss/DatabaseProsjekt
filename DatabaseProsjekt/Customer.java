@@ -1,9 +1,13 @@
+import java.sql.*;
+
 class Customer {
 	private int kid;
 	private String name;
 	private int phone;
 	private String adress;
 	private final int type;
+	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 
 	public Customer(int kid, String name, int phone, String adress, int type) {
 		this.kid = kid;
@@ -27,20 +31,59 @@ class Customer {
 	public int getType() {
 		return type;
 	}
-	public String setName(String newName) {
+	public boolean setName(String newName) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		name = newName;
 		String sql = "update customer set name = '" + name + "' where kid = " + kid + "";
-		return sql;
+		
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
-	public String setPhone(int newPhone) {
+	public boolean setPhone(int newPhone) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		phone = newPhone;
 		String sql = "update customer set phone = '" + phone + "' where kid = " + kid + "";
-		return sql;
+		
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
-	public String setAdress(String newAdress) {
+	public boolean setAdress(String newAdress) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		adress = newAdress;
 		String sql = "update customer set adress = '" + adress + "' where kid = " + kid + "";
-		return sql;
+		
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
 	public String toString() {
 		String x = "Kid: " + kid + ". Name: " + name + ". Phone: " + phone + ". Adress: " + adress + ". Type: " + type;

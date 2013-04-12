@@ -23,7 +23,7 @@ class GUI {
 				case 0: //Add Customer
 					boolean check = methods.regNewCustomer();
 					if(check){
-						showMessageDialog(null,"Registreringen er vellykket");
+						showMessageDialog(null,"Registrer ingen er vellykket");
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
 					}
