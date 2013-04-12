@@ -6,6 +6,8 @@ public class Dish {
     private String name;
     private ArrayList<Ingredient> ingredients; // hentes fra database//
     private double price; // yo//
+    private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
     
     public Dish(int dishID, String name,ArrayList<Ingredient> ingredients, double price){
         if(dishID == 0 || name== null || ingredients == null || price == 0){

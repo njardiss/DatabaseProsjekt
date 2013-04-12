@@ -5,6 +5,8 @@ class Ingredient {
 	private int ingredientid;
 	private String metric;
 	private int amount;
+	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 
 	public Ingredient(String name, int ingredientid, String metric, int amount) {
 		this.name = name;

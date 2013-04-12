@@ -9,6 +9,8 @@ class Order {
 	private String deliveryTime;
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
+	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 	
 	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent) {
 		this.orderid = orderid;
