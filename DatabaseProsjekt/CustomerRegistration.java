@@ -11,8 +11,8 @@ public class CustomerRegistration extends ParentWindow {
 	private JTextField adress = new JTextField();
 	private JTextField type = new JTextField();
 
-	public CustomerRegistration() {
-		super("Customer registration");
+	public CustomerRegistration(JFrame parent) {
+		super(parent, "Customer registration");
 		add(new JPanel(), BorderLayout.NORTH);  // litt "luft"
 	    add(new CustomerDatapanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);

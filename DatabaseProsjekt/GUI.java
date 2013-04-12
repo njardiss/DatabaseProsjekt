@@ -22,7 +22,7 @@ class GUI {
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
 			switch(cuschoice){
 				case 0: //Add Customer
-					CustomerRegistration registration = new CustomerRegistration();
+					CustomerRegistration registration = new CustomerRegistration(this);
 					registration.setLocation(350, 350);
 					registration.setVisible(true);
 					String[] customer = new String[3];

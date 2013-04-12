@@ -15,8 +15,12 @@ class ClientMethods {
 				"," + phone + ", '" + adress + "'," + type + ")";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
+			state.close();
+			connect.close();
 			return true;
 		}else{
+			state.close();
+			connect.close();
 			return false;
 		}
 	}
@@ -40,6 +44,8 @@ class ClientMethods {
 		}
 		res.close();
 		Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
+		state.close();
+		connect.close();
 		return hanher;
 	}
 	

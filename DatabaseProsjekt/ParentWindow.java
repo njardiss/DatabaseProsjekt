@@ -1,4 +1,4 @@
-	import java.awt.*;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
@@ -8,7 +8,8 @@ public class ParentWindow extends JDialog {
 	private JButton okKnapp  = new JButton("OK");
 	private ButtonPanel buttonpanel = new ButtonPanel();
 
-	protected ParentWindow(String title) {
+	protected ParentWindow(JFrame parent, String title) {
+		super(parent, title, true);
 		addWindowListener(new Vinduslytter());
 
 		/* Vi vil programmere lukking av vinduet selv: */
