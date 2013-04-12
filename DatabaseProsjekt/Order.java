@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 class Order {
@@ -39,20 +42,57 @@ class Order {
 	public ArrayList<Dish> getOrderContent() {
 		return orderContent;
 	}
-	public String setStatus(String newStatus) {
+	public boolean setStatus(String newStatus) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		status = newStatus;
 		String sql = "update orders set status = '" + status + "' where orderid = " + orderid + "";
-		return sql;
+		
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
 	public String setDeliveryTime(String newTime) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		deliveryTime = newTime;
 		String sql = "update orders set deliverytime = '" + deliveryTime + "' where orderid = " + orderid + "";
-		return sql;
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
 	public String setDeliveryAdress(String newDeliveryAdress) {
+		Class.forName(dbdriver);
+	    Connection connect = DriverManager.getConnection(dbname);
+	    Statement state = connect.createStatement();
 		deliveryAdress = newDeliveryAdress;
 		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
-		return sql;
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connect.close();
+			return true;
+		}else{
+			state.close();
+			connect.close();
+			return false;
+		}
 	}
 	public String toString() {
 		String x = "Order ID: " + orderid + ". Kid: " + kid + ". Status: " + status + 
