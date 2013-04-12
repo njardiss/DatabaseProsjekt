@@ -57,6 +57,14 @@ class ClientMethods {
 		String sql = "SELECT * from orders where status = '" + status + "'";
 		return sql;
 	}
+	
+	public boolean listDishes{ // må gjøres //
+		
+	}
+	
+	
+	
+	
 	public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
@@ -72,5 +80,32 @@ class ClientMethods {
 			state.close();
 			connect.close();
 			return false;
-	}*/
+	}
+		
+		public boolean findDish(String name){
+			Class.forName(dbdriver);
+		    Connection connect = DriverManager.getConnection(dbname);
+		    Statement state = connect.createStatement();
+		    String sql = "SELECT * from dish where name = " + name + "";
+		    ResultSet res = state.executeQuery(sql);
+		    int dishID = 0;
+			String name = "";
+			String ingredient = 0;
+			double price = "";
+			while(res.next()){
+				dishID = Integer.parseInt(res.getString("dishID"));
+				name = res.getString("name");
+				ingredient = (res.getString("ingredient"));
+				price = double.parseDouble(res.getString("price"));
+				System.out.println(dishId + ":" + name + "" + ingredients + "" + price);
+				
+				
+			}
+			res.close();
+			Dish retten = new Dish(dishID, name, ingredient, price);
+			state.close();
+			connect.close();
+			return retten;
+		}
+		
 }

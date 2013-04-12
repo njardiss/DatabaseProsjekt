@@ -105,18 +105,19 @@ class GUI {
 		case 2:
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){
-				case 0:
+				case 0: // list dishes //
+					
 				case 1: 
 					DishRegistration registration = new DishRegistration(this);
 					registration.setLocation(350, 350);
 					registration.setVisible(true);
 					String[] dish = new String[2];
-					if((dish = registration.regCustomer()) == null) {
+					if((dish = registration.setNewDish()) == null) {
 						showMessageDialog(null,"Ingen oppdatering gjort"); //dunooo
 					}
 					String name = dish[0];
-					String ingredients = Integer.parseInt(dish[1]);
-					double price = dish[2];
+					String ingredients = dish[1];
+					double price = Double.parseDouble(dish[2]);
 					Boolean check = methods.setNewDish(name, ingredients, price);
 					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
@@ -127,39 +128,11 @@ class GUI {
 					
 					
 					
-					
-	
-					
-					/*/ add dish //
-					String name = showInputDialog(null, "Skriv inn rettens navn:");
-					String ingredients = showInputDialog(null, "skriv inn ingredient:");
-					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
-					String sql = methods.setNewDish(name, ingredients, price);
-					int i = state.executeUpdate(sql);
-					if(i>0){
-						showMessageDialog(null,"Registreringen er vellykket");
-					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort");
-					}*/
-					
-				case 2: /*/ find dish//
-					String name = showInputDialog(null, "Write the name of the dish");
-					String sql = methods.findDish(name);
-					ResultSet res = state.executeQuery(sql);
-					while(res.next()){
-						int dishID = res.getString("dishID");
-						String name = res.getString("name");
-						String ingredients = res.getString("ingredients");
-						String price = res.getString("price");
-						System.out.println(dishId + ":" + name + "" + ingredients + "" + price);
-						
-					}
-					res.close();
-					state.close();
-					connect.close();
-						
-						
-					}*/	
+				case 2: // find dish//
+					String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
+					Dish retten = methods.findDish(rettnavn);
+					String rettinfo = retten.toString();
+					System.out.println(kundeinfo);
 			}
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
