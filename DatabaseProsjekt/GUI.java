@@ -117,10 +117,10 @@ class GUI {
 					
 					
 				case 2: // find dish//
-					String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
+					/*String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
 					Dish retten = methods.findDish(rettnavn);
 					String rettinfo = retten.toString();
-					System.out.println(kundeinfo);
+					System.out.println(kundeinfo);*/
 			}
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);

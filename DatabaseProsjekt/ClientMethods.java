@@ -78,7 +78,7 @@ class ClientMethods {
 	
 	
 	
-	public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
+	/*public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -93,9 +93,9 @@ class ClientMethods {
 			state.close();
 			connect.close();
 			return false;
-	}
+	}*/
 		
-		public boolean findDish(String name){
+	/*	public boolean findDish(String name){
 			Class.forName(dbdriver);
 		    Connection connect = DriverManager.getConnection(dbname);
 		    Statement state = connect.createStatement();
@@ -119,6 +119,6 @@ class ClientMethods {
 			state.close();
 			connect.close();
 			return retten;
-		}
+		}*/
 		
 }
