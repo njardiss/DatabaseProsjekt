@@ -10,6 +10,8 @@ public class CustomerRegistration extends BasicDialog {
 	private JTextField phone = new JTextField();
 	private JTextField adress = new JTextField();
 	private JTextField type = new JTextField();
+	private JRadioButton privateCustomer = new JRadioButton("Private customer", false);
+	private JRadioButton enterpriseCustomer = new JRadioButton("Enterprise customer", false);
 
 	public CustomerRegistration(JFrame parent) {
 		super(parent, "Customer registration");
@@ -20,8 +22,8 @@ public class CustomerRegistration extends BasicDialog {
 	}
 	private class CustomerDatapanel extends JPanel {
 		public CustomerDatapanel() {
-			setLayout(new GridLayout(7, 2, 5, 5));
-			add(new JLabel("Kundenummer (tildeles automatisk): ", JLabel.RIGHT));
+			setLayout(new GridLayout(5, 2, 5, 5));
+			add(new JLabel("Customer ID (automatic): ", JLabel.RIGHT));
 		    add(kid);
 		    kid.setEditable(false); // brukeren kan ikke endre nummeret
 		    add(new JLabel("Full name:", JLabel.RIGHT));
@@ -30,16 +32,21 @@ public class CustomerRegistration extends BasicDialog {
 		    add(phone);
 		    add(new JLabel("Adress: ", JLabel.RIGHT));
 		    add(adress);
-		    add(new JLabel("Customer type:", JLabel.RIGHT));
-		    add(type);
+		    
+		    ButtonGroup group = new ButtonGroup();
+		    group.add(privateCustomer);
+		    group.add(enterpriseCustomer);
+		    add(privateCustomer);
+		    add(enterpriseCustomer);
 		}
 	}
 	/**
 	   * Metode som viser et dialogvindu med data fra argumentet personen.
 	   * Hvis personnr er negativt, betyr det at nummer ikke er definert.
 	   * Brukeren kan editere i feltene for for- og etternavn.
+	 * @throws Exception 
 	   */
-	public boolean editCustomer(Customer customer2) {
+	public boolean editCustomer(Customer customer2) throws Exception {
 		type.setEditable(false); // brukeren kan ikke endre nummeret
 		String tekstNrFelt = (customer2.getKid() < 0)
 	                                  ? "ikke registrert" : "" + customer2.getKid();
@@ -72,7 +79,11 @@ public class CustomerRegistration extends BasicDialog {
 	    	customer[0] = name.getText();
 	    	customer[1] = phone.getText();
 	    	customer[2] = adress.getText();
-	    	customer[3] = type.getText();
+	    	if(enterpriseCustomer.isSelected()) {
+	    		customer[3] = Integer.toString(1);
+	    	} else {
+	    		customer[3] = Integer.toString(0);
+	    	}
 	    	for(int i =0; i < customer.length; i++) {
 				  System.out.println(customer[i]);
 			  }

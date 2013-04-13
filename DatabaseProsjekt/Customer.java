@@ -5,7 +5,7 @@ class Customer {
 	private String name;
 	private int phone;
 	private String adress;
-	private final int type;
+	private final int type; //0 er privatkunde og 1 bedriftskunde
 	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
     private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 
