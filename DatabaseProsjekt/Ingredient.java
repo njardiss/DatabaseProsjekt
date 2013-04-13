@@ -26,7 +26,7 @@ class Ingredient {
 	public int getAmount() {
 		return amount;
 	}
-	public boolean setAmount(int refilledAmount) {
+	public boolean setAmount(int refilledAmount) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();

@@ -31,7 +31,7 @@ class Customer {
 	public int getType() {
 		return type;
 	}
-	public boolean setName(String newName) {
+	public boolean setName(String newName) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -49,7 +49,7 @@ class Customer {
 			return false;
 		}
 	}
-	public boolean setPhone(int newPhone) {
+	public boolean setPhone(int newPhone) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -67,7 +67,7 @@ class Customer {
 			return false;
 		}
 	}
-	public boolean setAdress(String newAdress) {
+	public boolean setAdress(String newAdress) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();

@@ -36,7 +36,7 @@ public class Dish {
         return price;
     }
     
-    public String setName(String newName){
+    public boolean setName(String newName) throws Exception {
     	Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -54,7 +54,7 @@ public class Dish {
 		}
     }
     
-    public String setPrice(double newPrice){
+    public boolean setPrice(double newPrice) throws Exception {
     	Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();

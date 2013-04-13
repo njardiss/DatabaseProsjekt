@@ -27,15 +27,18 @@ class GUI {
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
 					}
+					break;
 				case 1: //Find Customer
 					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
 					int kid = Integer.parseInt(kundeid);
 					Customer hanher = methods.getCustomer(kid);
 					String kundeinfo = hanher.toString();
 					System.out.println(kundeinfo);
+					break;
 				case 2: //Edit Customer
 					kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
 					kid = Integer.parseInt(kundeid);
+					break;
 				}
 		case 1: //Orders
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);

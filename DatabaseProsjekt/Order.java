@@ -42,7 +42,7 @@ class Order {
 	public ArrayList<Dish> getOrderContent() {
 		return orderContent;
 	}
-	public boolean setStatus(String newStatus) {
+	public boolean setStatus(String newStatus) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -60,7 +60,7 @@ class Order {
 			return false;
 		}
 	}
-	public String setDeliveryTime(String newTime) {
+	public boolean setDeliveryTime(String newTime) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
@@ -77,7 +77,7 @@ class Order {
 			return false;
 		}
 	}
-	public String setDeliveryAdress(String newDeliveryAdress) {
+	public boolean setDeliveryAdress(String newDeliveryAdress) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
