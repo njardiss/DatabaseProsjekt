@@ -9,7 +9,6 @@ public class CustomerRegistration extends BasicDialog {
 	private JTextField name = new JTextField();
 	private JTextField phone = new JTextField();
 	private JTextField adress = new JTextField();
-	private JTextField type = new JTextField();
 	private JRadioButton privateCustomer = new JRadioButton("Private customer", false);
 	private JRadioButton enterpriseCustomer = new JRadioButton("Enterprise customer", false);
 
@@ -47,29 +46,40 @@ public class CustomerRegistration extends BasicDialog {
 	 * @throws Exception 
 	   */
 	public boolean editCustomer(Customer customer2) throws Exception {
-		type.setEditable(false); // brukeren kan ikke endre nummeret
+		enterpriseCustomer.setFocusable(false); //kan ikke endre kundetypen BUGGED
+		privateCustomer.setFocusable(false);
 		String tekstNrFelt = (customer2.getKid() < 0)
 	                                  ? "ikke registrert" : "" + customer2.getKid();
 	    kid.setText(tekstNrFelt);
 	    name.setText(customer2.getName());
 	    phone.setText(Integer.toString(customer2.getPhone()));
 	    adress.setText(customer2.getAdress());
-	    type.setText(Integer.toString(customer2.getType()));
+	    if(customer2.getType() == 0) {
+	    	privateCustomer.setSelected(true);
+	    } else {
+	    	enterpriseCustomer.setSelected(true);
+	    	
+	    }
 	    setOk(false);
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
 	    if (isOk()) {
-	      customer2.setName(name.getText());
-	      customer2.setPhone(Integer.parseInt(phone.getText()));
-	      customer2.setAdress(adress.getText());
+	    	if(!name.getText().equals(customer2.getName())) {
+	    		customer2.setName(name.getText());
+	    	}
+	    	if(Integer.parseInt(phone.getText()) != (customer2.getPhone())) {
+	    		customer2.setPhone(Integer.parseInt(phone.getText()));
+	    	}
+	    	if(!adress.getText().equals(customer2.getAdress())) {
+	    		customer2.setAdress(adress.getText());
+	    	}
 	      return true;
 	    } else {
 	      return false;
 	    }
 	}
 	public String[] regCustomer() {
-		type.setEditable(true);
 	    setOk(false);
 	    String[] customer = new String [4];
 	    pack();
@@ -92,13 +102,25 @@ public class CustomerRegistration extends BasicDialog {
 	    	return null;
 	    }
 	}
-	protected boolean okData() {
-		String newName = name.getText().trim();
-	    if (name.equals("")) {
-	    		showMessageDialog(CustomerRegistration.this, "Både for- og etternavn må fylles ut!");
-	    	if (!name.equals("")) {
+	protected boolean okData() { //trenger bedre kontroll av data
+		String name2 = name.getText().trim();
+		String phone2 = phone.getText().trim();
+		String adress2 = adress.getText().trim();
+		boolean enterpriseButton = enterpriseCustomer.isSelected();
+		boolean privateButton = privateCustomer.isSelected();
+	    if (name2.equals("") || phone2.equals("") || adress2.equals("") || (!enterpriseButton && !privateButton)) {
+	    	if (name2.equals("")) {
+	    		showMessageDialog(CustomerRegistration.this, "You have to input a customer name!");
 	    		name.requestFocusInWindow();
-	    	} else {
+	    	} else if(phone2.equals("")) {
+	    		showMessageDialog(CustomerRegistration.this, "You have to input a phone number!");
+	    		phone.requestFocusInWindow();
+	    	} else if(adress2.equals("")) {
+	    		showMessageDialog(CustomerRegistration.this, "You have to input an adress!");
+	    		adress.requestFocusInWindow();
+	    	} else if(!enterpriseButton && !privateButton) {
+	    		showMessageDialog(CustomerRegistration.this, "You have to choose a customer type!");
+	    		privateCustomer.requestFocusInWindow();
 	    	}
 	    	return false; // data er ikke ok (for- og/eller etternavn er blankt)
 	    } else {

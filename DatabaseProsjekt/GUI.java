@@ -1,4 +1,3 @@
-import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
@@ -23,7 +22,7 @@ class GUI {
 				case 0: //Add Customer
 					boolean check = methods.regNewCustomer();
 					if(check){
-						showMessageDialog(null,"Registrer ingen er vellykket");
+						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
 						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
 					}
@@ -36,8 +35,14 @@ class GUI {
 					System.out.println(kundeinfo);
 					break;
 				case 2: //Edit Customer
-					kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
-					kid = Integer.parseInt(kundeid);
+					kid = Integer.parseInt(showInputDialog(null,"Skriv inn kunde identifikasjon nr:"));
+					if(methods.editCustomer(kid)) {
+						showMessageDialog(null,"The changes are saved successfully!");
+					}else{
+						showMessageDialog(null,"No update saved."); //meldingen må utvides elnz
+					}
+					break;
+				case 3:
 					break;
 				}
 		case 1: //Orders

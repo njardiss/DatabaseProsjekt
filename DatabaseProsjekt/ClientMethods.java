@@ -35,6 +35,16 @@ class ClientMethods {
 		}
 	}
 	
+	public boolean editCustomer(int kid) throws Exception {
+		Customer customer = getCustomer(kid);
+		CustomerRegistration registration = new CustomerRegistration(parent);
+		if(registration.editCustomer(customer)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public Customer getCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connect = DriverManager.getConnection(dbname);

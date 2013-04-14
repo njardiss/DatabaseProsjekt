@@ -54,7 +54,7 @@ class Customer {
 	    Connection connect = DriverManager.getConnection(dbname);
 	    Statement state = connect.createStatement();
 		phone = newPhone;
-		String sql = "update customer set phone = '" + phone + "' where kid = " + kid + "";
+		String sql = "update customer set phone = " + phone + " where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
