@@ -67,13 +67,13 @@ public class CustomerRegistration extends BasicDialog {
 	    setVisible(true);
 	    if (isOk()) {
 	    	if(!name.getText().equals(customer2.getName())) {
-	    		customer2.setName(name.getText());
+	    		customer2.setName(name.getText(), connect);
 	    	}
 	    	if(Integer.parseInt(phone.getText()) != (customer2.getPhone())) {
 	    		customer2.setPhone(Integer.parseInt(phone.getText()), connect);
 	    	}
 	    	if(!adress.getText().equals(customer2.getAdress())) {
-	    		customer2.setAdress(adress.getText());
+	    		customer2.setAdress(adress.getText(), connect);
 	    	}
 	      return true;
 	    } else {

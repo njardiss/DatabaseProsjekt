@@ -4,7 +4,6 @@ class ClientMethods {
  	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
     String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
     ParentWindow parent = new ParentWindow();
-    ConnectionManager manager = new ConnectionManager();
     
 	public boolean regNewCustomer() throws Exception {
 		Class.forName(dbdriver);
@@ -26,12 +25,12 @@ class ClientMethods {
 				"," + phone + ", '" + adress + "'," + type + ")";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
-			connection.close();
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
 			return true;
-		}else{
-			state.close();
-			connection.close();
+		} else {
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
 			return false;
 		}
 	}
@@ -39,14 +38,19 @@ class ClientMethods {
 	public boolean editCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
-	    Statement state = connection.createStatement();
 	    
-		manager.setAutoCommit(connection);
+		ConnectionManager.setAutoCommit(connection); //turns off autocommit
+		
 		Customer customer = getCustomer(kid);
 		CustomerRegistration registration = new CustomerRegistration(parent);
 		if(registration.editCustomer(customer, connection)) {
+			ConnectionManager.setAutoCommit(connection); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
+			ConnectionManager.rollback(connection); //rollback if fail
+			ConnectionManager.setAutoCommit(connection); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
 			return false;
 		}
 	}
@@ -68,10 +72,10 @@ class ClientMethods {
 			adresse = res.getString("adress");
 			typen = Integer.parseInt(res.getString("type"));
 		}
-		res.close();
+		ConnectionManager.closeResSet(res);
 		Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
-		state.close();
-		connection.close();
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
 		return hanher;
 	}
 	

@@ -9,8 +9,6 @@ class Order {
 	private String deliveryTime;
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
-	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
-    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 	
 	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent) {
 		this.orderid = orderid;
@@ -43,45 +41,42 @@ class Order {
 		return orderContent;
 	}
 	public boolean setStatus(String newStatus, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		status = newStatus;
 		String sql = "update orders set status = '" + status + "' where orderid = " + orderid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}
 	public boolean setDeliveryTime(String newTime, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		deliveryTime = newTime;
 		String sql = "update orders set deliverytime = '" + deliveryTime + "' where orderid = " + orderid + "";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}
 	public boolean setDeliveryAdress(String newDeliveryAdress, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		deliveryAdress = newDeliveryAdress;
 		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}

@@ -6,8 +6,6 @@ class Customer {
 	private int phone;
 	private String adress;
 	private final int type; //0 er privatkunde og 1 bedriftskunde
-	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
-    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
 
 	public Customer(int kid, String name, int phone, String adress, int type) {
 		this.kid = kid;
@@ -32,47 +30,44 @@ class Customer {
 		return type;
 	}
 	public boolean setName(String newName, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		name = newName;
 		String sql = "update customer set name = '" + name + "' where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}
 	public boolean setPhone(int newPhone, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		phone = newPhone;
 		String sql = "update customer set phone = " + phone + " where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}
 	public boolean setAdress(String newAdress, Connection connection) throws Exception {
-		Class.forName(dbdriver);
 	    Statement state = connection.createStatement();
 		adress = newAdress;
 		String sql = "update customer set adress = '" + adress + "' where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return true;
 		}else{
-			state.close();
+			ConnectionManager.closeStatement(state);
 			return false;
 		}
 	}
