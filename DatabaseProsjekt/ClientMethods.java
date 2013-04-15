@@ -8,28 +8,15 @@ class ClientMethods {
 	public boolean regNewCustomer() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
-	    Statement state = connection.createStatement();
 	    
 		CustomerRegistration registration = new CustomerRegistration(parent);
 		registration.setLocation(350, 350);
 		registration.setVisible(true);
-		String[] customer = new String[4];
-		customer = registration.regCustomer();
-		
-		String name = customer[0];
-		int phone = Integer.parseInt(customer[1]);
-		String adress = customer[2];
-		int type = Integer.parseInt(customer[3]);
-		
-		String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name + "'" +"" +
-				"," + phone + ", '" + adress + "'," + type + ")";
-		int answer = state.executeUpdate(sql);
-		if(answer>0){
-			ConnectionManager.closeStatement(state);
+	
+		if(registration.regCustomer(connection)) {
 			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
-			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}

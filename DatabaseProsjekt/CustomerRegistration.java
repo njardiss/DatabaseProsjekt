@@ -74,24 +74,31 @@ public class CustomerRegistration extends BasicDialog {
 	      return false;
 	    }
 	}
-	public String[] regCustomer() {
+	public boolean regCustomer(Connection connection) throws SQLException {
 	    setOk(false);
-	    String[] customer = new String [4];
+	    int type;
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
 	    if (isOk()) {
-	    	customer[0] = name.getText();
-	    	customer[1] = phone.getText();
-	    	customer[2] = adress.getText();
 	    	if(enterpriseCustomer.isSelected()) {
-	    		customer[3] = Integer.toString(1);
+	    		type = 1;
 	    	} else {
-	    		customer[3] = Integer.toString(0);
+	    		type = 0;
 	    	}
-	    	return customer;
+	    	String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'" +"" +
+					"," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
+	    	Statement state = connection.createStatement();
+	    	int answer = state.executeUpdate(sql);
+			if(answer>0){
+				ConnectionManager.closeStatement(state);
+				return true;
+			} else {
+				ConnectionManager.closeStatement(state);
+				return false;
+			}
 	    } else {
-	    	return null;
+	    	return false;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
