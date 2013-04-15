@@ -7,7 +7,7 @@ class GUI {
     ClientMethods methods = new ClientMethods();
 
     String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
-    String[] cust = {"Add customer", "Find customer", "EDIT_CUSTOMER", "BACK"}; // debt/payment remaining
+    String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"LIST_ORDERS", "ADD_ORDER", "FIND_ORDER", "BACK"};
     String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
     String[] stock = {"LIST_STOCKPILE", "FIND_INGREDIENT", "EDIT_INGREDIENT", "BACK"};
@@ -98,6 +98,12 @@ class GUI {
 						String kundeinfo = enOrder.toString();
 						System.out.print(kundeinfo);
 					}*/
+					break;
+				case 1: //add order
+					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
+					int kid = Integer.parseInt(kundeid);
+					Customer customer = methods.getCustomer(kid);
+					break;
 			}
 		case 2:
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);

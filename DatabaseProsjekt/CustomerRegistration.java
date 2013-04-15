@@ -40,14 +40,8 @@ public class CustomerRegistration extends BasicDialog {
 		    add(enterpriseCustomer);
 		}
 	}
-	/**
-	   * Metode som viser et dialogvindu med data fra argumentet personen.
-	   * Hvis personnr er negativt, betyr det at nummer ikke er definert.
-	   * Brukeren kan editere i feltene for for- og etternavn.
-	 * @throws Exception 
-	   */
 	public boolean editCustomer(Customer customer2, Connection connect) throws Exception {
-		enterpriseCustomer.setFocusable(false); //kan ikke endre kundetypen BUGGED
+		enterpriseCustomer.setFocusable(false); //skal ikke kunne endre kundetypen, BUGGED
 		privateCustomer.setFocusable(false);
 		String tekstNrFelt = (customer2.getKid() < 0)
 	                                  ? "ikke registrert" : "" + customer2.getKid();
@@ -95,9 +89,6 @@ public class CustomerRegistration extends BasicDialog {
 	    	} else {
 	    		customer[3] = Integer.toString(0);
 	    	}
-	    	for(int i =0; i < customer.length; i++) {
-				  System.out.println(customer[i]);
-			  }
 	    	return customer;
 	    } else {
 	    	return null;
@@ -123,9 +114,9 @@ public class CustomerRegistration extends BasicDialog {
 	    		showMessageDialog(CustomerRegistration.this, "You have to choose a customer type!");
 	    		privateCustomer.requestFocusInWindow();
 	    	}
-	    	return false; // data er ikke ok (for- og/eller etternavn er blankt)
+	    	return false;
 	    } else {
-	    	return true;  // data er ok
+	    	return true;
 	    }
 	}
 }
