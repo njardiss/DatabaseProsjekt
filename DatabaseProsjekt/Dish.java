@@ -36,38 +36,32 @@ public class Dish {
         return price;
     }
     
-    public boolean setName(String newName) throws Exception {
+    public boolean setName(String newName, Connection connection) throws Exception {
     	Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
         name = newName;
         String sql = " 'Update dish name '" + name + "' where dishID is = '" + dishID ;
         int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
     }
     
-    public boolean setPrice(double newPrice) throws Exception {
+    public boolean setPrice(double newPrice, Connection connection) throws Exception {
     	Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
         price = newPrice;
         String sql = "' Update dish price '" + price + "' where dishID is ='" + dishID;
         int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
     }

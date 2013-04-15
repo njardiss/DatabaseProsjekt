@@ -26,21 +26,18 @@ class Ingredient {
 	public int getAmount() {
 		return amount;
 	}
-	public boolean setAmount(int refilledAmount) throws Exception {
+	public boolean setAmount(int refilledAmount, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		amount += refilledAmount;
 		String sql = "update ingredients set amount = '" + amount + "' where ingredientid = " + ingredientid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}

@@ -31,57 +31,48 @@ class Customer {
 	public int getType() {
 		return type;
 	}
-	public boolean setName(String newName) throws Exception {
+	public boolean setName(String newName, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		name = newName;
 		String sql = "update customer set name = '" + name + "' where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}
-	public boolean setPhone(int newPhone) throws Exception {
+	public boolean setPhone(int newPhone, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		phone = newPhone;
 		String sql = "update customer set phone = " + phone + " where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}
-	public boolean setAdress(String newAdress) throws Exception {
+	public boolean setAdress(String newAdress, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		adress = newAdress;
 		String sql = "update customer set adress = '" + adress + "' where kid = " + kid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}

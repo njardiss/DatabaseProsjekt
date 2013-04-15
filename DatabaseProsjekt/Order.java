@@ -42,55 +42,46 @@ class Order {
 	public ArrayList<Dish> getOrderContent() {
 		return orderContent;
 	}
-	public boolean setStatus(String newStatus) throws Exception {
+	public boolean setStatus(String newStatus, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		status = newStatus;
 		String sql = "update orders set status = '" + status + "' where orderid = " + orderid + "";
 		
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}
-	public boolean setDeliveryTime(String newTime) throws Exception {
+	public boolean setDeliveryTime(String newTime, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		deliveryTime = newTime;
 		String sql = "update orders set deliverytime = '" + deliveryTime + "' where orderid = " + orderid + "";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}
-	public boolean setDeliveryAdress(String newDeliveryAdress) throws Exception {
+	public boolean setDeliveryAdress(String newDeliveryAdress, Connection connection) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Statement state = connection.createStatement();
 		deliveryAdress = newDeliveryAdress;
 		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
 			return false;
 		}
 	}

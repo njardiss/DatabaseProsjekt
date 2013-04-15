@@ -4,11 +4,12 @@ class ClientMethods {
  	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
     String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
     ParentWindow parent = new ParentWindow();
+    ConnectionManager manager = new ConnectionManager();
     
 	public boolean regNewCustomer() throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
 	    
 		CustomerRegistration registration = new CustomerRegistration(parent);
 		registration.setLocation(350, 350);
@@ -26,19 +27,24 @@ class ClientMethods {
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
+			connection.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
+			connection.close();
 			return false;
 		}
 	}
 	
 	public boolean editCustomer(int kid) throws Exception {
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
+	    
+		manager.setAutoCommit(connection);
 		Customer customer = getCustomer(kid);
 		CustomerRegistration registration = new CustomerRegistration(parent);
-		if(registration.editCustomer(customer)) {
+		if(registration.editCustomer(customer, connection)) {
 			return true;
 		} else {
 			return false;
@@ -47,8 +53,8 @@ class ClientMethods {
 	
 	public Customer getCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
 		String sql = "SELECT * from customer where kid = " + kid + "";
 		ResultSet res = state.executeQuery(sql);
 		String navn = "";
@@ -65,7 +71,7 @@ class ClientMethods {
 		res.close();
 		Customer hanher = new Customer(kid, navn, telefonnr, adresse, typen);
 		state.close();
-		connect.close();
+		connection.close();
 		return hanher;
 	}
 	
@@ -87,25 +93,25 @@ class ClientMethods {
 	
 	/*public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
 		Class.forName(dbdriver);
-	    Connection connect = DriverManager.getConnection(dbname);
-	    Statement state = connect.createStatement();
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
 	 	String sql = "INSERT INTO Dish(name, ingredients, price)values('" + name + "'
 	 	,'"' + ingredients + ', ' + price + '"');
 	 	int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
-			connect.close();
+			connection.close();
 			return true;
 		}else{
 			state.close();
-			connect.close();
+			connection.close();
 			return false;
 	}*/
 		
 	/*	public boolean findDish(String name){
 			Class.forName(dbdriver);
-		    Connection connect = DriverManager.getConnection(dbname);
-		    Statement state = connect.createStatement();
+		    Connection connection = DriverManager.getConnection(dbname);
+		    Statement state = connection.createStatement();
 		    String sql = "SELECT * from dish where name = " + name + "";
 		    ResultSet res = state.executeQuery(sql);
 		    int dishID = 0;
@@ -124,7 +130,7 @@ class ClientMethods {
 			res.close();
 			Dish retten = new Dish(dishID, name, ingredient, price);
 			state.close();
-			connect.close();
+			connection.close();
 			return retten;
 		}*/
 		

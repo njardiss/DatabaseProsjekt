@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.text.*;
 import static javax.swing.JOptionPane.*;
+import java.sql.*;
 
 public class CustomerRegistration extends BasicDialog {
 	private JTextField kid = new JTextField();
@@ -45,7 +46,7 @@ public class CustomerRegistration extends BasicDialog {
 	   * Brukeren kan editere i feltene for for- og etternavn.
 	 * @throws Exception 
 	   */
-	public boolean editCustomer(Customer customer2) throws Exception {
+	public boolean editCustomer(Customer customer2, Connection connect) throws Exception {
 		enterpriseCustomer.setFocusable(false); //kan ikke endre kundetypen BUGGED
 		privateCustomer.setFocusable(false);
 		String tekstNrFelt = (customer2.getKid() < 0)
@@ -69,7 +70,7 @@ public class CustomerRegistration extends BasicDialog {
 	    		customer2.setName(name.getText());
 	    	}
 	    	if(Integer.parseInt(phone.getText()) != (customer2.getPhone())) {
-	    		customer2.setPhone(Integer.parseInt(phone.getText()));
+	    		customer2.setPhone(Integer.parseInt(phone.getText()), connect);
 	    	}
 	    	if(!adress.getText().equals(customer2.getAdress())) {
 	    		customer2.setAdress(adress.getText());
