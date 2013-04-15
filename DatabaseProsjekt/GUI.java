@@ -45,6 +45,7 @@ class GUI {
 				case 3:
 					break;
 				}
+			break;
 		case 1: //Orders
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
