@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 class ClientMethods {
  	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
@@ -82,12 +83,12 @@ class ClientMethods {
 	
 	
 	
-	/*public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
+	public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
-	 	String sql = "INSERT INTO Dish(name, ingredients, price)values('" + name + "'
-	 	,'"' + ingredients + ', ' + price + '"');
+	 	String sql = "INSERT INTO Dish(name, ingredients, price)values('" + name + "'" + "" +
+	 			"," + "'" + ingredients + "'" + "," + price + "')";
 	 	int answer = state.executeUpdate(sql);
 		if(answer>0){
 			state.close();
@@ -97,32 +98,51 @@ class ClientMethods {
 			state.close();
 			connection.close();
 			return false;
-	}*/
+		}
+	}
 		
-	/*	public boolean findDish(String name){
-			Class.forName(dbdriver);
-		    Connection connection = DriverManager.getConnection(dbname);
-		    Statement state = connection.createStatement();
-		    String sql = "SELECT * from dish where name = " + name + "";
-		    ResultSet res = state.executeQuery(sql);
-		    int dishID = 0;
-			String name = "";
-			String ingredient = 0;
-			double price = "";
-			while(res.next()){
-				dishID = Integer.parseInt(res.getString("dishID"));
-				name = res.getString("name");
-				ingredient = (res.getString("ingredient"));
-				price = double.parseDouble(res.getString("price"));
-				System.out.println(dishId + ":" + name + "" + ingredients + "" + price);
-				
-				
+	public Dish findDish(String name) throws Exception{
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
+	    String sql = "SELECT * from dish where name = " + name + "";
+	    ResultSet res = state.executeQuery(sql);
+	    int dishID = 0;
+	    ArrayList<Integer> ingredientID = new ArrayList<>();
+	    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		double price = 0;
+		while(res.next()){
+			dishID = Integer.parseInt(res.getString("dishID"));
+			price = Double.parseDouble(res.getString("price"));
+			System.out.println(dishID + ":" + name + "" + "" + price);		
+		}
+		res.close();
+		sql = "SELECT ingredientid FROM dishcontent WHERE dishID = " + dishID + "";
+		res = state.executeQuery(sql);
+		while(res.next()){
+			ingredientID.add(Integer.parseInt(res.getString("IngredientID")));
+		}
+		res.close();
+		int x;
+		String ingredname;
+		String metric;
+		int amount;
+		for(int i = 0; i < ingredientID.size(); i++) {
+			x = ingredientID.get(i);
+			sql = "SELECT * FROM ingredients WHERE ingredientid = " + x + "";
+			res = state.executeQuery(sql);
+			while(res.next()) {
+				ingredname = res.getString("name");
+				metric = res.getString("metric");
+				amount = Integer.parseInt(res.getString("amount"));
+				Ingredient namm = new Ingredient(ingredname, x, metric, amount);
+				ingredients.add(namm);
 			}
-			res.close();
-			Dish retten = new Dish(dishID, name, ingredient, price);
-			state.close();
-			connection.close();
-			return retten;
-		}*/
-		
+		}
+		Dish retten = new Dish(dishID, name, ingredients, price);
+		state.close();
+		connection.close();
+		return retten;
+	}
+
 }
