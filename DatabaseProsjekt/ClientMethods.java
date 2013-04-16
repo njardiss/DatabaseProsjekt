@@ -2,9 +2,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 class ClientMethods {
- 	String dbdriver = "org.apache.derby.jdbc.ClientDriver";
-    String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
-    ParentWindow parent = new ParentWindow();
+ 	private String dbdriver = "org.apache.derby.jdbc.ClientDriver";
+    private String dbname = "jdbc:derby://localhost:1527/CateringBuddy;user=db;password=db";
+    private ParentWindow parent = new ParentWindow();
     
 	public boolean regNewCustomer() throws Exception {
 		Class.forName(dbdriver);
@@ -80,47 +80,44 @@ class ClientMethods {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
-	    String sql = "SELECT * from dish";
-	    ResultSet res = state.executeQuery(sql);
-	    ArrayList<Integer> ingredientID = new ArrayList<>();
-	    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-		double price = 0;
-		int dishID;
-		String type;
-		String name;
-		while(res.next()){
-			dishID = Integer.parseInt(res.getString("dishID"));
-			name = res.getString("name");
-			price = Double.parseDouble(res.getString("price"));
-			type = res.getString("type");
-		}
-		res.close();
-		sql = "SELECT ingredientid FROM dishcontent WHERE dishID = " + dishID + "";
-		res = state.executeQuery(sql);
-		while(res.next()){
-			ingredientID.add(Integer.parseInt(res.getString("IngredientID")));
-		}
-		res.close();
-		int x;
-		String ingredname;
-		String metric;
-		int amount;
-		for(int i = 0; i < ingredientID.size(); i++) {
-			x = ingredientID.get(i);
-			sql = "SELECT * FROM ingredients WHERE ingredientid = " + x + "";
-			res = state.executeQuery(sql);
-			while(res.next()) {
-				ingredname = res.getString("name");
-				metric = res.getString("metric");
-				amount = Integer.parseInt(res.getString("amount"));
-				Ingredient namm = new Ingredient(ingredname, x, metric, amount);
-				ingredients.add(namm);
+		ArrayList<Dish> dishes = new ArrayList<Dish>();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		String sql = "SELECT * from dishes";
+		ResultSet res = state.executeQuery(sql);
+		while(res.next()) {
+			int dishID = Integer.parseInt(res.getString("dishid"));
+			String name = res.getString("name");
+			double price = Double.parseDouble(res.getString("price"));
+			String type = res.getString("type");
+			String sql2 = "SELECT * from ingredients NATURAL JOIN dishcontent where dishcontent.dishid = " + dishID + " AND dishcontent.ingredientid = ingredients.ingredientid";
+			ResultSet res2 = state.executeQuery(sql2);
+			
+			while(res2.next()) {
+				String name2 = res2.getString("name");
+				int ingredientid = Integer.parseInt(res2.getString("ingredientid"));
+				String metric = res2.getString("metric");
+				int amount = Integer.parseInt(res2.getString("amount"));
+
+				Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+				ingredients.add(ingredient);
 			}
+			if(type.equals("Main course")) {
+				MainCourse dish = new MainCourse(dishID, name, ingredients, price);
+				dishes.add(dish);
+			} else if(type.equals("Appetizer")) {
+				Appetizer dish = new Appetizer(dishID, name, ingredients, price);
+				dishes.add(dish);
+			} else if(type.equals("Dessert")) {
+				Dessert dish = new Dessert(dishID, name, ingredients, price);
+				dishes.add(dish);
+			}			
+			ConnectionManager.closeResSet(res2);
 		}
-		Dish retten = new Dish(dishID, name, ingredients, price);
-		state.close();
-		connection.close();
-		return retten;
+		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
+		
+		return dishes;
 	}
 	
 	
