@@ -14,6 +14,7 @@ public class DishChooser extends BasicDialog {
 	private ArrayList<Dish> dish1 = new ArrayList<Dish>();
 	private ArrayList<Dish> dish2 = new ArrayList<Dish>();
 	private ArrayList<Dish> dish3 = new ArrayList<Dish>();
+	Dish dish;
 
 	public DishChooser(JFrame parent) {
 		super(parent, "Dish chooser");
@@ -38,9 +39,22 @@ public class DishChooser extends BasicDialog {
 	}
 	public Dish getDish(Connection connection) {
 		setOk(false);
-		return dish;
+		pack();
+	    setVisible(true);
+	    if (isOk()) {
+	    	if(list1.getSelectedValue() != null) {
+	    		dish = list1.getSelectedValue();
+	    	} else if (list2.getSelectedValue() != null) {
+	    		dish = list2.getSelectedValue();
+	    	} else if (list3.getSelectedValue() != null) {
+	    		dish = list3.getSelectedValue();
+	    	}
+	    	return dish;
+	    } else {
+	    	return null;
+	    }
 	}
-	private class ListeBoksLytter implements ListSelectionListener{
+	/*private class ListeBoksLytter implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent event) {
 			if (isOk()) {
 				list1.clearSelection();
@@ -48,4 +62,5 @@ public class DishChooser extends BasicDialog {
 				list3.clearSelection();
 			}
 		}
+	}*/
 }
