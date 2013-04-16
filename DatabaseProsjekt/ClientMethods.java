@@ -101,7 +101,7 @@ class ClientMethods {
 				Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 				ingredients.add(ingredient);
 			}
-			if(type.equals("Main course")) {
+			if(type.equals("Main course")) { //decides the subclass of Dish
 				MainCourse dish = new MainCourse(dishID, name, ingredients, price);
 				dishes.add(dish);
 			} else if(type.equals("Appetizer")) {
