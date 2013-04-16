@@ -76,10 +76,52 @@ class ClientMethods {
 		return sql;
 	}
 	
-	public boolean listDishes() { // må gjøres //
-		return true;	
+	public ArrayList<Dish> listDishes() throws Exception {
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
+	    String sql = "SELECT * from dish";
+	    ResultSet res = state.executeQuery(sql);
+	    ArrayList<Integer> ingredientID = new ArrayList<>();
+	    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		double price = 0;
+		int dishID;
+		String type;
+		String name;
+		while(res.next()){
+			dishID = Integer.parseInt(res.getString("dishID"));
+			name = res.getString("name");
+			price = Double.parseDouble(res.getString("price"));
+			type = res.getString("type");
+		}
+		res.close();
+		sql = "SELECT ingredientid FROM dishcontent WHERE dishID = " + dishID + "";
+		res = state.executeQuery(sql);
+		while(res.next()){
+			ingredientID.add(Integer.parseInt(res.getString("IngredientID")));
+		}
+		res.close();
+		int x;
+		String ingredname;
+		String metric;
+		int amount;
+		for(int i = 0; i < ingredientID.size(); i++) {
+			x = ingredientID.get(i);
+			sql = "SELECT * FROM ingredients WHERE ingredientid = " + x + "";
+			res = state.executeQuery(sql);
+			while(res.next()) {
+				ingredname = res.getString("name");
+				metric = res.getString("metric");
+				amount = Integer.parseInt(res.getString("amount"));
+				Ingredient namm = new Ingredient(ingredname, x, metric, amount);
+				ingredients.add(namm);
+			}
+		}
+		Dish retten = new Dish(dishID, name, ingredients, price);
+		state.close();
+		connection.close();
+		return retten;
 	}
-	
 	
 	
 	
