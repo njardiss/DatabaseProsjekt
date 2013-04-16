@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.text.*;
+import java.util.ArrayList;
+import java.sql.*;
+
 import static javax.swing.JOptionPane.*;
 import java.sql.*;
 
@@ -9,14 +12,15 @@ public class OrderMenu extends BasicDialog {
 	private DefaultListModel<Dish> dishListModel = new DefaultListModel<Dish>();
 	private JList<Dish> list = new JList<Dish>(dishListModel);
 	private JButton newDish = new JButton("Add dish");
+	private JFrame parent;
+	private ArrayList<Dish> dish = new ArrayList<Dish>();
+	Connection connection;
 
-	public OrderMenu(JFrame parent) {
+	public OrderMenu(JFrame parent, Connection connection) {
 		super(parent, "Order menu");
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
-	    add(newDish, BorderLayout.NORTH);
-	    ButtonListener listener = new ButtonListener();
-	    newDish.addActionListener(listener);
+	    add(new newDish(), BorderLayout.NORTH);
 	    pack();
 	}
 	/*private class CustomerDatapanel extends JPanel {
@@ -34,6 +38,16 @@ public class OrderMenu extends BasicDialog {
 		    add(adress);
 		}
 	}*/
+	private class newDish extends JPanel {
+		public newDish() {
+			setLayout(new BorderLayout());
+			newDish.setPreferredSize(new Dimension(30, 30));
+			add(new JLabel(" "), BorderLayout.NORTH);
+			add(newDish, BorderLayout.CENTER);
+			ButtonListener listener = new ButtonListener();
+			newDish.addActionListener(listener);
+		}
+	}
 	private class ListPanel extends JPanel {
 		public ListPanel() {
 			setLayout(new BorderLayout());
@@ -45,11 +59,10 @@ public class OrderMenu extends BasicDialog {
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String button = event.getActionCommand();
+			DishChooser dishChooser = new DishChooser(parent);
+			Dish newDish = dishChooser.getDish(connection);
+			dishListModel.addElement(newDish);
+			list.clearSelection();
 		}
-	}
-	public static void main(String[] args) {
-		ParentWindow window = new ParentWindow();
-		OrderMenu etVindu = new OrderMenu(window);
-		etVindu.setVisible(true);
 	}
 }

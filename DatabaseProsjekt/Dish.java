@@ -62,8 +62,8 @@ public class Dish {
 		}
     }
 }
-class Dinner extends Dish {
-	public Dinner(int dishID, String name,ArrayList<Ingredient> ingredients, double price) {
+class MainCourse extends Dish {
+	public MainCourse(int dishID, String name,ArrayList<Ingredient> ingredients, double price) {
 		super(dishID, name, ingredients, price);
 	}
 }
@@ -74,6 +74,11 @@ class Dessert extends Dish {
 }
 class Appetizer extends Dish {
 	public Appetizer(int dishID, String name,ArrayList<Ingredient> ingredients, double price) {
+		super(dishID, name, ingredients, price);
+	}
+}
+class Lunch extends Dish {
+	public Lunch(int dishID, String name,ArrayList<Ingredient> ingredients, double price) {
 		super(dishID, name, ingredients, price);
 	}
 }

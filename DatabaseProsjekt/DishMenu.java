@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.text.*;
+import java.util.ArrayList;
+
 import static javax.swing.JOptionPane.*;
 import java.sql.*;
 
@@ -12,7 +14,8 @@ public class DishMenu extends BasicDialog {
 	private JTextField adress = new JTextField();
 	private JRadioButton privateCustomer = new JRadioButton("Private customer", false);
 	private JRadioButton enterpriseCustomer = new JRadioButton("Enterprise customer", false);
-
+	private ArrayList<Dish> dish = new ArrayList<Dish>();
+	
 	public DishMenu(JFrame parent) {
 		super(parent, "Customer registration");
 		add(new JPanel(), BorderLayout.NORTH);  // litt "luft"

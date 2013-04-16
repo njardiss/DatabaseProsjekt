@@ -1,4 +1,4 @@
-//lik Opprydder klassen fra lærebok
+//lik Opprydder klassen fra læreboka
 import java.sql.*;
 
 public class ConnectionManager {

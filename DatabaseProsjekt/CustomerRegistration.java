@@ -1,7 +1,5 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.text.*;
 import static javax.swing.JOptionPane.*;
 import java.sql.*;
 
