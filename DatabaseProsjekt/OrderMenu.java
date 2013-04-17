@@ -16,7 +16,7 @@ public class OrderMenu extends BasicDialog {
 	private ArrayList<Dish> dish = new ArrayList<Dish>();
 	Connection connection;
 
-	public OrderMenu(JFrame parent, Connection connection) {
+	public OrderMenu(JFrame parent) {
 		super(parent, "Order menu");
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
@@ -60,9 +60,20 @@ public class OrderMenu extends BasicDialog {
 		public void actionPerformed(ActionEvent event) {
 			String button = event.getActionCommand();
 			DishChooser dishChooser = new DishChooser(parent);
-			Dish newDish = dishChooser.getDish(connection);
+			Dish newDish = dishChooser.getDish();
 			dishListModel.addElement(newDish);
 			list.clearSelection();
 		}
+	}
+	public Order getOrder(Connection connect) {
+		setOk(false);
+		pack();
+	    setVisible(true);
+		Order order;
+	    if (isOk()) {
+	    	
+	    	order = new Order(defaultCloseOperation, defaultCloseOperation, title, title, title, title, dish);
+	    }
+		return order;
 	}
 }

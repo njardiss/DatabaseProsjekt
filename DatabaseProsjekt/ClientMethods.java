@@ -75,6 +75,16 @@ class ClientMethods {
 		String sql = "SELECT * from orders where status = '" + status + "'";
 		return sql;
 	}
+	public boolean addOrder(int kid) throws Exception {
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+		Order order;
+		OrderMenu orderMenu = new OrderMenu(parent);
+		orderMenu.setLocation(350, 350);
+		orderMenu.setVisible(true);
+		orderMenu.getOrder(connection);
+		return true;
+	}
 	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);

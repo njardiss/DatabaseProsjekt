@@ -15,6 +15,7 @@ public class DishChooser extends BasicDialog {
 	private ArrayList<Dish> dish2 = new ArrayList<Dish>();
 	private ArrayList<Dish> dish3 = new ArrayList<Dish>();
 	Dish dish;
+	ArrayList<Dish> dishes;
 
 	public DishChooser(JFrame parent) {
 		super(parent, "Dish chooser");
@@ -37,8 +38,21 @@ public class DishChooser extends BasicDialog {
 			add(listScroller3, BorderLayout.EAST);
 		}
 	}
-	public Dish getDish(Connection connection) {
+	public Dish getDish() {
 		setOk(false);
+		pack();
+	    setVisible(true);
+	    ClientMethods methods = new ClientMethods();
+	    try {
+			dishes = methods.listDishes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    for(Dish aDish : dishes) {
+	    	dishListModel.addElement(aDish);
+	    }
+	    setOk(false);
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
