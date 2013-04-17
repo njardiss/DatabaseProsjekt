@@ -10,7 +10,7 @@ class GUI {
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"LIST_ORDERS", "ADD_ORDER", "FIND_ORDER", "BACK"};
     String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
-    String[] stock = {"LIST_STOCKPILE", "FIND_INGREDIENT", "EDIT_INGREDIENT", "BACK"};
+    String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "EDIT_INGREDIENT", "BACK"};
     String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
 
     int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
@@ -139,17 +139,15 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
-				case 1:
-					/*String name = showInputDialog(null, "Skriv inn rettens navn:");
-					String ingredients = showInputDialog(null, "skriv inn ingredient:");
-					double price = Double.parseDouble(showInputDialog(null, "Skriv inn pris:"));
-					String sql = methods.setNewDish(name, ingredients, price);
-					int i = state.executeUpdate(sql);
-					if(i>0){
+				case 1: // add ingredient //
+					boolean check = methods.addIngredient();
+					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort");
-					}*/
+						showMessageDialog(null,"Ingen oppdatering gjort"); 
+					}
+					break;
+				
 				}
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);

@@ -195,3 +195,22 @@ class ClientMethods {
 	}
 
 }
+
+public addIngredient(int name) throws Exception{
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+		IngredientRegistration ingredientregistration = new IngredientRegistration(parent);
+		ingredientregistration.setLocation(350, 350);
+		ingredientregistration.setVisible(true);
+		
+		if(registration.addIngredient(connection)) {
+			ConnectionManager.closeConnection(connection);
+			return true;
+		} else {
+			ConnectionManager.closeConnection(connection);
+			return false;
+		}
+	}
+	
+	
+}
