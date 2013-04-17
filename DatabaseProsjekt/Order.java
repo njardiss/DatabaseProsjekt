@@ -87,3 +87,13 @@ class Order {
 		return x;
 	}
 }
+
+class Subscription extends Order {
+	private int frequency;
+	public Subscription(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, int frequency) {
+		super(orderid, kid, status, orderTime, deliveryTime, deliveryAdress, orderContent);
+		this.frequency = frequency;
+	}
+	
+	
+}
