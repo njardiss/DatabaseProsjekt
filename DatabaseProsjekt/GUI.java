@@ -139,6 +139,8 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
+				case 0:
+					break;
 				case 1: // add ingredient //
 					boolean check = methods.addIngredient();
 					if(check){
@@ -147,7 +149,6 @@ class GUI {
 						showMessageDialog(null,"Ingen oppdatering gjort"); 
 					}
 					break;
-				
 				}
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);

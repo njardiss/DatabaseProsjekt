@@ -7,17 +7,25 @@ class ClientMethods {
     private ParentWindow parent = new ParentWindow();
     
 	public boolean regNewCustomer() throws Exception {
-		Class.forName(dbdriver);
-	    Connection connection = DriverManager.getConnection(dbname);
-	    
 		CustomerRegistration registration = new CustomerRegistration(parent);
 		registration.setLocation(350, 350);
 		registration.setVisible(true);
-	
-		if(registration.regCustomer(connection)) {
+		String sql = "";
+		try {
+			sql = registration.regCustomer();
+		} catch (NullPointerException e) {
+			ConnectionManager.printMessage(e,"Some data is not present");
+		}
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+    	int answer = state.executeUpdate(sql);
+		if(answer>0){
+			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
+			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
@@ -31,7 +39,24 @@ class ClientMethods {
 		
 		Customer customer = getCustomer(kid);
 		CustomerRegistration registration = new CustomerRegistration(parent);
-		if(registration.editCustomer(customer, connection)) {
+		String[] data = new String[3];
+		try {
+			data = registration.editCustomer(customer);
+		} catch (NullPointerException e) {
+			ConnectionManager.printMessage(e,"Some data is not present");
+		}
+		boolean j = false, k = false, l = false;
+		if(!data[0].equals(customer.getName())) {
+    		j = customer.setName(data[0], connection);
+    	}
+    	if(Integer.parseInt(data[1]) != (customer.getPhone())) {
+    		k = customer.setPhone(Integer.parseInt(data[1]), connection);
+    	}
+    	if(!data[2].equals(customer.getAdress())) {
+    		l = customer.setAdress(data[2], connection);
+    	}
+
+		if(j && k && l) {
 			ConnectionManager.setAutoCommit(connection); //turns on autocommit
 			ConnectionManager.closeConnection(connection);
 			return true;
@@ -194,23 +219,30 @@ class ClientMethods {
 		return retten;
 	}
 
-}
-
-public addIngredient(int name) throws Exception{
+	public boolean addIngredient() throws Exception{    
+		IngredientRegistration ingredientRegistration = new IngredientRegistration(parent);
+		ingredientRegistration.setLocation(350, 350);
+		ingredientRegistration.setVisible(true);
+		
+		String sql = "";
+		try {
+			sql = ingredientRegistration.addIngredient();
+		} catch (NullPointerException e) {
+			ConnectionManager.printMessage(e,"Some data is not present");
+		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
-		IngredientRegistration ingredientregistration = new IngredientRegistration(parent);
-		ingredientregistration.setLocation(350, 350);
-		ingredientregistration.setVisible(true);
-		
-		if(registration.addIngredient(connection)) {
+	    Statement state = connection.createStatement();
+	    
+	    int answer = state.executeUpdate(sql);
+		if(answer>0){
+			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
+			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
 	}
-	
-	
 }

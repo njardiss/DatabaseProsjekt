@@ -1,15 +1,12 @@
-
 import java.awt.*;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
-import java.sql.*;
 
 public class IngredientRegistration extends BasicDialog {
 	private JTextField name = new JTextField();
 	private JTextField ingredientid = new JTextField();
 	private JTextField metric = new JTextField();
 	private JTextField amount = new JTextField();
-	
 
 	public IngredientRegistration(JFrame parent) {
 		super(parent, "Add Ingredient");
@@ -21,42 +18,28 @@ public class IngredientRegistration extends BasicDialog {
 	private class IngredientDatapanel extends JPanel {
 		public IngredientDatapanel() {
 			setLayout(new GridLayout(5, 2, 5, 5));
+			add(new JLabel("IngredientID (automatic): ", JLabel.RIGHT));
+		    add(ingredientid);
+		    ingredientid.setEditable(false); // brukeren kan ikke endre nummeret
 			add(new JLabel("Ingredient name:", JLabel.RIGHT));
 		    add(name);
-		    add(new JLabel("IngredientID (automatic): ", JLabel.RIGHT));
-		    add(dishid);
-		    ingredientid.setEditable(false); // brukeren kan ikke endre nummeret
-		    add(new JLabel("metric:", JLabel.RIGHT));
+		    add(new JLabel("Metric: ", JLabel.RIGHT));
 		    add(metric);
-		    add(new JLabel("amount: ", JLabel.RIGHT));
+		    add(new JLabel("Amount: ", JLabel.RIGHT));
 		    add(amount);
-		    
-		  
 		}
 	}
-	
-	public boolean add1Ingredient(Connection connection) throws SQLException {
+	public String addIngredient() {
 	    setOk(false);
-	    int type;
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
-	    if (isOk()) {
-	    
-	    	}
-	    	String sql = "INSERT INTO ingredients(name ,metric, amount) values('" + name.getText() + "'" +"" +
-					"," + metric.getText() + ", '" + Integer.parseInt(amount.getText()) + ")";
-	    	Statement state = connection.createStatement();
-	    	int answer = state.executeUpdate(sql);
-			if(answer>0){
-				ConnectionManager.closeStatement(state);
-				return true;
-			} else {
-				ConnectionManager.closeStatement(state);
-				return false;
-			}
+	    if (isOk()) { 
+	    	String sql = "INSERT INTO ingredients(name, amount, metric) values('" + name.getText() + "'," 
+	    + Integer.parseInt(amount.getText()) + ", '" + metric.getText() + "')";
+	    	return sql;
 	    } else {
-	    	return false;
+	    	return null;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
@@ -65,14 +48,14 @@ public class IngredientRegistration extends BasicDialog {
 		String amount2 = amount.getText().trim();
 	    if (name2.equals("") || metric2.equals("") || amount2.equals("")) {
 	    	if (name2.equals("")) {
-	    		showMessageDialog(DishRegistration.this, "You have to input a dish name!");
+	    		showMessageDialog(IngredientRegistration.this, "You have to input an ingredient name!");
 	    		name.requestFocusInWindow();
 	    	} else if(metric2.equals("")) {
-	    		showMessageDialog(DishRegistration.this, "You have to input metric!");
-	    		phone.requestFocusInWindow();
+	    		showMessageDialog(IngredientRegistration.this, "You have to input a metric!");
+	    		metric.requestFocusInWindow();
 	    	} else if(metric2.equals("")) {
-	    		showMessageDialog(DishRegistration.this, "You have to input amount!");
-	    		adress.requestFocusInWindow();
+	    		showMessageDialog(IngredientRegistration.this, "You have to input an amount!");
+	    		amount.requestFocusInWindow();
 	    	}
 	
 	    	return false;

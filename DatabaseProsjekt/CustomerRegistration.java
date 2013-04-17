@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
-import java.sql.*;
 
 public class CustomerRegistration extends BasicDialog {
 	private JTextField kid = new JTextField();
@@ -38,7 +37,7 @@ public class CustomerRegistration extends BasicDialog {
 		    add(enterpriseCustomer);
 		}
 	}
-	public boolean editCustomer(Customer customer2, Connection connect) throws Exception {
+	public String[] editCustomer(Customer customer2) {
 		enterpriseCustomer.setFocusable(false); //skal ikke kunne endre kundetypen, BUGGED
 		privateCustomer.setFocusable(false);
 		String tekstNrFelt = (customer2.getKid() < 0)
@@ -57,22 +56,17 @@ public class CustomerRegistration extends BasicDialog {
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
+	    String[] sql = new String[3];
 	    if (isOk()) {
-	    	if(!name.getText().equals(customer2.getName())) {
-	    		customer2.setName(name.getText(), connect);
-	    	}
-	    	if(Integer.parseInt(phone.getText()) != (customer2.getPhone())) {
-	    		customer2.setPhone(Integer.parseInt(phone.getText()), connect);
-	    	}
-	    	if(!adress.getText().equals(customer2.getAdress())) {
-	    		customer2.setAdress(adress.getText(), connect);
-	    	}
-	      return true;
+	    	sql[0] = name.getText();
+	    	sql[1] = phone.getText();
+	    	sql[2] = adress.getText();
+	    	return sql;
 	    } else {
-	      return false;
+	      return null;
 	    }
 	}
-	public boolean regCustomer(Connection connection) throws SQLException {
+	public String regCustomer() {
 	    setOk(false);
 	    int type;
 	    pack();
@@ -86,17 +80,9 @@ public class CustomerRegistration extends BasicDialog {
 	    	}
 	    	String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'" +"" +
 					"," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
-	    	Statement state = connection.createStatement();
-	    	int answer = state.executeUpdate(sql);
-			if(answer>0){
-				ConnectionManager.closeStatement(state);
-				return true;
-			} else {
-				ConnectionManager.closeStatement(state);
-				return false;
-			}
+	    	return sql;
 	    } else {
-	    	return false;
+	    	return null;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
