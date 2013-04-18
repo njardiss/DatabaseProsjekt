@@ -99,9 +99,12 @@ class GUI {
 					}*/
 					break;
 				case 1: //add order
-					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
-					int kid = Integer.parseInt(kundeid);
-					Customer customer = methods.getCustomer(kid);
+					boolean check = methods.addOrder();
+					if(check){
+						showMessageDialog(null,"Registreringen er vellykket");
+					}else{
+						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
+					}
 					break;
 			}
 		case 2:

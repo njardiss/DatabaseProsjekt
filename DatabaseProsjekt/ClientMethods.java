@@ -100,14 +100,14 @@ class ClientMethods {
 		String sql = "SELECT * from orders where status = '" + status + "'";
 		return sql;
 	}
-	public boolean addOrder(int kid) throws Exception {
-		Class.forName(dbdriver);
-	    Connection connection = DriverManager.getConnection(dbname);
+	public boolean addOrder() throws Exception {
 		Order order;
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
 		orderMenu.setVisible(true);
-		orderMenu.getOrder();
+		order = orderMenu.getOrder();
+		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price) values('" + name.getText() + "'" +"" +
+				"," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
 		return true;
 	}
 	
@@ -154,9 +154,6 @@ class ClientMethods {
 		
 		return dishes;
 	}
-	
-	
-	
 	public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);

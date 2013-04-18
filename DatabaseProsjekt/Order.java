@@ -9,8 +9,9 @@ class Order {
 	private String deliveryTime;
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
+	private double price;
 	
-	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent) {
+	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, double price) {
 		this.orderid = orderid;
 		this.kid = kid;
 		this.status = status;
@@ -18,6 +19,7 @@ class Order {
 		this.deliveryTime = deliveryTime;
 		this.deliveryAdress = deliveryAdress;
 		this.orderContent = new ArrayList<Dish>();
+		this. price = price;
 	}
 	public int getOrderid() {
 		return orderid;
@@ -39,6 +41,9 @@ class Order {
 	}
 	public ArrayList<Dish> getOrderContent() {
 		return orderContent;
+	}
+	public double getPrice() {
+		return price;
 	}
 	public boolean setStatus(String newStatus, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
@@ -90,8 +95,8 @@ class Order {
 
 class Subscription extends Order {
 	private int frequency;
-	public Subscription(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, int frequency) {
-		super(orderid, kid, status, orderTime, deliveryTime, deliveryAdress, orderContent);
+	public Subscription(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, double price, int frequency) {
+		super(orderid, kid, status, orderTime, deliveryTime, deliveryAdress, orderContent, price);
 		this.frequency = frequency;
 	}
 }

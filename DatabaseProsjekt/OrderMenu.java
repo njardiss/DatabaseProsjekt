@@ -13,7 +13,9 @@ public class OrderMenu extends BasicDialog {
 	private JFrame parent;
 	private ArrayList<Dish> dish = new ArrayList<Dish>();
 	private JTextField deliveryAdress = new JTextField();
-	private JTextField date = new JTextField(10);
+	private JTextField day = new JTextField(2);
+	private JTextField month = new JTextField(2);
+	private JTextField year = new JTextField(4);
 	private JTextField hour = new JTextField(2);
 	private JTextField minutes = new JTextField(2);
 	
@@ -26,13 +28,19 @@ public class OrderMenu extends BasicDialog {
 	}
 	private class CustomerDatapanel extends JPanel {
 		public CustomerDatapanel() {
-			setLayout(new GridLayout(5, 6, 5, 5));
+			setLayout(new GridLayout(3, 6, 5, 5));
 			add(new JLabel("Delivery date (dd.mm.yyyy): ", JLabel.RIGHT));
-		    add(date);
+		    add(year);
+		    add(new JLabel("-", JLabel.RIGHT));
+		    add(month);
+		    add(new JLabel("-", JLabel.RIGHT));
+		    add(day);
 		    add(new JLabel("Time:", JLabel.RIGHT));
 		    add(hour);
 		    add(new JLabel(":", JLabel.RIGHT));
 		    add(minutes);
+		    add(new JLabel("", JLabel.RIGHT));
+		    add(new JLabel("", JLabel.RIGHT));//moves deliveryAdress to the next line
 		    add(new JLabel("Delivery adress: ", JLabel.RIGHT));
 		    add(deliveryAdress);
 		}
@@ -72,8 +80,8 @@ public class OrderMenu extends BasicDialog {
 	    setVisible(true);
 		Order order;
 	    if (isOk()) {
-	    	String deliveryTime = "";
-	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish); //
+	    	String deliveryTime = "" + day.getText() + "-" + month.getText() + "-" + year.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
+	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //
 	    	return order;
 	    } else {
 	    	return  null;
