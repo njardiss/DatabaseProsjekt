@@ -94,6 +94,4 @@ class Subscription extends Order {
 		super(orderid, kid, status, orderTime, deliveryTime, deliveryAdress, orderContent);
 		this.frequency = frequency;
 	}
-	
-	
 }

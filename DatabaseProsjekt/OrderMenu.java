@@ -1,12 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 import java.text.*;
 import java.util.ArrayList;
-import java.sql.*;
-
 import static javax.swing.JOptionPane.*;
-import java.sql.*;
 
 public class OrderMenu extends BasicDialog {
 	private DefaultListModel<Dish> dishListModel = new DefaultListModel<Dish>();
@@ -14,8 +12,11 @@ public class OrderMenu extends BasicDialog {
 	private JButton newDish = new JButton("Add dish");
 	private JFrame parent;
 	private ArrayList<Dish> dish = new ArrayList<Dish>();
-	Connection connection;
-
+	private JTextField deliveryAdress = new JTextField();
+	private JTextField date = new JTextField(10);
+	private JTextField hour = new JTextField(2);
+	private JTextField minutes = new JTextField(2);
+	
 	public OrderMenu(JFrame parent) {
 		super(parent, "Order menu");
 	    add(new ListPanel(), BorderLayout.CENTER);
@@ -23,21 +24,19 @@ public class OrderMenu extends BasicDialog {
 	    add(new newDish(), BorderLayout.NORTH);
 	    pack();
 	}
-	/*private class CustomerDatapanel extends JPanel {
+	private class CustomerDatapanel extends JPanel {
 		public CustomerDatapanel() {
-			setLayout(new GridLayout(5, 1, 5, 5));
-			add();
-			add(new JLabel("Customer ID (automatic): ", JLabel.RIGHT));
-		    add(kid);
-		    kid.setEditable(false); // brukeren kan ikke endre nummeret
-		    add(new JLabel("Full name:", JLabel.RIGHT));
-		    add(name);
-		    add(new JLabel("Phone number:", JLabel.RIGHT));
-		    add(phone);
-		    add(new JLabel("Adress: ", JLabel.RIGHT));
-		    add(adress);
+			setLayout(new GridLayout(5, 6, 5, 5));
+			add(new JLabel("Delivery date (dd.mm.yyyy): ", JLabel.RIGHT));
+		    add(date);
+		    add(new JLabel("Time:", JLabel.RIGHT));
+		    add(hour);
+		    add(new JLabel(":", JLabel.RIGHT));
+		    add(minutes);
+		    add(new JLabel("Delivery adress: ", JLabel.RIGHT));
+		    add(deliveryAdress);
 		}
-	}*/
+	}
 	private class newDish extends JPanel {
 		public newDish() {
 			setLayout(new BorderLayout());
@@ -60,20 +59,24 @@ public class OrderMenu extends BasicDialog {
 		public void actionPerformed(ActionEvent event) {
 			String button = event.getActionCommand();
 			DishChooser dishChooser = new DishChooser(parent);
-			Dish newDish = dishChooser.getDish();
-			dishListModel.addElement(newDish);
+			ArrayList <Dish> newDish = dishChooser.getDish();
+			for(Dish aDish : newDish) {
+				dishListModel.addElement(aDish);
+			}
 			list.clearSelection();
 		}
 	}
-	public Order getOrder(Connection connect) {
+	public Order getOrder() {
 		setOk(false);
 		pack();
 	    setVisible(true);
 		Order order;
 	    if (isOk()) {
-	    	
-	    	order = new Order(defaultCloseOperation, defaultCloseOperation, title, title, title, title, dish);
+	    	String deliveryTime = "";
+	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish); //
+	    	return order;
+	    } else {
+	    	return  null;
 	    }
-		return order;
 	}
 }

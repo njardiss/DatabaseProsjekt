@@ -107,7 +107,7 @@ class ClientMethods {
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
 		orderMenu.setVisible(true);
-		orderMenu.getOrder(connection);
+		orderMenu.getOrder();
 		return true;
 	}
 	
