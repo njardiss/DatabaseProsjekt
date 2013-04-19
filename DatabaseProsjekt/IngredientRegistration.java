@@ -5,8 +5,12 @@ import static javax.swing.JOptionPane.*;
 public class IngredientRegistration extends BasicDialog {
 	private JTextField name = new JTextField();
 	private JTextField ingredientid = new JTextField();
-	private JTextField metric = new JTextField();
 	private JTextField amount = new JTextField();
+	private JRadioButton kg = new JRadioButton("kg", false);
+	private JRadioButton g = new JRadioButton("gram", false);
+	private JRadioButton l = new JRadioButton("liter", false);
+	
+	
 
 	public IngredientRegistration(JFrame parent) {
 		super(parent, "Add Ingredient");
@@ -23,20 +27,42 @@ public class IngredientRegistration extends BasicDialog {
 		    ingredientid.setEditable(false); // brukeren kan ikke endre nummeret
 			add(new JLabel("Ingredient name:", JLabel.RIGHT));
 		    add(name);
-		    add(new JLabel("Metric: ", JLabel.RIGHT));
-		    add(metric);
 		    add(new JLabel("Amount: ", JLabel.RIGHT));
 		    add(amount);
+		    
+		    ButtonGroup group = new ButtonGroup();
+		    group.add(kg);
+		    group.add(g);
+		    group.add(l);
+		    add(kg);
+		    add(g);
+		    add(l);
 		}
 	}
+	
+	  
+	    
+	    
 	public String addIngredient() {
 	    setOk(false);
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
+	    String metric = "";
 	    if (isOk()) { 
+	    	if(kg.isSelected){
+	    		String = "kg";
+	    	}
+	    		
+	    	else if(g.isSelected){
+	    		String = "g";
+	    			
+	    	}
+	    	else if(l.isselected){
+	    		String = "l";
+	    	}
 	    	String sql = "INSERT INTO ingredients(name, amount, metric) values('" + name.getText() + "'," 
-	    + Integer.parseInt(amount.getText()) + ", '" + metric.getText() + "')";
+	    + Integer.parseInt(amount.getText()) + ", '" + metric + "')";
 	    	return sql;
 	    } else {
 	    	return null;
@@ -44,19 +70,20 @@ public class IngredientRegistration extends BasicDialog {
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
 		String name2 = name.getText().trim();
-		String metric2 = metric.getText().trim();
 		String amount2 = amount.getText().trim();
+		boolean kgButton = kg.isSelected();
+		boolean gButton = g.isSelected();
+		boolean lButton = l.isSelected();
 	    if (name2.equals("") || metric2.equals("") || amount2.equals("")) {
 	    	if (name2.equals("")) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to input an ingredient name!");
 	    		name.requestFocusInWindow();
-	    	} else if(metric2.equals("")) {
-	    		showMessageDialog(IngredientRegistration.this, "You have to input a metric!");
-	    		metric.requestFocusInWindow();
-	    	} else if(metric2.equals("")) {
+	    	} else if(amount2.equals("")) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to input an amount!");
 	    		amount.requestFocusInWindow();
-	    	}
+	    	}else if(!kgButton && !gButton && !lButton) {
+	    		showMessageDialog(IngredientRegistration.this, "You have to choose a metric type!");
+	    		kg.requestFocusInWindow();
 	
 	    	return false;
 	    } else {
