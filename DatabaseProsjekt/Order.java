@@ -30,10 +30,10 @@ class Order {
 	public String getStatus() {
 		return status;
 	}
-	public String orderTime() {
+	public String getOrderTime() {
 		return orderTime;
 	}
-	public String deliveryTime() {
+	public String getDeliveryTime() {
 		return deliveryTime;
 	}
 	public String getDeliveryAdress() {
