@@ -81,6 +81,8 @@ public class OrderMenu extends BasicDialog {
 			priceField.setText(Double.toString(price));
 		}
 	}
+	public Order editOrder() {
+	}
 	public Order getOrder() {
 		setOk(false);
 		pack();
