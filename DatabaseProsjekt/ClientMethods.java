@@ -67,7 +67,8 @@ class ClientMethods {
 			return false;
 		}
 	}
-	public Customer getCustomerWKid(int kid) throws Exception {
+	
+	public Customer getCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
@@ -90,28 +91,6 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return hanher;
 	}
-	public Customer getCustomer(int phone) throws Exception {
-		Class.forName(dbdriver);
-	    Connection connection = DriverManager.getConnection(dbname);
-	    Statement state = connection.createStatement();
-		String sql = "SELECT * from customer where phone = " + phone + "";
-		ResultSet res = state.executeQuery(sql);
-		String name = "";
-		int kid = 0;
-		String adress = "";
-		int type = 0;
-		while(res.next()){
-			kid = Integer.parseInt(res.getString("kid"));
-			name = res.getString("name");
-			adress = res.getString("adress");
-			type = Integer.parseInt(res.getString("type"));
-		}
-		ConnectionManager.closeResSet(res);
-		Customer hanher = new Customer(kid, name, phone, adress, type);
-		ConnectionManager.closeStatement(state);
-		ConnectionManager.closeConnection(connection);
-		return hanher;
-	}
 	
 	public String findOrders(int kid) {
 		String sql = "SELECT * from orders where kid = " + kid + "";
@@ -121,44 +100,27 @@ class ClientMethods {
 		String sql = "SELECT * from orders where status = '" + status + "'";
 		return sql;
 	}
-	public boolean addOrder(int phone) throws Exception {
-		Customer customer = getCustomer(phone);
+	public boolean addOrder() throws Exception {
 		Order order;
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
 		orderMenu.setVisible(true);
 		order = orderMenu.getOrder();
-		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ")";
+		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price) values(" + customer.getKid() + ",'" + order.getStatus() + "','" + 
+				order.getOrderTime() + "','" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ")";
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
-	    ConnectionManager.setAutoCommit(connection); //turns off autocommit
-	    
 	    int answer = state.executeUpdate(sql);
 	    ArrayList<Dish> dishes = order.getOrderContent();
-	    sql = "SELECT orderid FROM orders WHERE kid = " + customer.getKid() + " AND where deliverytime = '" + order.getDeliveryTime() + "' AND pirce = " + order.getPrice() + "";
-	    ResultSet res = state.executeQuery(sql);
-	    int orderid = Integer.parseInt(res.getString("orderid"));
 	    if(answer>0) {
-	    	int i = 1;
-	    	int answer2 = 1;
-	    	if(answer2>0) {
-	    		for(Dish aDish : dishes) {
-	    			sql = "INSERT INTO ordercontent(orderid, orderline, dishid, antall) values(" + orderid + ", " + i + ", " + aDish.getDishID() + ", 1)";
-	    			answer2 = state.executeUpdate(sql);
-	    			i++;
-	    		}
-	    	} else {
-	    		ConnectionManager.rollback(connection); //rollback if fail
-				ConnectionManager.setAutoCommit(connection); //turns on autocommit
-				ConnectionManager.closeConnection(connection);
-				return false;
+	    	for(Dish aDish : dishes) {
+	    		sql = "";
 	    	}
 	    }
-	    ConnectionManager.setAutoCommit(connection); //turns on autocommit
-		ConnectionManager.closeConnection(connection);
 		return true;
 	}
+	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
