@@ -1,10 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 import java.text.*;
 import java.util.ArrayList;
-import static javax.swing.JOptionPane.*;
 
 public class OrderMenu extends BasicDialog {
 	private DefaultListModel<Dish> dishListModel = new DefaultListModel<Dish>();
@@ -18,6 +16,8 @@ public class OrderMenu extends BasicDialog {
 	private JTextField year = new JTextField(4);
 	private JTextField hour = new JTextField(2);
 	private JTextField minutes = new JTextField(2);
+	private JTextField priceField = new JTextField();
+	private double price = 0;
 	
 	public OrderMenu(JFrame parent) {
 		super(parent, "Order menu");
@@ -28,7 +28,7 @@ public class OrderMenu extends BasicDialog {
 	}
 	private class CustomerDatapanel extends JPanel {
 		public CustomerDatapanel() {
-			setLayout(new GridLayout(3, 6, 5, 5));
+			setLayout(new GridLayout(4, 6, 5, 5));
 			add(new JLabel("Delivery date (dd.mm.yyyy): ", JLabel.RIGHT));
 		    add(year);
 		    add(new JLabel("-", JLabel.RIGHT));
@@ -43,6 +43,8 @@ public class OrderMenu extends BasicDialog {
 		    add(new JLabel("", JLabel.RIGHT));//moves deliveryAdress to the next line
 		    add(new JLabel("Delivery adress: ", JLabel.RIGHT));
 		    add(deliveryAdress);
+		    add(new JLabel("Price: ", JLabel.RIGHT));
+		    add(priceField);
 		}
 	}
 	private class newDish extends JPanel {
@@ -70,8 +72,13 @@ public class OrderMenu extends BasicDialog {
 			ArrayList <Dish> newDish = dishChooser.getDish();
 			for(Dish aDish : newDish) {
 				dishListModel.addElement(aDish);
+				dish.add(aDish);
 			}
 			list.clearSelection();
+			for(Dish aDish : dish) {
+				price += aDish.getPrice();
+			}
+			priceField.setText(Double.toString(price));
 		}
 	}
 	public Order getOrder() {
@@ -81,7 +88,7 @@ public class OrderMenu extends BasicDialog {
 		Order order;
 	    if (isOk()) {
 	    	String deliveryTime = "" + day.getText() + "-" + month.getText() + "-" + year.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
-	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //
+	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
 	    	return order;
 	    } else {
 	    	return  null;

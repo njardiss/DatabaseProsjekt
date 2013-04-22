@@ -30,7 +30,7 @@ class GUI {
 				case 1: //Find Customer
 					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
 					int kid = Integer.parseInt(kundeid);
-					Customer hanher = methods.getCustomer(kid);
+					Customer hanher = methods.getCustomerWKid(kid);
 					String kundeinfo = hanher.toString();
 					System.out.println(kundeinfo);
 					break;
@@ -99,7 +99,8 @@ class GUI {
 					}*/
 					break;
 				case 1: //add order
-					boolean check = methods.addOrder();
+					int phone = Integer.parseInt(showInputDialog(null,"Inpu the customers phone number: "));
+					boolean check = methods.addOrder(phone);
 					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
