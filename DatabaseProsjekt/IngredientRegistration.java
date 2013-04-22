@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
 
-public class IngredientRegistration extends BasicDialog {
+public class IngredientRegistration extends BasicDialog {  // peace//
 	private JTextField name = new JTextField();
 	private JTextField ingredientid = new JTextField();
 	private JTextField amount = new JTextField();
