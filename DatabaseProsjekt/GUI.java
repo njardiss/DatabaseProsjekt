@@ -99,7 +99,8 @@ class GUI {
 					}*/
 					break;
 				case 1: //add order
-					boolean check = methods.addOrder();
+					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
+					boolean check = methods.addOrder(phone);
 					if(check){
 						showMessageDialog(null,"Registreringen er vellykket");
 					}else{
