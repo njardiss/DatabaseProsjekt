@@ -85,7 +85,8 @@ class Order {
 			return false;
 		}
 	}
-	public boolean setOrderContent() {
+	public boolean setOrderContent(ArrayList<Dish> newOrderContent, Connection connection) throws Exception {
+		return true;
 	}
 	public String toString() {
 		String x = "Order ID: " + orderid + ". Kid: " + kid + ". Status: " + status + 

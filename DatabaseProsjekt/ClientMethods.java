@@ -110,8 +110,7 @@ class ClientMethods {
 		ConnectionManager.closeStatement(state);
 		ConnectionManager.closeConnection(connection);
 		return hanher;
-	}
-	
+	}	
 	public String findOrders(int kid) {
 		String sql = "SELECT * from orders where kid = " + kid + "";
 		return sql;
@@ -249,8 +248,7 @@ class ClientMethods {
 			return false;
 		}
 	}
-	
-	public boolean addDidh(String name, double price, String type) throws Exception { //add dish//
+	public boolean addDish(String name, double price, String type) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
@@ -266,8 +264,7 @@ class ClientMethods {
 			connection.close();
 			return false;
 		}
-	}
-		
+	}		
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -311,7 +308,6 @@ class ClientMethods {
 		connection.close();
 		return retten;
 	}
-
 	public boolean addIngredient() throws Exception{    
 		IngredientRegistration ingredientRegistration = new IngredientRegistration(parent);
 		ingredientRegistration.setLocation(350, 350);
