@@ -9,8 +9,6 @@ public class IngredientRegistration extends BasicDialog {
 	private JRadioButton kg = new JRadioButton("kg", false);
 	private JRadioButton g = new JRadioButton("gram", false);
 	private JRadioButton l = new JRadioButton("liter", false);
-	
-	
 
 	public IngredientRegistration(JFrame parent) {
 		super(parent, "Add Ingredient");
@@ -39,9 +37,6 @@ public class IngredientRegistration extends BasicDialog {
 		    add(l);
 		}
 	}
-	
-	  
-	    
 	    
 	public String addIngredient() {
 	    setOk(false);
@@ -50,16 +45,16 @@ public class IngredientRegistration extends BasicDialog {
 	    setVisible(true);
 	    String metric = "";
 	    if (isOk()) { 
-	    	if(kg.isSelected){
-	    		String = "kg";
+	    	if(kg.isSelected()){
+	    		metric = "kg";
 	    	}
 	    		
-	    	else if(g.isSelected){
-	    		String = "g";
+	    	else if(g.isSelected()){
+	    		metric = "g";
 	    			
 	    	}
-	    	else if(l.isselected){
-	    		String = "l";
+	    	else if(l.isSelected()){
+	    		metric = "l";
 	    	}
 	    	String sql = "INSERT INTO ingredients(name, amount, metric) values('" + name.getText() + "'," 
 	    + Integer.parseInt(amount.getText()) + ", '" + metric + "')";
@@ -74,7 +69,7 @@ public class IngredientRegistration extends BasicDialog {
 		boolean kgButton = kg.isSelected();
 		boolean gButton = g.isSelected();
 		boolean lButton = l.isSelected();
-	    if (name2.equals("") || metric2.equals("") || amount2.equals("")) {
+	    if (name2.equals("") || amount2.equals("") || (!kgButton && !gButton && !lButton)) {
 	    	if (name2.equals("")) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to input an ingredient name!");
 	    		name.requestFocusInWindow();
@@ -84,7 +79,7 @@ public class IngredientRegistration extends BasicDialog {
 	    	}else if(!kgButton && !gButton && !lButton) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to choose a metric type!");
 	    		kg.requestFocusInWindow();
-	
+	    	}
 	    	return false;
 	    } else {
 	    	return true;
