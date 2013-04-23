@@ -35,7 +35,7 @@ class ClientMethods {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    
-		ConnectionManager.setAutoCommit(connection); //turns off autocommit
+		ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
 		
 		Customer customer = getCustomer(kid);
 		CustomerRegistration registration = new CustomerRegistration(parent);
@@ -57,12 +57,12 @@ class ClientMethods {
     	}
 
 		if(j && k && l) {
-			ConnectionManager.setAutoCommit(connection); //turns on autocommit
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
 			ConnectionManager.rollback(connection); //rollback if fail
-			ConnectionManager.setAutoCommit(connection); //turns on autocommit
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
@@ -132,7 +132,7 @@ class ClientMethods {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
-	    ConnectionManager.setAutoCommit(connection); //turns off autocommit
+	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
 	    
 	    int answer = state.executeUpdate(sql);
 	    ArrayList<Dish> dishes = order.getOrderContent();
@@ -150,12 +150,12 @@ class ClientMethods {
 	    		}
 	    	} else {
 	    		ConnectionManager.rollback(connection); //rollback if fail
-				ConnectionManager.setAutoCommit(connection); //turns on autocommit
+				ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 				ConnectionManager.closeConnection(connection);
 				return false;
 	    	}
 	    }
-	    ConnectionManager.setAutoCommit(connection); //turns on autocommit
+	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
@@ -163,23 +163,30 @@ class ClientMethods {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
+	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
+	    
 		ArrayList<Dish> dishes = new ArrayList<Dish>();
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		
 		String sql = "SELECT * from dishes";
 		ResultSet res = state.executeQuery(sql);
+		int i = 0;
 		while(res.next()) {
+			System.out.println(i);
+			i++;
 			int dishID = Integer.parseInt(res.getString("dishid"));
 			String name = res.getString("name");
 			double price = Double.parseDouble(res.getString("price"));
 			String type = res.getString("type");
 			String sql2 = "SELECT * from ingredients NATURAL JOIN dishcontent where dishcontent.dishid = " + dishID + " AND dishcontent.ingredientid = ingredients.ingredientid";
-			ResultSet res2 = state.executeQuery(sql2);
+			Statement state2 = connection.createStatement();
+			ResultSet res2 = state2.executeQuery(sql2);
 			
 			while(res2.next()) {
 				String name2 = res2.getString("name");
 				int ingredientid = Integer.parseInt(res2.getString("ingredientid"));
 				String metric = res2.getString("metric");
-				int amount = Integer.parseInt(res2.getString("amount"));
+				double amount = Double.parseDouble(res2.getString("amount"));
 
 				Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 				ingredients.add(ingredient);
@@ -195,8 +202,10 @@ class ClientMethods {
 				dishes.add(dish);
 			}			
 			ConnectionManager.closeResSet(res2);
+			ConnectionManager.closeStatement(state2);
 		}
 		ConnectionManager.closeResSet(res);
+		ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 		ConnectionManager.closeStatement(state);
 		ConnectionManager.closeConnection(connection);
 		

@@ -42,10 +42,10 @@ public class ConnectionManager {
 		}
 	}
 
-	public static void setAutoCommit(Connection connection) {
+	public static void setAutoCommit(Connection connection, boolean arg) {
 		try {
-			if (connection != null && !connection.getAutoCommit()) {
-				connection.setAutoCommit(true);
+			if (connection != null) {
+				connection.setAutoCommit(arg);
 			}
 		} catch (SQLException e) {
 			printMessage(e, "setAutoCommit()");

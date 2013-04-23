@@ -8,7 +8,7 @@ class GUI {
 
     String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
-    String[] ord = {"LIST_ORDERS", "ADD_ORDER", "FIND_ORDER", "BACK"};
+    String[] ord = {"LIST_ORDERS", "Add order", "Edit order", "BACK"};
     String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
     String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "EDIT_INGREDIENT", "BACK"};
     String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
@@ -112,7 +112,11 @@ class GUI {
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){
 				case 0: // list dishes //
-					
+					ArrayList<Dish> dishes = methods.listDishes();
+					for(Dish aDish : dishes) {
+						System.out.println(aDish);
+					}
+					break;
 				case 1: /*
 					DishRegistration registration = new DishRegistration(this);
 					registration.setLocation(350, 350);
@@ -139,7 +143,9 @@ class GUI {
 					Dish retten = methods.findDish(rettnavn);
 					String rettinfo = retten.toString();
 					System.out.println(rettinfo);
-			}
+					break;
+				}
+				break;
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){

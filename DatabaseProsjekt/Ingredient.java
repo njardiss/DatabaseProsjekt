@@ -4,9 +4,9 @@ class Ingredient {
 	private String name;
 	private int ingredientid;
 	private String metric;
-	private int amount;
+	private double amount;
 
-	public Ingredient(String name, int ingredientid, String metric, int amount) {
+	public Ingredient(String name, int ingredientid, String metric, double amount) {
 		this.name = name;
 		this.ingredientid = ingredientid;
 		this.metric = metric;
@@ -21,7 +21,7 @@ class Ingredient {
 	public String getMetric() {
 		return metric;
 	}
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 	public boolean setAmount(int refilledAmount, Connection connection) throws Exception {
