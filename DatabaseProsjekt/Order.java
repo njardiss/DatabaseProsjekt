@@ -85,6 +85,8 @@ class Order {
 			return false;
 		}
 	}
+	public boolean setOrderContent() {
+	}
 	public String toString() {
 		String x = "Order ID: " + orderid + ". Kid: " + kid + ". Status: " + status + 
 				". Ordertime: " + orderTime + ". Deliverytime: " + deliveryTime +

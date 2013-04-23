@@ -107,7 +107,11 @@ class GUI {
 						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
 					}
 					break;
+				case 2: //edit order
+					
+					break;
 			}
+			break;
 		case 2:
 			int dischoice = showOptionDialog(null, "Choose Dish function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, dish, dish[0]);
 			switch(dischoice){
