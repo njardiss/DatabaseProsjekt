@@ -228,6 +228,24 @@ class ClientMethods {
 			return false;
 		}
 	}
+	
+	public boolean addDidh(String name, double price, String type) throws Exception { //add dish//
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
+	 	String sql = "INSERT INTO Dish(name, price, type)values('" + name + "'" + "" +
+	 			"," + "'" + price + "'" + "," + type + "')";
+	 	int answer = state.executeUpdate(sql);
+		if(answer>0){
+			state.close();
+			connection.close();
+			return true;
+		}else{
+			state.close();
+			connection.close();
+			return false;
+		}
+	}
 		
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
