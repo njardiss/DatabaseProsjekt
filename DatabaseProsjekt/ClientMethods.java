@@ -159,6 +159,28 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
+	public ArrayList<Ingredient> listIngredients() throws Exception {
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    Statement state = connection.createStatement();
+	    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+	    String sql = "SELECT * from ingredients";
+	    ResultSet res = state.executeQuery(sql);
+	    while(res.next()) {
+	    	String name = res.getString("name");
+			int ingredientid = Integer.parseInt(res.getString("ingredientid"));
+			String metric = res.getString("metric");
+			double amount = Double.parseDouble(res.getString("amount"));
+
+			Ingredient ingredient = new Ingredient(name, ingredientid, metric, amount);
+			ingredients.add(ingredient);
+	    }
+	    ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
+		
+		return ingredients;
+	}
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
