@@ -83,12 +83,7 @@ public class OrderMenu extends BasicDialog {
 				}
 				priceField.setText(Double.toString(price));
 			} else if(event.getSource() == removeDish) {
-				ArrayList<Dish> values = (ArrayList<Dish>) list.getSelectedValuesList();
-				Dish value = values.get(0);
-				for(Dish aDish : dish) {
-					if(value aDish)
-				}
-				int index = indexOf();
+				int index = list.getSelectedIndex();
 				dishListModel.remove(index);
 				dish.remove(index);
 			}

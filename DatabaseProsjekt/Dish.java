@@ -61,6 +61,16 @@ public class Dish {
 			return false;
 		}
     }
+    public boolean equals(Dish dish) {
+    	if(dishID == dish.getDishID()) {
+    		if(name.equals(dish.getName())) {
+    			if(price == dish.getPrice()) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
 }
 class MainCourse extends Dish {
 	public MainCourse(int dishID, String name,ArrayList<Ingredient> ingredients, double price) {
