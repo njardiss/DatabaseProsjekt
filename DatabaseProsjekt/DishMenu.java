@@ -43,16 +43,16 @@ public class DishMenu extends BasicDialog {
 		    add(enterpriseCustomer);
 		}
 	}
-	public boolean editCustomer(Customer customer2, Connection connect) throws Exception {
+	public boolean editCustomer(Customer customer){
 		enterpriseCustomer.setFocusable(false); //kan ikke endre kundetypen BUGGED
 		privateCustomer.setFocusable(false);
-		String tekstNrFelt = (customer2.getKid() < 0)
-	                                  ? "ikke registrert" : "" + customer2.getKid();
+		String tekstNrFelt = (customer.getKid() < 0)
+	                                  ? "ikke registrert" : "" + customer.getKid();
 	    kid.setText(tekstNrFelt);
-	    name.setText(customer2.getName());
-	    phone.setText(Integer.toString(customer2.getPhone()));
-	    adress.setText(customer2.getAdress());
-	    if(customer2.getType() == 0) {
+	    name.setText(customer.getName());
+	    phone.setText(Integer.toString(customer.getPhone()));
+	    adress.setText(customer.getAdress());
+	    if(customer.getType() == 0) {
 	    	privateCustomer.setSelected(true);
 	    } else {
 	    	enterpriseCustomer.setSelected(true);
@@ -63,14 +63,14 @@ public class DishMenu extends BasicDialog {
 	    name.requestFocusInWindow();
 	    setVisible(true);
 	    if (isOk()) {
-	    	if(!name.getText().equals(customer2.getName())) {
-	    		customer2.setName(name.getText(), connect);
+	    	if(!name.getText().equals(customer.getName())) {
+	    		customer.setName(name.getText(), connect);
 	    	}
-	    	if(Integer.parseInt(phone.getText()) != (customer2.getPhone())) {
-	    		customer2.setPhone(Integer.parseInt(phone.getText()), connect);
+	    	if(Integer.parseInt(phone.getText()) != (customer.getPhone())) {
+	    		customer.setPhone(Integer.parseInt(phone.getText()), connect);
 	    	}
-	    	if(!adress.getText().equals(customer2.getAdress())) {
-	    		customer2.setAdress(adress.getText(), connect);
+	    	if(!adress.getText().equals(customer.getAdress())) {
+	    		customer.setAdress(adress.getText(), connect);
 	    	}
 	      return true;
 	    } else {
