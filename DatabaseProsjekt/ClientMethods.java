@@ -29,8 +29,7 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
-	}
-	
+	}	
 	public boolean editCustomer(int kid) throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -338,5 +337,14 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
+	}
+	public boolean executeStockpileUpdate(Ingredient ingredient, double refillAmount) throws Exception {
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    
+	    boolean check = ingredient.setAmount(refillAmount,connection);
+	
+		ConnectionManager.closeConnection(connection);	
+		return check;
 	}
 }

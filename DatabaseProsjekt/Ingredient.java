@@ -24,7 +24,7 @@ class Ingredient {
 	public double getAmount() {
 		return amount;
 	}
-	public boolean setAmount(int refilledAmount, Connection connection) throws Exception {
+	public boolean setAmount(double refilledAmount, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
 		amount += refilledAmount;
 		String sql = "update ingredients set amount = '" + amount + "' where ingredientid = " + ingredientid + "";

@@ -1,44 +1,43 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import OrderMenu.ButtonListener;   
-import OrderMenu.ListPanel;
-import OrderMenu.newDish;
-
 import java.text.*;
 import java.util.ArrayList;
 import static javax.swing.JOptionPane.*;
 
-private Ingredients [][] ingredients = new Ingredients[][];
-
 public class UpdateStockpile extends BasicDialog {
 	private DefaultListModel<Ingredient> ingredientListModel = new DefaultListModel<Ingredient>();
-	private JList<Ingredient> list = new JList<Dish>(ingredientListModel);
-	private JButton newIngredient = new JButton("Add Ingredient");
+	private JList<Ingredient> list = new JList<Ingredient>(ingredientListModel);
+	private JButton refillIngredient = new JButton("Refill Ingredient");
 	private JFrame parent;
-	
+	private ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+	private ClientMethods methods = new ClientMethods();
+	private double amount;
 	
 	public UpdateStockpile(JFrame parent) {
 		super(parent, "Ingredient list");
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
-	    add(new newIngredient(), BorderLayout.NORTH);
+	    add(new refillIngredient(), BorderLayout.NORTH);
+	    try {
+			ingredients = methods.listIngredients();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(Ingredient aIngr : ingredients) {
+			ingredientListModel.addElement(aIngr);
+		}
 	    pack();
-	    
 	}
-
-}
-	
-	private class newIngredient extends JPanel {
-		public newIngredient() {
+	private class refillIngredient extends JPanel {
+		public refillIngredient() {
 			setLayout(new BorderLayout());
-			newIngredient.setPreferredSize(new Dimension(30, 30));
+			refillIngredient.setPreferredSize(new Dimension(30, 30));
 			add(new JLabel(" "), BorderLayout.NORTH);
-			add(newIngredient, BorderLayout.CENTER);
+			add(refillIngredient, BorderLayout.CENTER);
 			ButtonListener listener = new ButtonListener();
-			newIngredient.getSelectedValuesList();
-			
+			refillIngredient.addActionListener(listener);
 		}
 	}
 	private class ListPanel extends JPanel {
@@ -47,29 +46,21 @@ public class UpdateStockpile extends BasicDialog {
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			JScrollPane listScroller = new JScrollPane(list);
 			add(listScroller, BorderLayout.CENTER);
-	
-	
-	
+		}
+	}
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String button = event.getActionCommand();
-			IngredientChooser ingredientChooser = new IngredientChooser(parent);
-			ArrayList <Ingredient> newIngredient = ingredientChooser.getIngredient();
-			for(Ingredient aIngr : newIngredient) {
-				ingredientListModel.addElement(aIngr);
-				String amount = showInputDialog(" choose amount: ");
-			    int amount2 = IntegerParseInt(amount);
-			    
-			    for(int i= 0; newIngredient.length, i++){
-			    	ingredients [i][] = newIngredient;
-			    	ingredients[][k] = amount2;
-			    	
-			    }
-			   
-			    }
+			int index = list.getSelectedIndex();
+			Ingredient chosenIngredient = ingredients.get(index);
+			amount = Double.parseDouble(showInputDialog(" choose amount: "));
+			try {
+				boolean check = methods.executeStockpileUpdate(chosenIngredient, amount);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			list.clearSelection();
 		}
 	}
-			
-		
+}
