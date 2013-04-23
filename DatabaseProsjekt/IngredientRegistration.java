@@ -2,14 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 import static javax.swing.JOptionPane.*;
 
-public class IngredientRegistration extends BasicDialog {  // peace//
+public class IngredientRegistration extends BasicDialog { 
 	private JTextField name = new JTextField();
 	private JTextField ingredientid = new JTextField();
 	private JTextField amount = new JTextField();
 	private JRadioButton kg = new JRadioButton("kg", false);
 	private JRadioButton g = new JRadioButton("gram", false);
 	private JRadioButton l = new JRadioButton("liter", false);
-	String metric;
+	
+	
 
 	public IngredientRegistration(JFrame parent) {
 		super(parent, "Add Ingredient");
@@ -38,23 +39,27 @@ public class IngredientRegistration extends BasicDialog {  // peace//
 		    add(l);
 		}
 	}
-	 
+	
+	  
+	    
+	    
 	public String addIngredient() {
 	    setOk(false);
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
+	    String metric = "";
 	    if (isOk()) { 
-	    	if(kg.isSelected()){
-	    		metric = "kg";
+	    	if(kg.isSelected){
+	    		String = "kg";
 	    	}
 	    		
-	    	else if(g.isSelected()){
-	    		metric = "g";
+	    	else if(g.isSelected){
+	    		String = "g";
 	    			
 	    	}
-	    	else if(l.isSelected()){
-	    		metric = "l";
+	    	else if(l.isselected){
+	    		String = "l";
 	    	}
 	    	String sql = "INSERT INTO ingredients(name, amount, metric) values('" + name.getText() + "'," 
 	    + Integer.parseInt(amount.getText()) + ", '" + metric + "')";
@@ -69,7 +74,7 @@ public class IngredientRegistration extends BasicDialog {  // peace//
 		boolean kgButton = kg.isSelected();
 		boolean gButton = g.isSelected();
 		boolean lButton = l.isSelected();
-	    if (name2.equals("") || amount2.equals("") ||(!kgButton && !gButton && !lButton)) {
+	    if (name2.equals("") || metric2.equals("") || amount2.equals("")) {
 	    	if (name2.equals("")) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to input an ingredient name!");
 	    		name.requestFocusInWindow();
@@ -79,7 +84,7 @@ public class IngredientRegistration extends BasicDialog {  // peace//
 	    	}else if(!kgButton && !gButton && !lButton) {
 	    		showMessageDialog(IngredientRegistration.this, "You have to choose a metric type!");
 	    		kg.requestFocusInWindow();
-	    	}
+	
 	    	return false;
 	    } else {
 	    	return true;

@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import OrderMenu.ButtonListener;   // and love //
+import OrderMenu.ButtonListener;   
 import OrderMenu.ListPanel;
 import OrderMenu.newDish;
 
