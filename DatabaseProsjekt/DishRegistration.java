@@ -19,6 +19,7 @@ public class DishRegistration extends BasicDialog {
 	    add(getButtonpanel(), BorderLayout.SOUTH);
 	    pack();
 	}
+	
 	private class DishDatapanel extends JPanel {
 		public DishDatapanel() {
 			setLayout(new GridLayout(5, 2, 5, 5));

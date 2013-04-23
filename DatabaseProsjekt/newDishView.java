@@ -30,8 +30,6 @@ public class newDishView extends JFrame {
 		dishPanel.add(appetizer);
 		dishPanel.add(dinner);
 		dishPanel.add(dessert);
-	/*	dishPanel.add(ingLabel);
-		dishPanel.add(recipeList); */
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(appetizer);
@@ -48,15 +46,6 @@ public class newDishView extends JFrame {
 	public double getPrice(){
 		return Double.parseDouble(price.getText());
 	}
-	
-/*	public String[] getRecipe(){
-		Object[] list = recipeList.getSelectedValuesList().toArray();
-		String[] recipe = null;
-		for(int i=0; i<list.length; i++){
-			recipe[i]=list[i].toString();
-		}
-		return recipe;
-	} */
 	
 	void displayErrorMessage(String errorMessage){
 		JOptionPane.showMessageDialog(this, errorMessage);

@@ -21,7 +21,7 @@ public class recipe extends JFrame {
 	
 	public String[] getRecipe(){
 	Object[] list = ingredientlist.getSelectedValuesList().toArray();
-	String[] recipe = new String[ingredients.size()]
+	String[] recipe = new String[ingredients.size()];
 	for(int i=0; i<list.length; i++){
 		recipe[i]=list[i].toString();
 	}
