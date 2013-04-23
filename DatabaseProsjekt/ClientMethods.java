@@ -250,7 +250,7 @@ class ClientMethods {
 		}
 	}
 	
-	public boolean addDidh(String name, double price, String type) throws Exception { //add dish//
+	public boolean addDish(String name, double price, String type) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
