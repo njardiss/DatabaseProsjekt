@@ -160,68 +160,66 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	public Order getOrder() {
-		Class.forName(dbdriver);
-		Connection connection = DriverManager.getConnection(dbname);
-		Statement state = connection.createStatement();
-	}
+	
 	public ArrayList<Order> listOrders() throws Exception{
-		Class.forName(dbdriver);
-		Connection connection = DriverManager.getConnection(dbname);
-		Statement state = connection.createStatement();
 
-		String status = "Bestilt"; //må spørre om status
-		String sql = findOrdersByStatus(status);
-		ResultSet res = state.executeQuery(sql);
-		int orderId;
-		int kid = 0;
-		String ordertime;
-		String deliverytime;
-		String deliveryadress;
-		int typen = 0;
-		double price = 0;
-		ArrayList<Order> orders = new ArrayList<Order>();
-		ArrayList<Dish> dishes = new ArrayList<Dish>();
-		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-		String sql1 = "";
-		String sql2 = "";
-		while(res.next()){
-			orderId = Integer.parseInt(res.getString("orderid"));
-			kid = Integer.parseInt(res.getString("kid"));
-			ordertime = res.getString("ordertime");
-			deliverytime = res.getString("deliverytime");
-			deliveryadress = res.getString("adress");
-			status = res.getString("status");
-			sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid;"; //må addes
-			ResultSet res2 = state.executeQuery(sql1);
-			while(res2.next()) {
-				int dishID = Integer.parseInt(res2.getString("dishid"));
-				String name = res2.getString("name");
-				price = Double.parseDouble(res2.getString("price"));
+	Class.forName(dbdriver);
+	Connection connection = DriverManager.getConnection(dbname);
+	Statement state = connection.createStatement();
 
-				sql2 = "Select * from ingredients i, dishContent c where c.dishid = "'+ dishID +'" AND i.ingredientid = c.ingredientid;"; //må addes
-				ResultSet res3 = state.executeQuery(sql2);
-				while(res3.next()) {
-					String name2 = res3.getString("name");
-					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
-					String metric = res3.getString("metric");
-					int amount = Integer.parseInt(res3.getString("amount"));
+	String status = "Bestilt"; //må spørre om status
+	String sql = findOrdersByStatus(status);
+	ResultSet res = state.executeQuery(sql);
+	int orderId;
+	int kid = 0;
+	String ordertime;
+	String deliverytime;
+	String deliveryadress;
+	int typen = 0;
+	double price = 0;
+	ArrayList<Order> orders = new ArrayList<Order>();
+	ArrayList<Dish> dishes = new ArrayList<Dish>();
+	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+	String sql1 = "";
+	String sql2 = "";
+	while(res.next()){
+		orderId = Integer.parseInt(res.getString("orderid"));
+		kid = Integer.parseInt(res.getString("kid"));
+		ordertime = res.getString("ordertime");
+		deliverytime = res.getString("deliverytime");
+		deliveryadress = res.getString("adress");
+		status = res.getString("status");
+		sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid;"; //må addes
+		ResultSet res2 = state.executeQuery(sql1);
+		while(res2.next()) {
+			int dishID = Integer.parseInt(res2.getString("dishid"));
+			String name = res2.getString("name");
+			price = Double.parseDouble(res2.getString("price"));
 
-					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
-					ingredients.add(ingredient);
-				}
-				Dish dish2 = new Dish(dishID, name, ingredients, price);
-				dishes.add(dish2);
+			sql2 = "Select * from ingredients i, dishContent c where c.dishid = "'+ dishID +'" AND i.ingredientid = c.ingredientid;"; //må addes
+			ResultSet res3 = state.executeQuery(sql2);
+			while(res3.next()) {
+				String name2 = res3.getString("name");
+				int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
+				String metric = res3.getString("metric");
+				int amount = Integer.parseInt(res3.getString("amount"));
+
+				Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+				ingredients.add(ingredient);
 			}
-			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
-			orders.add(order);
+			Dish dish2 = new Dish(dishID, name, ingredients, price);
+			dishes.add(dish2);
 		}
-		res.close();
-		/*for(Order enOrder : orders) {
-			String kundeinfo = enOrder.toString();
-			System.out.print(kundeinfo); */
-		return orders;
+		Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
+		orders.add(order);
 	}
+	res.close();
+	/*for(Order enOrder : orders) {
+		String kundeinfo = enOrder.toString();
+		System.out.print(kundeinfo); */
+	return orders;
+	}
+	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -244,6 +242,7 @@ class ClientMethods {
 		
 		return ingredients;
 	}
+	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -330,6 +329,7 @@ class ClientMethods {
 			return false;
 		}
 	}		
+	
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);

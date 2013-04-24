@@ -15,6 +15,8 @@ public class tableView extends JPanel {
 	tableView(){
 	ArrayList<Order> orders = methods.listOrders();
 	String[] columnNames = {"Order ID", "KID", "Status", "Time ordered", "Deliverytime", "Deliveryadress", "dishes"};
+	Object[] tabledata = new Object[orders.size()];
+	tabledata[] = orders.toArray();
 	
 	final JTable table = new JTable(orders, columnNames);
     table.setPreferredScrollableViewportSize(new Dimension(500, 70));
