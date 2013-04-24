@@ -189,14 +189,14 @@ class ClientMethods {
 		deliverytime = res.getString("deliverytime");
 		deliveryadress = res.getString("adress");
 		status = res.getString("status");
-		sql1 = "Select * from "; //må addes
+		sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid;"; //må addes
 		ResultSet res2 = state.executeQuery(sql1);
 		while(res2.next()) {
 			int dishID = Integer.parseInt(res2.getString("dishid"));
 			String name = res2.getString("name");
 			price = Double.parseDouble(res2.getString("price"));
 
-			sql2 = ""; //må addes
+			sql2 = "Select * from ingredients i, dishContent c where c.dishid = "'+ dishID +'" AND i.ingredientid = c.ingredientid;"; //må addes
 			ResultSet res3 = state.executeQuery(sql2);
 			while(res3.next()) {
 				String name2 = res3.getString("name");
@@ -242,6 +242,7 @@ class ClientMethods {
 		
 		return ingredients;
 	}
+	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -328,6 +329,7 @@ class ClientMethods {
 			return false;
 		}
 	}		
+	
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
