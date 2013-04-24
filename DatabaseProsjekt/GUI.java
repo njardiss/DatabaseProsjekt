@@ -45,58 +45,11 @@ class GUI {
 				case 3:
 					break;
 				}
+			break;
 		case 1: //Orders
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					/*String status = "Bestilt"; //må spørre om status
-					String sql = methods.findOrdersByStatus(status);
-					ResultSet res = state.executeQuery(sql);
-					int orderId;
-					int kid = 0;
-					String ordertime;
-					String deliverytime;
-					String deliveryadress;
-					int typen = 0;
-					ArrayList<Order> orders = new ArrayList<Order>();
-					ArrayList<Dish> dishes = new ArrayList<Dish>();
-					ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-					while(res.next()){
-						orderId = Integer.parseInt(res.getString("orderid"));
-						kid = Integer.parseInt(res.getString("kid"));
-						ordertime = res.getString("ordertime");
-						deliverytime = res.getString("deliverytime");
-						deliveryadress = res.getString("adress");
-						status = res.getString("status");
-						sql = ""; //må addes
-						ResultSet res2 = state.executeQuery(sql);
-						while(res2.next()) {
-							int dishID = Integer.parseInt(res2.getString("dishid"));
-							String name = res2.getString("name");
-							double price = Double.parseDouble(res2.getString("price"));
-
-							sql = ""; //må addes
-							ResultSet res3 = state.executeQuery(sql);
-							while(res3.next()) {
-								String name2 = res3.getString("name");
-								int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
-								String metric = res3.getString("metric");
-								int amount = Integer.parseInt(res3.getString("amount"));
-
-								Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
-								ingredients.add(ingredient);
-							}
-							Dish dish2 = new Dish(dishID, name, ingredients, price);
-							dishes.add(dish2);
-						}
-						Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes);
-						orders.add(order);
-					}
-					res.close();
-					for(Order enOrder : orders) {
-						String kundeinfo = enOrder.toString();
-						System.out.print(kundeinfo);
-					}*/
 					break;
 				case 1: //add order
 					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
