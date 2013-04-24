@@ -86,7 +86,22 @@ class Order {
 		}
 	}
 	public boolean setOrderContent(ArrayList<Dish> newOrderContent, Connection connection) throws Exception {
-		return true;
+		Statement state = connection.createStatement();
+		orderContent = newOrderContent;
+		String sql;
+		int i = 1;
+		int answer;
+    	for(Dish aDish : orderContent) {
+    		sql = "INSERT INTO ordercontent(orderid, orderline, dishid, antall) values(" + orderid + ", " + i + ", " + aDish.getDishID() + ", 1)";
+    		answer = state.executeUpdate(sql);
+    		i++;
+    		if(answer<1){
+    			ConnectionManager.closeStatement(state);
+    			return false;
+    		}
+    	}
+    	ConnectionManager.closeStatement(state);
+    	return true;
 	}
 	public String toString() {
 		String x = "Order ID: " + orderid + ". Kid: " + kid + ". Status: " + status + 

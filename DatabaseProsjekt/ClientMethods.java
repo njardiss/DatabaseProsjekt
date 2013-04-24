@@ -139,21 +139,24 @@ class ClientMethods {
 	    int orderid = Integer.parseInt(res.getString("orderid"));
 	    if(answer>0) {
 	    	int i = 1;
-	    	int answer2 = 1;
-	    	if(answer2>0) {
-	    		for(Dish aDish : dishes) {
-	    			sql = "INSERT INTO ordercontent(orderid, orderline, dishid, antall) values(" + orderid + ", " + i + ", " + aDish.getDishID() + ", 1)";
-	    			answer2 = state.executeUpdate(sql);
-	    			i++;
+	    	int answer2;
+	    	for(Dish aDish : dishes) {
+	    		sql = "INSERT INTO ordercontent(orderid, orderline, dishid, antall) values(" + orderid + ", " + i + ", " + aDish.getDishID() + ", 1)";
+	    		answer2 = state.executeUpdate(sql);
+	    		i++;
+	    		if(answer2<1) {
+	    			ConnectionManager.rollback(connection); //rollback if fail
+	    			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+	    			ConnectionManager.closeResSet(res);
+	    			ConnectionManager.closeStatement(state);
+	    			ConnectionManager.closeConnection(connection);
+	    			return false;
 	    		}
-	    	} else {
-	    		ConnectionManager.rollback(connection); //rollback if fail
-				ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
-				ConnectionManager.closeConnection(connection);
-				return false;
 	    	}
 	    }
 	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+	    ConnectionManager.closeResSet(res);
+	    ConnectionManager.closeStatement(state);
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
@@ -350,13 +353,31 @@ class ClientMethods {
 		Order newOrder = orderMenu.editOrder(order);
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
+	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
+	    boolean j = false, k = false, l = false;
 		if(!order.getDeliveryTime().equals(newOrder.getDeliveryTime())){
-			boolean j = order.setDeliveryTime(newOrder.getDeliveryTime(), connection);
+			j = order.setDeliveryTime(newOrder.getDeliveryTime(), connection);
+		} else {
+			j = true;
 		}
 		if(!order.getDeliveryAdress().equals(newOrder.getDeliveryAdress())) {
-			boolean k = order.setDeliveryAdress(newOrder.getDeliveryAdress(), connection);
+			k = order.setDeliveryAdress(newOrder.getDeliveryAdress(), connection);
+		} else {
+			k = true;
 		}
-		if((order.getOrderContent().equals(newOrder.getOrderContent()))) {
+		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt
+			l = order.setOrderContent(newOrder.getOrderContent(), connection);
+		} else {
+			l = true;
+		}
+		if(j && k && l) {
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
+			return true;
+		} else {
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
+			return false;
 		}
 	}
 }
