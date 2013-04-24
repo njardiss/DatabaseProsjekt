@@ -160,7 +160,51 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	public Order getOrder() throws Exception {
+	public Order getOrder(int orderid) throws Exception {
+		Class.forName(dbdriver);
+		Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+		
+		Order order = null;
+		ArrayList<Dish> dishes = new ArrayList<Dish>();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		
+		String sql = "SELECT * from orders where orderid = " + orderid + "";
+		ResultSet res = state.executeQuery(sql);
+		while(res.next()){
+			String status = res.getString("status");
+			int kid = Integer.parseInt(res.getString("kid"));
+			String ordertime = res.getString("ordertime");
+			String deliverytime = res.getString("deliverytime");
+			String deliveryadress = res.getString("adress");
+			Double price = Double.parseDouble(res.getString("price"));
+			
+			sql = "SELECT * FROM orderContent c, dish d, orders o WHERE o.orderid = " + orderid + " AND o.orderid = c.orderid AND c.dishid = d.dishid";
+			Statement state2 = connection.createStatement();
+			ResultSet res2 = state2.executeQuery(sql);
+			while(res2.next()) {
+				int dishID = Integer.parseInt(res2.getString("dishid"));
+				String name = res2.getString("name");
+				Double price2 = Double.parseDouble(res2.getString("price"));
+				
+				sql = "SELECT * FROM ingredients i, dishContent c where c.dishid = " + dishID + " AND i.ingredientid = c.ingredientid";
+				Statement state3 = connection.createStatement();
+				ResultSet res3 = state3.executeQuery(sql);
+				while(res3.next()) {
+					String name2 = res3.getString("name");
+					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
+					String metric = res3.getString("metric");
+					double amount = Double.parseDouble(res3.getString("amount"));
+					
+					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+					ingredients.add(ingredient);
+				}
+				Dish dish = new Dish(dishID, name, ingredients, price2);
+				dishes.add(dish);
+			}
+			order = new Order(orderid, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
+		}
+		return order;
 	}
 	public ArrayList<Order> listOrders() throws Exception{
 
@@ -190,14 +234,14 @@ class ClientMethods {
 		deliverytime = res.getString("deliverytime");
 		deliveryadress = res.getString("adress");
 		status = res.getString("status");
-		sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid;"; //må addes
+		sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
 		ResultSet res2 = state.executeQuery(sql1);
 		while(res2.next()) {
 			int dishID = Integer.parseInt(res2.getString("dishid"));
 			String name = res2.getString("name");
 			price = Double.parseDouble(res2.getString("price"));
 
-			sql2 = "Select * from ingredients i, dishContent c where c.dishid = "'+ dishID +'" AND i.ingredientid = c.ingredientid;"; //må addes
+			sql2 = "Select * from ingredients i, dishContent c where c.dishid = "+ dishID +" AND i.ingredientid = c.ingredientid"; //må addes
 			ResultSet res3 = state.executeQuery(sql2);
 			while(res3.next()) {
 				String name2 = res3.getString("name");
