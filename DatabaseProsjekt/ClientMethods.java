@@ -160,7 +160,8 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	
+	public Order getOrder() throws Exception {
+	}
 	public ArrayList<Order> listOrders() throws Exception{
 
 	Class.forName(dbdriver);
@@ -219,7 +220,6 @@ class ClientMethods {
 		System.out.print(kundeinfo); */
 	return orders;
 	}
-	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -242,7 +242,6 @@ class ClientMethods {
 		
 		return ingredients;
 	}
-	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -328,8 +327,7 @@ class ClientMethods {
 			connection.close();
 			return false;
 		}
-	}		
-	
+	}
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
