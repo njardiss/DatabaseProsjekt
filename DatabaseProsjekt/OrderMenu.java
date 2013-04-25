@@ -25,12 +25,13 @@ public class OrderMenu extends BasicDialog {
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
 	    add(new newDish(), BorderLayout.NORTH);
+	    add(new OrderDatapanel(), BorderLayout.EAST);
 	    pack();
 	}
-	private class CustomerDatapanel extends JPanel {
-		public CustomerDatapanel() {
-			setLayout(new GridLayout(4, 6, 5, 5));
-			add(new JLabel("Delivery date (dd.mm.yyyy): ", JLabel.RIGHT));
+	private class OrderDatapanel extends JPanel {
+		public OrderDatapanel() {
+			setLayout(new GridLayout(3, 6, 5, 5));
+			add(new JLabel("Delivery date: (yyyy-mm-dd) ", JLabel.RIGHT));
 		    add(year);
 		    add(new JLabel("-", JLabel.RIGHT));
 		    add(month);
@@ -46,6 +47,7 @@ public class OrderMenu extends BasicDialog {
 		    add(deliveryAdress);
 		    add(new JLabel("Price: ", JLabel.RIGHT));
 		    add(priceField);
+		    priceField.setEditable(false);
 		}
 	}
 	private class newDish extends JPanel {
@@ -84,6 +86,7 @@ public class OrderMenu extends BasicDialog {
 				priceField.setText(Double.toString(price));
 			} else if(event.getSource() == removeDish) {
 				int index = list.getSelectedIndex();
+				price -= dish.get(index).getPrice();
 				dishListModel.remove(index);
 				dish.remove(index);
 			}
@@ -109,7 +112,7 @@ public class OrderMenu extends BasicDialog {
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
-	    	deliveryTime = "" + day.getText() + "-" + month.getText() + "-" + year.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
+	    	deliveryTime = "" + year.getText() + "-" + month.getText() + "-" + day.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
 	    	return order;
 	    } else {
@@ -122,7 +125,7 @@ public class OrderMenu extends BasicDialog {
 	    setVisible(true);
 		Order order;
 	    if (isOk()) {
-	    	String deliveryTime = "" + day.getText() + "-" + month.getText() + "-" + year.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
+	    	String deliveryTime = "" + year.getText() + "-" + month.getText() + "-" + day.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
 	    	return order;
 	    } else {

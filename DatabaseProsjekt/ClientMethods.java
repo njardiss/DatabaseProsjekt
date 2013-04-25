@@ -126,7 +126,7 @@ class ClientMethods {
 		orderMenu.setLocation(350, 350);
 		orderMenu.setVisible(true);
 		order = orderMenu.getOrder();
-		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ")";
+		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", null)";
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();

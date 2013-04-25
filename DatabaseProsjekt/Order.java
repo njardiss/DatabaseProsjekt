@@ -10,6 +10,7 @@ class Order {
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
 	private double price;
+	private String payment;
 	
 	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, double price) {
 		this.orderid = orderid;
