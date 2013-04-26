@@ -63,12 +63,13 @@ public class CustomerRegistration extends BasicDialog {
 	    	sql[2] = adress.getText();
 	    	return sql;
 	    } else {
-	      return null;
+	      return sql;
 	    }
 	}
 	public String regCustomer() {
 	    setOk(false);
 	    int type;
+	    String sql = "";
 	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
@@ -78,11 +79,11 @@ public class CustomerRegistration extends BasicDialog {
 	    	} else {
 	    		type = 0;
 	    	}
-	    	String sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'" +"" +
+	    	sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'" +"" +
 					"," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
 	    	return sql;
 	    } else {
-	    	return null;
+	    	return sql;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data

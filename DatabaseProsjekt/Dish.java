@@ -33,6 +33,9 @@ public class Dish {
     public double getPrice(){
         return price;
     }
+    public String toString() {
+    	return name;
+    }
     
     public boolean setName(String newName, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();

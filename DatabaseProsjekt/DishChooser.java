@@ -10,14 +10,27 @@ public class DishChooser extends BasicDialog {
 	private JList<MainCourse> list1 = new JList<MainCourse>(mainCourseListModel);
 	private JList<Dessert> list2 = new JList<Dessert>(dessertListModel);
 	private JList<Appetizer> list3 = new JList<Appetizer>(appetizerListModel);
-	/*private ArrayList<MainCourse> dish1 = new ArrayList<MainCourse>();
-	private ArrayList<Appetizer> dish2 = new ArrayList<Appetizer>();
-	private ArrayList<Dessert> dish3 = new ArrayList<Dessert>();*/
-	ArrayList<Dish> dishes2;
+	ArrayList<Dish> dishesList;
 	ArrayList<Dish> dishes;
 
 	public DishChooser(JFrame parent) {
 		super(parent, "Dish chooser");
+		ClientMethods methods = new ClientMethods();
+	    try {
+			dishesList = methods.listDishes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    for(Dish aDish : dishesList) {
+	    	if(aDish instanceof MainCourse) {
+	    		mainCourseListModel.addElement((MainCourse) aDish);
+	    	} if(aDish instanceof Appetizer) {
+	    		appetizerListModel.addElement((Appetizer) aDish);
+	    	} if(aDish instanceof Dessert) {
+	    		dessertListModel.addElement((Dessert) aDish);
+	    	}
+	    }
 		setLayout(new BorderLayout(5, 5));
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
@@ -38,40 +51,23 @@ public class DishChooser extends BasicDialog {
 		}
 	}
 	public ArrayList<Dish> getDish() {
-		setOk(false);
-		pack();
-	    setVisible(true);
-	    ClientMethods methods = new ClientMethods();
-	    try {
-			dishes = methods.listDishes();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    for(Dish aDish : dishes) {
-	    	if(aDish instanceof MainCourse) {
-	    		mainCourseListModel.addElement((MainCourse) aDish);
-	    	} if(aDish instanceof Appetizer) {
-	    		appetizerListModel.addElement((Appetizer) aDish);
-	    	} if(aDish instanceof Dessert) {
-	    		dessertListModel.addElement((Dessert) aDish);
-	    	}
-	    }
 	    setOk(false);
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
-	    	if(list1.getSelectedValuesList() != null) {
+	    	if(!list1.isSelectionEmpty()) {
 	    		ArrayList<MainCourse> values = (ArrayList<MainCourse>) list1.getSelectedValuesList();
 	    		for(Dish aDish : values) {
 	    			dishes.add(aDish);
 	    		}
-	    	} else if (list2.getSelectedValuesList() != null) {
+	    	}
+	    	if (!list2.isSelectionEmpty()) {
 	    		ArrayList<Dessert> values = (ArrayList<Dessert>) list2.getSelectedValuesList();
 	    		for(Dish aDish : values) {
 	    			dishes.add(aDish);
 	    		}
-	    	} else if (list3.getSelectedValuesList() != null) {
+	    	}
+	    	if (!list3.isSelectionEmpty()) {
 	    		ArrayList<Appetizer> values = (ArrayList<Appetizer>) list3.getSelectedValuesList();
 	    		for(Dish aDish : values) {
 	    			dishes.add(aDish);
@@ -79,16 +75,7 @@ public class DishChooser extends BasicDialog {
 	    	}
 	    	return dishes;
 	    } else {
-	    	return null;
+	    	return dishes;
 	    }
 	}
-	/*private class ListeBoksLytter implements ListSelectionListener{
-		public void valueChanged(ListSelectionEvent event) {
-			if (isOk()) {
-				list1.clearSelection();
-				list2.clearSelection();
-				list3.clearSelection();
-			}
-		}
-	}*/
 }

@@ -74,6 +74,7 @@ public class OrderMenu extends BasicDialog {
 			String button = event.getActionCommand();
 			if(event.getSource() == newDish) {
 				DishChooser dishChooser = new DishChooser(parent);
+				dishChooser.setLocation(350, 350);
 				ArrayList <Dish> newDish = dishChooser.getDish();
 				for(Dish aDish : newDish) {
 					dishListModel.addElement(aDish);
@@ -86,9 +87,11 @@ public class OrderMenu extends BasicDialog {
 				priceField.setText(Double.toString(price));
 			} else if(event.getSource() == removeDish) {
 				int index = list.getSelectedIndex();
-				price -= dish.get(index).getPrice();
+				Dish pDish = dish.get(index);
+				price -= pDish.getPrice();
 				dishListModel.remove(index);
 				dish.remove(index);
+				priceField.setText(Double.toString(price));
 			}
 		}
 	}
