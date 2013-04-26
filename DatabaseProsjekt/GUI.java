@@ -10,7 +10,7 @@ class GUI {
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"LIST_ORDERS", "Add order", "Edit order", "BACK"};
     String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
-    String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "EDIT_INGREDIENT", "BACK"};
+    String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "UPDATE STOCKPILE", "BACK"};
     String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
 
     int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
@@ -50,6 +50,10 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
+					ArrayList<Orders> orders = methods.getOrders();
+					for(Order aOrder : orders) {               // kan være feil //
+						System.out.println(aOrder);
+						
 					break;
 				case 1: //add order
 					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
@@ -61,6 +65,7 @@ class GUI {
 					}
 					break;
 				case 2: //edit order
+					
 					
 					break;
 			}
@@ -74,28 +79,16 @@ class GUI {
 						System.out.println(aDish);
 					}
 					break;
-				case 1: /*
-					DishRegistration registration = new DishRegistration(this);
-					registration.setLocation(350, 350);
-					registration.setVisible(true);
-					String[] dish = new String[2];
-					if((dish = registration.setNewDish()) == null) {
-						showMessageDialog(null,"Ingen oppdatering gjort"); //dunooo
-					}
-					String name = dish[0];
-					String ingredients = dish[1];
-					double price = Double.parseDouble(dish[2]);
-					Boolean check = methods.setNewDish(name, ingredients, price);
+				case 1: // add dish //
+					boolean check = methods.addDish();
 					if(check){
-						showMessageDialog(null,"Registreringen er vellykket");
+						showMessageDialog(" New dish is added to the menu.");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
-					}*/
+						showMessageDialog(" The registtration failed. No dish added.");
+					}
+					break;
 					
-					
-					
-					
-				case 2: // find dish//
+					case 2: // find dish//
 					String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
 					Dish retten = methods.findDish(rettnavn);
 					String rettinfo = retten.toString();
@@ -106,7 +99,8 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
-				case 0:
+				case 0: // list stockpile /
+					
 					break;
 				case 1: // add ingredient //
 					boolean check = methods.addIngredient();
@@ -116,6 +110,8 @@ class GUI {
 						showMessageDialog(null,"Ingen oppdatering gjort"); 
 					}
 					break;
+					
+				case 2: // update stockpile//
 				}
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);
