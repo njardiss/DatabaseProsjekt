@@ -51,6 +51,9 @@ public class DishRegistration extends BasicDialog {
 			add(listScroller1, BorderLayout.WEST);
 		}
 	}
+	public Dish editDish() {
+		return dish;
+	}
 	public Dish newDish() {
 		setOk(false);
 		pack();
@@ -64,13 +67,11 @@ public class DishRegistration extends BasicDialog {
 		}
 	    for(Ingredient aIngredient : ingredients) {
 	    		ingredientsListModel.addElement((Ingredient) aIngredient);
-	    
 	    }
 	    setOk(false);
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
-	    	
 	    	if(list.getSelectedValuesList() != null) {
 	    		ArrayList<Ingredient> values = (ArrayList<Ingredient>) list.getSelectedValuesList();
 	    		for(Ingredient aIngredient : values) {
