@@ -412,6 +412,8 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
+	public boolean editDish {
+	}
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
