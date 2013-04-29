@@ -56,21 +56,21 @@ public class DishChooser extends BasicDialog {
 	    setVisible(true);
 	    if (isOk()) {
 	    	if(!list1.isSelectionEmpty()) {
-	    		ArrayList<MainCourse> values = (ArrayList<MainCourse>) list1.getSelectedValuesList();
-	    		for(Dish aDish : values) {
-	    			dishes.add(aDish);
+	    		int[] index = list1.getSelectedIndices();
+	    		for(int i = 0; i< index.length; i++) {
+	    			dishes.add(dishesList.get(i));
 	    		}
 	    	}
 	    	if (!list2.isSelectionEmpty()) {
-	    		ArrayList<Dessert> values = (ArrayList<Dessert>) list2.getSelectedValuesList();
-	    		for(Dish aDish : values) {
-	    			dishes.add(aDish);
+	    		int[] index = list2.getSelectedIndices();
+	    		for(int i = 0; i< index.length; i++) {
+	    			dishes.add(dishesList.get(i));
 	    		}
 	    	}
 	    	if (!list3.isSelectionEmpty()) {
-	    		ArrayList<Appetizer> values = (ArrayList<Appetizer>) list3.getSelectedValuesList();
-	    		for(Dish aDish : values) {
-	    			dishes.add(aDish);
+	    		int[] index = list3.getSelectedIndices();
+	    		for(int i = 0; i< index.length; i++) {
+	    			dishes.add(dishesList.get(i));
 	    		}
 	    	}
 	    	return dishes;
