@@ -50,7 +50,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					ArrayList<Orders> orders = methods.getOrders();
+					ArrayList<Orders> orders = methods.listOrders();
 					for(Order aOrder : orders) {               // kan være feil //
 						System.out.println(aOrder);
 						
@@ -65,6 +65,7 @@ class GUI {
 					}
 					break;
 				case 2: //edit order
+					
 					
 					
 					break;
@@ -99,7 +100,7 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
-				case 0: // list stockpile /
+				case 0: // list stockpile //
 					
 					break;
 				case 1: // add ingredient //
@@ -125,3 +126,23 @@ class GUI {
 		}
 	}
 }
+
+	
+	case 100:
+		//find ordesronCustomer //
+		String customerphone = showInputDialog(null,"Enter customers phone number:");
+		int phone = Integer.parseInt(customerphone);
+		Customer mrdude = methods.getCustomer(phone);
+	    String mrdudeKid = mrdude.getKid();
+	    ArrayList <Order> mrdudesOrders =  mrdude.listordersOnCustomer(mrdudeKid);
+	    
+	    // nå skal forhåpentligvis alle ordre på ønsket kunde være i en liste //
+	    // så må man kunne redigere //
+	    
+	    
+		
+				
+		
+		
+		
+		
