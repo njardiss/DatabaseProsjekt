@@ -615,17 +615,6 @@ class ClientMethods {
 			res.close();
 			for(Order enOrder : orders) {
 				String kundeinfo = enOrder.toString();
-<<<<<<< HEAD
 				System.out.print(kundeinfo); 
-			return orders;*/
+			return orders;*/	
 }
-=======
-				System.out.print(kundeinfo); */
-			return orders;
-			}
-		
-		
-		
-	}
-}
->>>>>>> branch 'master' of https://github.com/njardiss/DatabaseProsjekt.git
