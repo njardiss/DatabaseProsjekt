@@ -58,19 +58,19 @@ public class DishChooser extends BasicDialog {
 	    	if(!list1.isSelectionEmpty()) {
 	    		int[] index = list1.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(i));
+	    			dishes.add(dishesList.get(index[i]));
 	    		}
 	    	}
 	    	if (!list2.isSelectionEmpty()) {
 	    		int[] index = list2.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(i));
+	    			dishes.add(dishesList.get(index[i]));
 	    		}
 	    	}
 	    	if (!list3.isSelectionEmpty()) {
 	    		int[] index = list3.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(i));
+	    			dishes.add(dishesList.get(index[i]));
 	    		}
 	    	}
 	    	return dishes;

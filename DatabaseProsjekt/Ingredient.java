@@ -24,6 +24,9 @@ class Ingredient {
 	public double getAmount() {
 		return amount;
 	}
+	public String toString() {
+		return name;
+	}
 	public boolean setAmount(double refilledAmount, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
 		amount += refilledAmount;
