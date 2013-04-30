@@ -565,7 +565,7 @@ class ClientMethods {
 		}
 	}
 	
-	public  ArrayList<Order >listOrdersOnCustomer(String mrdudeKid) throws Exception{ // laget tirsdag 30. //
+	public  ArrayList<Order> listOrdersOnCustomer(int mrdudeKid) throws Exception{ // laget tirsdag 30. //
 			Class.forName(dbdriver);
 			Connection connection = DriverManager.getConnection(dbname);
 			Statement state = connection.createStatement();
