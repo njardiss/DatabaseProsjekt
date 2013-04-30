@@ -153,7 +153,20 @@ class ClientMethods {
 	    			return false;
 	    		}
 	    	}
-	    }
+	    } else {
+	    	ConnectionManager.rollback(connection); //rollback if fail
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;
+     } else {
+	    	ConnectionManager.rollback(connection); //rollback if fail
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;	    }
 	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 	    ConnectionManager.closeResSet(res);
 	    ConnectionManager.closeStatement(state);
@@ -338,37 +351,104 @@ class ClientMethods {
 		
 		return dishes;
 	}
-	public boolean setNewDish(String name, String ingredients, double price) throws Exception { //add dish//
-		Class.forName(dbdriver);
-	    Connection connection = DriverManager.getConnection(dbname);
-	    Statement state = connection.createStatement();
-	 	String sql = "INSERT INTO Dish(name, ingredients, price)values('" + name + "'" + "" +
-	 			"," + "'" + ingredients + "'" + "," + price + "')";
-	 	int answer = state.executeUpdate(sql);
-		if(answer>0){
-			state.close();
-			connection.close();
-			return true;
-		}else{
-			state.close();
-			connection.close();
-			return false;
+	public boolean addDish() throws Exception { //add dish//
+		DishRegistration reg = new DishRegistration(parent);
+		reg.setLocation(350, 350);
+		reg.setVisible(true);
+		String type;
+		String name;
+		Double price;
+		ArrayList<Ingredient> ingredients;
+		if(reg.newDish() instanceof MainCourse) {
+			MainCourse newDish = (MainCourse) reg.newDish();
+			type = "MainCourse";
+			name = newDish.getName();
+			price = newDish.getPrice();
+			ingredients = newDish.getIngredients();
+			
+		} else if (reg.newDish() instanceof Dessert) {
+			Dessert newDish = (Dessert) reg.newDish();
+			type = "Dessert";
+			name = newDish.getName();
+			price = newDish.getPrice();
+			ingredients = newDish.getIngredients();
+		} else {
+			Appetizer newDish = (Appetizer) reg.newDish();
+			type = "Appetizer";
+			name = newDish.getName();
+			price = newDish.getPrice();
+			ingredients = newDish.getIngredients();
 		}
-	}
-	public boolean addDish(String name, double price, String type) throws Exception { //add dish//
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
+	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
 	    Statement state = connection.createStatement();
-	 	String sql = "INSERT INTO Dish(name, price, type)values('" + name + "'" + "" +
-	 			"," + "'" + price + "'" + "," + type + "')";
+	 	String sql = "INSERT INTO Dish(name, price, type)values('" + name + "'," + price + ",'" + type + "')";
 	 	int answer = state.executeUpdate(sql);
-		if(answer>0){
-			state.close();
-			connection.close();
+	 	
+	 	sql = "SELECT dishid FROM dishes WHERE name = '" + name + "' AND where price = " + price + "";
+	    ResultSet res = state.executeQuery(sql);
+	    int dishid = Integer.parseInt(res.getString("dishid"));
+	    ConnectionManager.closeResSet(res);
+	    
+	 	if(answer>0){ //input dish content into db	
+	 		int i = 1;
+	    	int answer2;
+	    	for(Ingredient anIngredient : ingredients) {
+	    		sql = "INSERT INTO dishcontent(dishid, ingredientid, orderline) values(" + dishid + "," + anIngredient.getIngredientId() + "," + i + ")";
+	    		answer2 = state.executeUpdate(sql);
+	    		i++;
+	    		if(answer2<1) { //needs an errormessage maybe TODO 
+	    			ConnectionManager.rollback(connection); //rollback if fail
+	    			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+	    			ConnectionManager.closeStatement(state);
+	    			ConnectionManager.closeConnection(connection);
+	    			return false;
+	    		}
+	    	}
+	 	} else { //needs an errormessage maybe TODO 
+	 		ConnectionManager.rollback(connection); //rollback if fail
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
+			return false;
+	 	}
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+		ConnectionManager.closeConnection(connection);
+		return true;
+	}
+	public boolean editDish(Dish dish) { //COPYPASTA INN EDITORDER DEM BLIR SIKKERT LIK TODO
+		OrderMenu orderMenu = new OrderMenu(parent);
+		orderMenu.setLocation(350, 350);
+		orderMenu.setVisible(true);
+		Order newOrder = orderMenu.editOrder(order);
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
+	    boolean j = false, k = false, l = false;
+		if(!order.getDeliveryTime().equals(newOrder.getDeliveryTime())){
+			j = order.setDeliveryTime(newOrder.getDeliveryTime(), connection);
+		} else {
+			j = true;
+		}
+		if(!order.getDeliveryAdress().equals(newOrder.getDeliveryAdress())) {
+			k = order.setDeliveryAdress(newOrder.getDeliveryAdress(), connection);
+		} else {
+			k = true;
+		}
+		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
+			l = order.setOrderContent(newOrder.getOrderContent(), connection);
+		} else {
+			l = true;
+		}
+		if(j && k && l) {
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
 			return true;
-		}else{
-			state.close();
-			connection.close();
+		} else {
+			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+			ConnectionManager.closeConnection(connection);
 			return false;
 		}
 	}
@@ -469,7 +549,7 @@ class ClientMethods {
 		} else {
 			k = true;
 		}
-		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt
+		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
 			l = order.setOrderContent(newOrder.getOrderContent(), connection);
 		} else {
 			l = true;

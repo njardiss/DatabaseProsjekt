@@ -12,7 +12,7 @@ public class DishRegistration extends BasicDialog {
 	private JTextField price = new JTextField();
 	private ArrayList<Ingredient> ingredients; 
 	private JRadioButton appetizer = new JRadioButton("Appetizer");
-	private JRadioButton dinner = new JRadioButton("Dinner");
+	private JRadioButton mainCourse = new JRadioButton("Dinner");
 	private JRadioButton dessert = new JRadioButton("Dessert");
 
 	public DishRegistration(JFrame parent) {
@@ -36,10 +36,10 @@ public class DishRegistration extends BasicDialog {
 		    add(price);
 		    ButtonGroup group = new ButtonGroup();
 			group.add(appetizer);
-			group.add(dinner);
+			group.add(mainCourse);
 			group.add(dessert);
 			add(appetizer);
-			add(dinner);
+			add(mainCourse);
 			add(dessert);
 		}
 	}
@@ -50,6 +50,9 @@ public class DishRegistration extends BasicDialog {
 			JScrollPane listScroller1 = new JScrollPane(list);
 			add(listScroller1, BorderLayout.WEST);
 		}
+	}
+	public Dish editDish() {
+		return dish;
 	}
 	public Dish newDish() {
 		setOk(false);
@@ -64,21 +67,27 @@ public class DishRegistration extends BasicDialog {
 		}
 	    for(Ingredient aIngredient : ingredients) {
 	    		ingredientsListModel.addElement((Ingredient) aIngredient);
-	    
 	    }
 	    setOk(false);
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
-	    	
 	    	if(list.getSelectedValuesList() != null) {
 	    		ArrayList<Ingredient> values = (ArrayList<Ingredient>) list.getSelectedValuesList();
 	    		for(Ingredient aIngredient : values) {
 	    			ingredients.add(aIngredient);
 	    		}
 	    	}
-	    	Dish dish = new Dish(1, name.getText(), ingredients, Double.parseDouble(price.getText())); //DishID placeholder
-	    	return dish;
+	    	if(appetizer.isSelected()) {
+	    		Appetizer dish = new Appetizer(1, name.getText(), ingredients, Double.parseDouble(price.getText())); //DishID placeholder
+	    		return dish;
+	    	} else if(mainCourse.isSelected()) {
+	    		MainCourse dish = new MainCourse(1, name.getText(), ingredients, Double.parseDouble(price.getText())); //DishID placeholder
+	    		return dish;
+	    	} else {
+	    		Dessert dish = new Dessert(1, name.getText(), ingredients, Double.parseDouble(price.getText())); //DishID placeholder
+	    		return dish;
+	    	}
 	    } else {
 	    	return null;
 	    }
@@ -87,10 +96,9 @@ public class DishRegistration extends BasicDialog {
 		String name2 = name.getText().trim();
 		double price2 = Double.parseDouble(price.getText());
 		boolean dessert2 = dessert.isSelected();
-		boolean dinner2 = dinner.isSelected();
+		boolean dinner2 = mainCourse.isSelected();
 		boolean appetizer2 = appetizer.isSelected();
 		boolean values = list.isSelectionEmpty();
-		
 	    if (name2.equals("") || price2<1 || (!dessert2 && !dinner2 && !appetizer2)|| values){
 	    	if (name2.equals("")) {
 	    		showMessageDialog(DishRegistration.this, "You have to input a dish name!");
@@ -103,7 +111,7 @@ public class DishRegistration extends BasicDialog {
 	    		price.requestFocusInWindow();
 	    	} else if(!dessert2 && !dinner2 && !appetizer2) {
 	    		showMessageDialog(DishRegistration.this, "You have to choose a dish type!");
-	    		dinner.requestFocusInWindow();
+	    		mainCourse.requestFocusInWindow();
 	    	}
 	    	return false;
 	    } else {

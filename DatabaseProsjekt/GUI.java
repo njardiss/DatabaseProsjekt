@@ -53,7 +53,7 @@ class GUI {
 					ArrayList<Orders> orders = methods.listOrders();
 					for(Order aOrder : orders) {               // kan være feil //
 						System.out.println(aOrder);
-						
+					}
 					break;
 				case 1: //add order
 					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
@@ -83,13 +83,13 @@ class GUI {
 				case 1: // add dish //
 					boolean check = methods.addDish();
 					if(check){
-						showMessageDialog(" New dish is added to the menu.");
+						showMessageDialog(null, "New dish is added to the menu.");
 					}else{
-						showMessageDialog(" The registtration failed. No dish added.");
+						showMessageDialog(null, "The registtration failed. No dish added.");
 					}
 					break;
 					
-					case 2: // find dish//
+				case 2: // find dish//
 					String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
 					Dish retten = methods.findDish(rettnavn);
 					String rettinfo = retten.toString();
