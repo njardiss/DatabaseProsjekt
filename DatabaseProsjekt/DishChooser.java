@@ -55,7 +55,7 @@ public class DishChooser extends BasicDialog {
 		public Labels() {
 			setLayout(new BorderLayout());
 			add(new JLabel(" "), BorderLayout.NORTH);
-			add(new JLabel("Main courses:"), BorderLayout.WEST);
+			add(new JLabel("Main courses:    "), BorderLayout.WEST);
 			add(new JLabel("Desserts:"), BorderLayout.CENTER);
 			add(new JLabel("Appetizers:"), BorderLayout.EAST);
 		}
