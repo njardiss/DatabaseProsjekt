@@ -22,20 +22,20 @@ class GUI {
 				case 0: //Add Customer
 					boolean check = methods.regNewCustomer();
 					if(check){
-						showMessageDialog(null,"Registreringen er vellykket");
+						showMessageDialog(null,"Registration successful.");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
+						showMessageDialog(null,"No update was comitted."); //meldingen må utvides elnz
 					}
 					break;
 				case 1: //Find Customer
-					String kundeid = showInputDialog(null,"Skriv inn kunde identifikasjon nr:");
+					String kundeid = showInputDialog(null,"Enter customer identification number:");
 					int kid = Integer.parseInt(kundeid);
 					Customer hanher = methods.getCustomer(kid);
 					String kundeinfo = hanher.toString();
 					System.out.println(kundeinfo);
 					break;
 				case 2: //Edit Customer
-					kid = Integer.parseInt(showInputDialog(null,"Skriv inn kunde identifikasjon nr:"));
+					kid = Integer.parseInt(showInputDialog(null,"Enter the customers telephone number: "));
 					if(methods.editCustomer(kid)) {
 						showMessageDialog(null,"The changes are saved successfully!");
 					}else{
@@ -59,19 +59,19 @@ class GUI {
 					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
 					boolean check = methods.addOrder(phone);
 					if(check){
-						showMessageDialog(null,"Registreringen er vellykket");
+						showMessageDialog(null,"Registration successful.");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort"); //meldingen må utvides elnz
+						showMessageDialog(null,"No update was comitted."); //meldingen må utvides elnz
 					}
 					break;
 				case 2: //edit order
 					//find ordesronCustomer //
-					String customerphone = showInputDialog(null,"Enter customers phone number:");
+					/*String customerphone = showInputDialog(null,"Enter customers phone number:");
 					int phone2 = Integer.parseInt(customerphone);
 					Customer mrdude = methods.getCustomer(phone2);
 				    int mrdudeKid = mrdude.getKid();
 				    ArrayList<Order> mrdudesOrders =  methods.listOrdersOnCustomer(mrdudeKid);
-				    
+				    */
 				    // nå skal forhåpentligvis alle ordre på ønsket kunde være i en liste //
 				    // så må man kunne redigere //
 				    
@@ -115,9 +115,9 @@ class GUI {
 				case 1: // add ingredient //
 					boolean check = methods.addIngredient();
 					if(check){
-						showMessageDialog(null,"Registreringen er vellykket");
+						showMessageDialog(null,"Registration successful.");
 					}else{
-						showMessageDialog(null,"Ingen oppdatering gjort"); 
+						showMessageDialog(null,"No update was comitted."); 
 					}
 					break;
 					

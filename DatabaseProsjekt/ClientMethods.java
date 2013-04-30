@@ -47,12 +47,18 @@ class ClientMethods {
 		boolean j = false, k = false, l = false;
 		if(!data[0].equals(customer.getName())) {
     		j = customer.setName(data[0], connection);
+    	} else {
+    		j = true;
     	}
     	if(Integer.parseInt(data[1]) != (customer.getPhone())) {
     		k = customer.setPhone(Integer.parseInt(data[1]), connection);
+    	} else {
+    		k = true;
     	}
     	if(!data[2].equals(customer.getAdress())) {
     		l = customer.setAdress(data[2], connection);
+    	} else {
+    		l = true;
     	}
 
 		if(j && k && l) {
@@ -161,10 +167,6 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 	    }
-	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
-	    ConnectionManager.closeResSet(res);
-	    ConnectionManager.closeStatement(state);
-		ConnectionManager.closeConnection(connection);
 		return true;
 	}
 	public Order getOrder(int orderid) throws Exception {
@@ -412,7 +414,7 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	public boolean editDish(Dish dish) { //COPYPASTA INN EDITORDER DEM BLIR SIKKERT LIK TODO
+	/*public boolean editDish(Dish dish) { //COPYPASTA INN EDITORDER DEM BLIR SIKKERT LIK TODO
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
 		orderMenu.setVisible(true);
@@ -445,7 +447,7 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
-	}
+	}*/
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -559,7 +561,7 @@ class ClientMethods {
 		}
 	}
 	
-	public  ArrayList<Order> listOrdersOnCustomer(int mrdudeKid) throws Exception{ // laget tirsdag 30. //
+	/*public  ArrayList<Order> listOrdersOnCustomer(int mrdudeKid) throws Exception{ // laget tirsdag 30. //
 			Class.forName(dbdriver);
 			Connection connection = DriverManager.getConnection(dbname);
 			Statement state = connection.createStatement();
@@ -611,8 +613,13 @@ class ClientMethods {
 				orders.add(order);
 			}
 			res.close();
-			/*for(Order enOrder : orders) {
+			for(Order enOrder : orders) {
 				String kundeinfo = enOrder.toString();
+<<<<<<< HEAD
+				System.out.print(kundeinfo); 
+			return orders;*/
+}
+=======
 				System.out.print(kundeinfo); */
 			return orders;
 			}
@@ -621,3 +628,4 @@ class ClientMethods {
 		
 	}
 }
+>>>>>>> branch 'master' of https://github.com/njardiss/DatabaseProsjekt.git
