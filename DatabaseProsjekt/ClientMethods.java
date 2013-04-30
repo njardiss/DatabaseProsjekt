@@ -160,13 +160,7 @@ class ClientMethods {
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return false;
-     } else {
-	    	ConnectionManager.rollback(connection); //rollback if fail
-			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
-			ConnectionManager.closeResSet(res);
-			ConnectionManager.closeStatement(state);
-			ConnectionManager.closeConnection(connection);
-			return false;	    }
+	    }
 	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 	    ConnectionManager.closeResSet(res);
 	    ConnectionManager.closeStatement(state);

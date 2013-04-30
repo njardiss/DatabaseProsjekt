@@ -39,6 +39,9 @@ public class DishChooser extends BasicDialog {
 	private class ListPanel extends JPanel {
 		public ListPanel() {
 			setLayout(new BorderLayout(5, 5));
+			add(new JLabel("Main courses", JLabel.RIGHT));
+			add(new JLabel("Desserts", JLabel.RIGHT));
+			add(new JLabel("Appetizers", JLabel.RIGHT));
 			list1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			JScrollPane listScroller1 = new JScrollPane(list1);
 			add(listScroller1, BorderLayout.WEST);
@@ -58,19 +61,19 @@ public class DishChooser extends BasicDialog {
 	    	if(!list1.isSelectionEmpty()) {
 	    		int[] index = list1.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(index[i]));
+	    			dishes.add(mainCourseListModel.get((index[i])));
 	    		}
 	    	}
 	    	if (!list2.isSelectionEmpty()) {
 	    		int[] index = list2.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(index[i]));
+	    			dishes.add(dessertListModel.get(index[i]));
 	    		}
 	    	}
 	    	if (!list3.isSelectionEmpty()) {
 	    		int[] index = list3.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			dishes.add(dishesList.get(index[i]));
+	    			dishes.add(appetizerListModel.get(index[i]));
 	    		}
 	    	}
 	    	return dishes;
