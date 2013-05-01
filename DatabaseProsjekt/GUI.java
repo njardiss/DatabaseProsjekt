@@ -97,7 +97,7 @@ class GUI {
 					if(check){
 						showMessageDialog(null, "New dish is added to the menu.");
 					}else{
-						showMessageDialog(null, "The registtration failed. No dish added.");
+						showMessageDialog(null, "No dish added.");
 					}
 					break;
 					

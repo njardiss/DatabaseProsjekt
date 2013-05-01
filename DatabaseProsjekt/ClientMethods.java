@@ -383,25 +383,29 @@ class ClientMethods {
 		Double price;
 		ArrayList<Ingredient> ingredients;
 		Dish dish = reg.newDish();
-		if(dish instanceof MainCourse) {
-			MainCourse newDish = (MainCourse) reg.newDish();
-			type = "MainCourse";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
-			
-		} else if (dish instanceof Dessert) {
-			Dessert newDish = (Dessert) reg.newDish();
-			type = "Dessert";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
-		} else {
-			Appetizer newDish = (Appetizer) reg.newDish();
-			type = "Appetizer";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
+		try {
+			if(dish instanceof MainCourse) {
+				MainCourse newDish = (MainCourse) reg.newDish();
+				type = "MainCourse";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+				
+			} else if (dish instanceof Dessert) {
+				Dessert newDish = (Dessert) reg.newDish();
+				type = "Dessert";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+			} else {
+				Appetizer newDish = (Appetizer) reg.newDish();
+				type = "Appetizer";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+			}
+		} catch (NullPointerException e) {
+			return false;
 		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -526,13 +530,11 @@ class ClientMethods {
 	public boolean addIngredient() throws Exception{    
 		IngredientRegistration ingredientRegistration = new IngredientRegistration(parent);
 		ingredientRegistration.setLocation(350, 350);
-		ingredientRegistration.setVisible(true);
 		
 		String sql = "";
-		try {
-			sql = ingredientRegistration.addIngredient();
-		} catch (NullPointerException e) {
-			ConnectionManager.printMessage(e,"Some data is not present");
+		sql = ingredientRegistration.addIngredient();
+		if(sql == null) {
+			return false;
 		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);

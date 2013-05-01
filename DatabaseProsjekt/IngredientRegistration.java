@@ -40,7 +40,6 @@ public class IngredientRegistration extends BasicDialog {
 	    
 	public String addIngredient() {
 	    setOk(false);
-	    pack();
 	    name.requestFocusInWindow();
 	    setVisible(true);
 	    String metric = "";
