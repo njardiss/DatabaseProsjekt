@@ -6,12 +6,12 @@ class GUI {
 	public static void main(String[] args) throws Exception {
     ClientMethods methods = new ClientMethods();
 
-    String[] choices = {"CUSTOMERS", "ORDERS", "DISHES",  "STOCKPILE", "ECONOMY", "EXIT"};
+    String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
-    String[] ord = {"LIST_ORDERS", "Add order", "Edit order", "BACK"};
-    String[] dish = {"LIST_DISHES", "ADD_DISH", "FIND_DISH", "BACK"};
-    String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "UPDATE STOCKPILE", "BACK"};
-    String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
+    String[] ord = {"LIST_ORDERS", "Add order", "Edit order", "Back"};
+    String[] dish = {"List dishes", "Add dish", "Find dish", "Back"};
+    String[] stock = {"List stockpile", "Add ingredient", "Update stockpile", "Back"};
+    String[] eco = {"Check funds", "Withdraw", "Deposit", "Check profit"};
 
     boolean meny1 = true;
     while(meny1) {
@@ -120,7 +120,7 @@ class GUI {
 					break;
 					
 				case 2: // update stockpile//
-					
+
 				case 3: //
 					break;
 				}
