@@ -9,17 +9,22 @@ class ClientMethods {
 	public boolean regNewCustomer() throws Exception {
 		CustomerRegistration registration = new CustomerRegistration(parent);
 		registration.setLocation(350, 350);
-		registration.setVisible(true);
 		String sql = "";
+		int answer;
 		try {
 			sql = registration.regCustomer();
 		} catch (NullPointerException e) {
 			ConnectionManager.printMessage(e,"Some data is not present");
+			return false;
 		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 		Statement state = connection.createStatement();
-    	int answer = state.executeUpdate(sql);
+    	try {
+    		answer = state.executeUpdate(sql);
+    	} catch(SQLException e) {
+    		return false;
+    	}
 		if(answer>0){
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
@@ -38,6 +43,7 @@ class ClientMethods {
 		
 		Customer customer = getCustomer(kid);
 		CustomerRegistration registration = new CustomerRegistration(parent);
+		registration.setLocation(350, 350);
 		String[] data = new String[3];
 		try {
 			data = registration.editCustomer(customer);

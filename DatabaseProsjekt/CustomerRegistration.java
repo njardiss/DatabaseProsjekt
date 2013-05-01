@@ -62,7 +62,7 @@ public class CustomerRegistration extends BasicDialog {
 	    	sql[2] = adress.getText();
 	    	return sql;
 	    } else {
-	      return sql;
+	      return null;
 	    }
 	}
 	public String regCustomer() {
@@ -80,7 +80,7 @@ public class CustomerRegistration extends BasicDialog {
 	    	sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
 	    	return sql;
 	    } else {
-	    	return sql;
+	    	return null;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
