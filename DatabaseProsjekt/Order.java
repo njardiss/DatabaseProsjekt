@@ -10,7 +10,8 @@ class Order {
 	private String deliveryAdress;
 	private ArrayList<Dish> orderContent;
 	private double price;
-	private String payment;
+	private String paid;
+	private int[] reccuringOrder = {1,1,1,1,1,1,1}; //each number represents one day of the week, if 0 it is set to deliver that day
 	
 	public Order(int orderid,int kid, String status, String orderTime, String deliveryTime, String deliveryAdress, ArrayList<Dish> orderContent, double price) {
 		this.orderid = orderid;
@@ -45,6 +46,26 @@ class Order {
 	}
 	public double getPrice() {
 		return price;
+	}
+	public String getPaid() {
+		return paid;
+	}
+	public int[] getReccuring() {
+		return reccuringOrder;
+	}
+	public boolean setPaymentStatus(Connection connection, String date) throws Exception {
+		Statement state = connection.createStatement();
+		paid = date;
+		String sql = "UPDATE orders SET paid = '" + paid + "' WHERE orderid = " + orderid + "";
+			
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			ConnectionManager.closeStatement(state);
+			return true;
+		}else{
+			ConnectionManager.closeStatement(state);
+			return false;
+		}
 	}
 	public boolean setStatus(String newStatus, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
