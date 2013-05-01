@@ -54,7 +54,7 @@ public class Dish {
     public boolean setPrice(double newPrice, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
         price = newPrice;
-        String sql = "' Update dish price '" + price + "' where dishID is ='" + dishID;
+        String sql = "UPDATE dish price '" + price + "' where dishID is = " + dishID + "";
         int answer = state.executeUpdate(sql);
 		if(answer>0){
 			ConnectionManager.closeStatement(state);
@@ -64,6 +64,22 @@ public class Dish {
 			return false;
 		}
     }
+    public boolean setIngredients(ArrayList<Ingredient> newIngredients, Connection connection) throws Exception {
+		Statement state = connection.createStatement();
+		ingredients = newIngredients;
+		int i = 1;
+    	for(Ingredient anIngredient : newIngredients) { //TODO MÅ NOK FIKSES, MÅ ALT DISHCONTENT SLETTES FØRST KANSKJE?
+    		String sql = "UPDATE dishcontent SET ingredientid = " + anIngredient.getIngredientId() + ", SET orderline =  WHERE dishid = " + dishID + "";
+    		int answer = state.executeUpdate(sql);
+    		i++;
+    		if(answer<1){
+    			ConnectionManager.closeStatement(state);
+    			return false;
+    		}
+    	}
+    	ConnectionManager.closeStatement(state);
+    	return true;
+	}
     public boolean equals(Dish dish) {
     	if(dishID == dish.getDishID()) {
     		if(name.equals(dish.getName())) {
