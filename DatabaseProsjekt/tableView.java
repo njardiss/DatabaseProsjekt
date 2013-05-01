@@ -12,13 +12,42 @@ import java.util.ArrayList;
 public class tableView extends JPanel {
 	
 	
-	tableView(){
+	tableView() throws Exception{
+	ClientMethods methods = new ClientMethods();
 	ArrayList<Order> orders = methods.listOrders();
-	String[] columnNames = {"Order ID", "KID", "Status", "Time ordered", "Deliverytime", "Deliveryadress", "dishes"};
-	Object[] tabledata = new Object[orders.size()];
-	tabledata[] = orders.toArray();
+	Object[][] data = new Object[orders.size()][8];
+	String[] columnNames = {"Order ID", "KID", "Status", "Time ordered", "Deliverytime", "Deliveryadress", "dishes", "Price"};
 	
-	final JTable table = new JTable(orders, columnNames);
+	
+	
+	for(Order aOrder : orders){
+	for(int i=0;i<orders.size();i++){
+		for(int y=0;y<8;y++){
+			if(y==0){
+				data[i][y]=aOrder.getOrderid();
+			} else if(y==1){
+				data[i][y]=aOrder.getKid();
+			} else if(y==2){
+				data[i][y]=aOrder.getStatus();
+			} else if(y==3){
+				data[i][y]=aOrder.getOrderTime();
+			} else if(y==4){
+				data[i][y]=aOrder.getDeliveryTime();
+			} else if(y==5){
+				data[i][y]=aOrder.getDeliveryAdress();
+			} else if(y==6){
+				data[i][y]=aOrder.getOrderContent();
+			} else if(y==7){
+				data[i][y]=aOrder.getPrice();	
+			} else {
+				System.out.println("Feil!");
+			}
+		}
+	 }
+	}
+
+	
+	final JTable table = new JTable(data, columnNames);
     table.setPreferredScrollableViewportSize(new Dimension(500, 70));
     table.setFillsViewportHeight(true);
     
@@ -27,7 +56,7 @@ public class tableView extends JPanel {
 	add(scrollPane);
 	}
 	
-    private static void createAndShowGUI() {
+    private static void createAndShowGUI() throws Exception {
         //Create and set up the window.
         JFrame frame = new JFrame("SimpleTableDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +76,11 @@ public class tableView extends JPanel {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                try {
+					createAndShowGUI();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
             }
         });
     }

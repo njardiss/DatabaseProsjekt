@@ -280,6 +280,7 @@ class ClientMethods {
 			System.out.print(kundeinfo); */
 		return orders;
 	}
+	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -302,6 +303,7 @@ class ClientMethods {
 		
 		return ingredients;
 	}
+	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
