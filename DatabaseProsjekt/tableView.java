@@ -48,7 +48,7 @@ public class tableView extends JPanel {
 
 	
 	final JTable table = new JTable(data, columnNames);
-    table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+    table.setPreferredScrollableViewportSize(new Dimension(1500, 500));
     table.setFillsViewportHeight(true);
     
     JScrollPane scrollPane = new JScrollPane(table);
