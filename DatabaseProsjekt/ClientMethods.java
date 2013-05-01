@@ -230,11 +230,11 @@ class ClientMethods {
 			int kid = Integer.parseInt(res.getString("kid"));
 			String ordertime = res.getString("ordertime");
 			String deliverytime = res.getString("deliverytime");
-			String deliveryadress = res.getString("adress");
+			String deliveryadress = res.getString("deliveryadress");
 			String status = res.getString("status");
 			Double price = Double.parseDouble(res.getString("price"));
 			
-			sql = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
+			sql = "Select * from orderContent c, dishes d, orders o where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
 			Statement state2 = connection.createStatement();
 			ResultSet res2 = state2.executeQuery(sql);
 			while(res2.next()) {
