@@ -421,7 +421,7 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	public boolean editDish(Dish dish) { //TODO
+	public boolean editDish(Dish dish)throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
 		reg.setVisible(true);
