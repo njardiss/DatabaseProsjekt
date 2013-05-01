@@ -645,7 +645,8 @@ class ClientMethods {
 			}
 			ConnectionManager.closeResSet(res2);
 			ConnectionManager.closeStatement(state2);
-			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);				orders.add(order);
+			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
+			orders.add(order);
 		}
 		ConnectionManager.closeResSet(res);
 		ConnectionManager.closeStatement(state);
@@ -655,5 +656,13 @@ class ClientMethods {
 			System.out.print(kundeinfo); 
 		}
 		return orders;
+	}
+	
+	public ArrayList<Order> getCustomerOrders(int tlf){
+		
+	}
+	
+	public void showOrderList() throws Exception{
+		tableView.createAndShowGUI();
 	}
 }
