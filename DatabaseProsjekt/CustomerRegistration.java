@@ -53,9 +53,7 @@ public class CustomerRegistration extends BasicDialog {
 	    	
 	    }
 	    setOk(false);
-	    pack();
 	    name.requestFocusInWindow();
-	    setVisible(true);
 	    String[] sql = new String[3];
 	    if (isOk()) {
 	    	sql[0] = name.getText();
@@ -70,17 +68,14 @@ public class CustomerRegistration extends BasicDialog {
 	    setOk(false);
 	    int type;
 	    String sql = "";
-	    pack();
 	    name.requestFocusInWindow();
-	    setVisible(true);
 	    if (isOk()) {
 	    	if(enterpriseCustomer.isSelected()) {
 	    		type = 1;
 	    	} else {
 	    		type = 0;
 	    	}
-	    	sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'" +"" +
-					"," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
+	    	sql = "INSERT INTO customer(name, phone, adress, type) values('" + name.getText() + "'," + Integer.parseInt(phone.getText()) + ", '" + adress.getText() + "'," + type + ")";
 	    	return sql;
 	    } else {
 	    	return sql;
