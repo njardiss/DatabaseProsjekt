@@ -381,7 +381,7 @@ class ClientMethods {
 		String type;
 		String name;
 		Double price;
-		ArrayList<Ingredient> ingredients;
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 		Dish dish = reg.newDish();
 		try {
 			if(dish instanceof MainCourse) {
@@ -418,12 +418,13 @@ class ClientMethods {
 	 	sql = "SELECT * FROM dishes WHERE name = '" + name + "' AND price = " + price + "";
 	 	state = connection.createStatement();
 	    ResultSet res = state.executeQuery(sql);
+	    res.next();
 	    int dishid = Integer.parseInt(res.getString("dishid"));
 	    ConnectionManager.closeResSet(res);
-	    
 	 	if(answer>0){ //input dish content into db	
 	 		int i = 1;
 	    	int answer2;
+	    	System.out.println("Test1");
 	    	for(Ingredient anIngredient : ingredients) {
 	    		sql = "INSERT INTO dishcontent(dishid, ingredientid, orderline) values(" + dishid + "," + anIngredient.getIngredientId() + "," + i + ")";
 	    		answer2 = state.executeUpdate(sql);
@@ -661,4 +662,17 @@ class ClientMethods {
 		}
 		return orders;
 	}
+	/*public boolean viewStockpile() {
+		stockpileView stockpile = new stockpileView(parent);
+		stockpile.setLocation(350, 350);
+		//stockpile.setOpaque(true); //content panes must be opaque
+		//parent.setContentPane(stockpile);
+		try {
+			stockpile.createAndShowGUI();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}*/
 }

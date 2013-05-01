@@ -13,7 +13,7 @@ public class Dish {
         }
         this.dishID = dishID;
         this.name = name.trim();
-        this.ingredients = new ArrayList<Ingredient>();
+        this.ingredients = ingredients;
         this.price = price;
         
     }
