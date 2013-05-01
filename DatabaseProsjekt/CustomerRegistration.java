@@ -54,6 +54,7 @@ public class CustomerRegistration extends BasicDialog {
 	    }
 	    setOk(false);
 	    name.requestFocusInWindow();
+	    setVisible(true);
 	    String[] sql = new String[3];
 	    if (isOk()) {
 	    	sql[0] = name.getText();
@@ -69,6 +70,7 @@ public class CustomerRegistration extends BasicDialog {
 	    int type;
 	    String sql = "";
 	    name.requestFocusInWindow();
+	    setVisible(true);
 	    if (isOk()) {
 	    	if(enterpriseCustomer.isSelected()) {
 	    		type = 1;
