@@ -1,3 +1,4 @@
+import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,6 +20,14 @@ public class OrderMenu extends BasicDialog {
 	private JTextField minutes = new JTextField(2);
 	private JTextField priceField = new JTextField();
 	private double price = 0;
+	private JCheckBox recurring = new JCheckBox("Recurring");
+	private JCheckBox monday = new JCheckBox("Mondays");
+	private JCheckBox tuesday = new JCheckBox("Tuesdays");
+	private JCheckBox wednesday = new JCheckBox("Wednesdays");
+	private JCheckBox thursday = new JCheckBox("Thursdays");
+	private JCheckBox friday = new JCheckBox("Fridays");
+	private JCheckBox saturday = new JCheckBox("Saturdays");
+	private JCheckBox sunday = new JCheckBox("Sundays");
 	
 	public OrderMenu(JFrame parent) {
 		super(parent, "Order menu");
@@ -61,12 +70,26 @@ public class OrderMenu extends BasicDialog {
 			removeDish.addActionListener(listener);
 		}
 	}
+	private class ReccuringOrder extends JPanel {
+		public ReccuringOrder() {
+			setLayout(new GridLayout(2 ,4 ,5 , 5));
+			add(recurring);
+			add(monday);
+			add(tuesday);
+			add(wednesday);
+			add(thursday);
+			add(friday);
+			add(saturday);
+			add(sunday);
+		}
+	}
 	private class ListPanel extends JPanel {
 		public ListPanel() {
 			setLayout(new BorderLayout());
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			JScrollPane listScroller = new JScrollPane(list);
 			add(listScroller, BorderLayout.CENTER);
+			add(new ReccuringOrder(), BorderLayout.SOUTH);
 		}
 	}
 	private class ButtonListener implements ActionListener {
@@ -132,6 +155,39 @@ public class OrderMenu extends BasicDialog {
 	    	return order;
 	    } else {
 	    	return  null;
+	    }
+	}
+	protected boolean okData() { //trenger bedre kontroll av data // laget 1.////
+		String deliveryAdress2 = deliveryAdress.getText().trim();
+		String day2 = day.getText().trim();
+		String month2 = month.getText().trim();
+		String year2 = year.getText().trim();
+		String hour2 = hour.getText().trim();
+		String minutes2 = minutes.getText().trim();
+		
+	    if (deliveryAdress2.equals("") || day2.equals("") || month2.equals("") || year2.equals("") || hour2.equals("") || minutes2.equals("")) {
+	    	if (deliveryAdress2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input a delivery adress!");
+	    	deliveryAdress.requestFocusInWindow();
+	    	} else if(day2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input a day!");
+	    		day.requestFocusInWindow();
+	    	} else if(month2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input a month!");
+	    		month.requestFocusInWindow();
+	    	} else if(year2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input a year!");
+	    		year.requestFocusInWindow();
+	    	} else if(hour2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input a hour!");
+	    		hour.requestFocusInWindow();
+	    	} else if(minutes2.equals("")) {
+	    		showMessageDialog(OrderMenu.this, "You have to input minutes!");
+	    		minutes.requestFocusInWindow();
+	    	} 
+	    	return false;
+	    } else {
+	    	return true;
 	    }
 	}
 }
