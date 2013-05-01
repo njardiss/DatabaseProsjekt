@@ -51,22 +51,25 @@ class ClientMethods {
 			ConnectionManager.printMessage(e,"Some data is not present");
 		}
 		boolean j = false, k = false, l = false;
-		if(!data[0].equals(customer.getName())) {
-    		j = customer.setName(data[0], connection);
-    	} else {
-    		j = true;
-    	}
-    	if(Integer.parseInt(data[1]) != (customer.getPhone())) {
-    		k = customer.setPhone(Integer.parseInt(data[1]), connection);
-    	} else {
-    		k = true;
-    	}
-    	if(!data[2].equals(customer.getAdress())) {
-    		l = customer.setAdress(data[2], connection);
-    	} else {
-    		l = true;
-    	}
-
+		try {
+			if(!data[0].equals(customer.getName())) {
+				j = customer.setName(data[0], connection);
+			} else {
+				j = true;
+			}
+			if(Integer.parseInt(data[1]) != (customer.getPhone())) {
+				k = customer.setPhone(Integer.parseInt(data[1]), connection);
+			} else {
+				k = true;
+			}
+			if(!data[2].equals(customer.getAdress())) {
+				l = customer.setAdress(data[2], connection);
+			} else {
+				l = true;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
 		if(j && k && l) {
 			ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
 			ConnectionManager.closeConnection(connection);
