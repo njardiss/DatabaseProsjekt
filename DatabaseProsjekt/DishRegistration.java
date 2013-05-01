@@ -13,7 +13,7 @@ public class DishRegistration extends BasicDialog {
 	private DefaultListModel<Ingredient> ingredientsListModel2 = new DefaultListModel<Ingredient>();
 	private JList<Ingredient> chosenList = new JList<Ingredient>(ingredientsListModel2);
 	private JTextField price = new JTextField();
-	private ArrayList<Ingredient> chosenIngredients;
+	private ArrayList<Ingredient> chosenIngredients = new ArrayList<Ingredient>();
 	private ArrayList<Ingredient> allIngredients;
 	private JRadioButton appetizer = new JRadioButton("Appetizer");
 	private JRadioButton mainCourse = new JRadioButton("Dinner");
@@ -34,7 +34,7 @@ public class DishRegistration extends BasicDialog {
 	    		ingredientsListModel.addElement((Ingredient) aIngredient);
 	    }
 		add(new ButtonPanel(), BorderLayout.NORTH);
-	    add(new DishDatapanel(), BorderLayout.CENTER);
+	    add(new DishDatapanel(), BorderLayout.EAST);
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
 	    pack();
@@ -119,15 +119,14 @@ public class DishRegistration extends BasicDialog {
 			ingredientsListModel.addElement(anIngredient);
 		}
 		setOk(false);
-		pack();
 	    setVisible(true);
 	    if(isOk()){
 	    	if(appetizer.isSelected()) {
 	    		Appetizer newDish = new Appetizer(dish.getDishID(), name.getText(), chosenIngredients, Double.parseDouble(price.getText()));
-	    		return dish;
+	    		return newDish;
 	    	} else if(mainCourse.isSelected()) {
 	    		MainCourse newDish = new MainCourse(dish.getDishID(), name.getText(), chosenIngredients, Double.parseDouble(price.getText()));
-	    		return dish;
+	    		return newDish;
 	    	} else {
 	    		Dessert newDish = new Dessert(dish.getDishID(), name.getText(), chosenIngredients, Double.parseDouble(price.getText()));
 	    		return newDish;
@@ -138,7 +137,6 @@ public class DishRegistration extends BasicDialog {
 	}
 	public Dish newDish() {
 	    setOk(false);
-		pack();
 	    setVisible(true);
 	    if (isOk()) {
 	    	if(appetizer.isSelected()) {

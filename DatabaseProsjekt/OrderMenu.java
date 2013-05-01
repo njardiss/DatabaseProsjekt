@@ -124,7 +124,6 @@ public class OrderMenu extends BasicDialog {
 	}
 	public Order getOrder() {
 		setOk(false);
-		pack();
 	    setVisible(true);
 		Order order;
 	    if (isOk()) {

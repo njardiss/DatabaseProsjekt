@@ -131,9 +131,13 @@ class ClientMethods {
 		Order order;
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
-		orderMenu.setVisible(true);
 		order = orderMenu.getOrder();
-		String sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", null)";
+		String sql;
+		try {
+			sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", null)";
+		} catch(NullPointerException e) {
+			return false;
+		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
@@ -297,7 +301,6 @@ class ClientMethods {
 			System.out.print(kundeinfo); */
 		return orders;
 	}
-	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -320,7 +323,6 @@ class ClientMethods {
 		
 		return ingredients;
 	}
-	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -376,39 +378,45 @@ class ClientMethods {
 	public boolean addDish() throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
-		reg.setVisible(true);
 		String type;
 		String name;
 		Double price;
 		ArrayList<Ingredient> ingredients;
-		if(reg.newDish() instanceof MainCourse) {
-			MainCourse newDish = (MainCourse) reg.newDish();
-			type = "MainCourse";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
-			
-		} else if (reg.newDish() instanceof Dessert) {
-			Dessert newDish = (Dessert) reg.newDish();
-			type = "Dessert";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
-		} else {
-			Appetizer newDish = (Appetizer) reg.newDish();
-			type = "Appetizer";
-			name = newDish.getName();
-			price = newDish.getPrice();
-			ingredients = newDish.getIngredients();
+		Dish dish = reg.newDish();
+		try {
+			if(dish instanceof MainCourse) {
+				MainCourse newDish = (MainCourse) reg.newDish();
+				type = "MainCourse";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+				
+			} else if (dish instanceof Dessert) {
+				Dessert newDish = (Dessert) reg.newDish();
+				type = "Dessert";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+			} else {
+				Appetizer newDish = (Appetizer) reg.newDish();
+				type = "Appetizer";
+				name = newDish.getName();
+				price = newDish.getPrice();
+				ingredients = newDish.getIngredients();
+			}
+		} catch (NullPointerException e) {
+			return false;
 		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
 	    Statement state = connection.createStatement();
-	 	String sql = "INSERT INTO Dish(name, price, type)values('" + name + "'," + price + ",'" + type + "')";
+	 	String sql = "INSERT INTO dishes(name, price, type)values('" + name + "'," + price + ",'" + type + "')";
 	 	int answer = state.executeUpdate(sql);
+	 	ConnectionManager.closeStatement(state);
 	 	
-	 	sql = "SELECT dishid FROM dishes WHERE name = '" + name + "' AND where price = " + price + "";
+	 	sql = "SELECT * FROM dishes WHERE name = '" + name + "' AND price = " + price + "";
+	 	state = connection.createStatement();
 	    ResultSet res = state.executeQuery(sql);
 	    int dishid = Integer.parseInt(res.getString("dishid"));
 	    ConnectionManager.closeResSet(res);
@@ -443,7 +451,6 @@ class ClientMethods {
 	public boolean editDish(Dish dish)throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
-		reg.setVisible(true);
 		Dish newDish = reg.editDish(dish);
 		
 		Class.forName(dbdriver);
@@ -523,13 +530,11 @@ class ClientMethods {
 	public boolean addIngredient() throws Exception{    
 		IngredientRegistration ingredientRegistration = new IngredientRegistration(parent);
 		ingredientRegistration.setLocation(350, 350);
-		ingredientRegistration.setVisible(true);
 		
 		String sql = "";
-		try {
-			sql = ingredientRegistration.addIngredient();
-		} catch (NullPointerException e) {
-			ConnectionManager.printMessage(e,"Some data is not present");
+		sql = ingredientRegistration.addIngredient();
+		if(sql == null) {
+			return false;
 		}
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);

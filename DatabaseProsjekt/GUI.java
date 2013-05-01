@@ -8,7 +8,7 @@ class GUI {
 
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
-    String[] ord = {"LIST_ORDERS", "Add order", "Edit order", "Back"};
+    String[] ord = {"List orders", "Add order", "Edit order", "Back"};
     String[] dish = {"List dishes", "Add dish", "Find dish", "Back"};
     String[] stock = {"List stockpile", "Add ingredient", "Update stockpile", "Back"};
     String[] eco = {"Check funds", "Withdraw", "Deposit", "Check profit"};
@@ -54,7 +54,12 @@ class GUI {
 					methods.showOrderList();
 					break;
 				case 1: //add order
-					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
+					int phone;
+					try {
+						phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
+					} catch(NumberFormatException e) {
+						break;
+					}
 					boolean check = methods.addOrder(phone);
 					if(check){
 						showMessageDialog(null,"Registration successful.");
@@ -92,7 +97,7 @@ class GUI {
 					if(check){
 						showMessageDialog(null, "New dish is added to the menu.");
 					}else{
-						showMessageDialog(null, "The registtration failed. No dish added.");
+						showMessageDialog(null, "No dish added.");
 					}
 					break;
 					
