@@ -13,8 +13,9 @@ class GUI {
     String[] stock = {"LIST_STOCKPILE", "ADD INGREDIENT", "UPDATE STOCKPILE", "BACK"};
     String[] eco = {"CHECK_FUNDS", "WITHDRAW", "DEPOSIT", "CHECK_PROFIT"};
 
-    int choice = showOptionDialog(null, "Choose Sub-menu: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
-
+    boolean meny1 = true;
+    while(meny1) {
+    int choice = showOptionDialog(null, "Choose Sub-menu: ", "Main Menu: CateringBuddy", 0, PLAIN_MESSAGE, null, choices, choices[0]);
     switch(choice) {
 		case 0: //Customers
 			int cuschoice = showOptionDialog(null, "Choose Customer function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, cust, cust[0]);
@@ -122,17 +123,23 @@ class GUI {
 					break;
 					
 				case 2: // update stockpile//
+					
+				case 3: //
+					break;
 				}
+				break;
 		case 4:
 			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);
 			switch(ecochoice){
-				case 0:}
+				case 0:
+				}
 		case 5:
 		case -1:
 			System.exit(0);
 		default:
 			JOptionPane.showMessageDialog(null, "Unexpected Choice " + choice);
 		}
+	}
 	}
 }
 
