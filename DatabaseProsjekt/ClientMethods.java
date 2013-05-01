@@ -301,7 +301,6 @@ class ClientMethods {
 			System.out.print(kundeinfo); */
 		return orders;
 	}
-	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -324,7 +323,6 @@ class ClientMethods {
 		
 		return ingredients;
 	}
-	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -380,19 +378,19 @@ class ClientMethods {
 	public boolean addDish() throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
-		reg.setVisible(true);
 		String type;
 		String name;
 		Double price;
 		ArrayList<Ingredient> ingredients;
-		if(reg.newDish() instanceof MainCourse) {
+		Dish dish = reg.newDish();
+		if(dish instanceof MainCourse) {
 			MainCourse newDish = (MainCourse) reg.newDish();
 			type = "MainCourse";
 			name = newDish.getName();
 			price = newDish.getPrice();
 			ingredients = newDish.getIngredients();
 			
-		} else if (reg.newDish() instanceof Dessert) {
+		} else if (dish instanceof Dessert) {
 			Dessert newDish = (Dessert) reg.newDish();
 			type = "Dessert";
 			name = newDish.getName();
@@ -409,10 +407,12 @@ class ClientMethods {
 	    Connection connection = DriverManager.getConnection(dbname);
 	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
 	    Statement state = connection.createStatement();
-	 	String sql = "INSERT INTO Dish(name, price, type)values('" + name + "'," + price + ",'" + type + "')";
+	 	String sql = "INSERT INTO dishes(name, price, type)values('" + name + "'," + price + ",'" + type + "')";
 	 	int answer = state.executeUpdate(sql);
+	 	ConnectionManager.closeStatement(state);
 	 	
-	 	sql = "SELECT dishid FROM dishes WHERE name = '" + name + "' AND where price = " + price + "";
+	 	sql = "SELECT * FROM dishes WHERE name = '" + name + "' AND price = " + price + "";
+	 	state = connection.createStatement();
 	    ResultSet res = state.executeQuery(sql);
 	    int dishid = Integer.parseInt(res.getString("dishid"));
 	    ConnectionManager.closeResSet(res);
@@ -447,7 +447,6 @@ class ClientMethods {
 	public boolean editDish(Dish dish)throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
-		reg.setVisible(true);
 		Dish newDish = reg.editDish(dish);
 		
 		Class.forName(dbdriver);
