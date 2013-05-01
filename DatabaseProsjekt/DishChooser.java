@@ -11,7 +11,7 @@ public class DishChooser extends BasicDialog {
 	private JList<Dessert> list2 = new JList<Dessert>(dessertListModel);
 	private JList<Appetizer> list3 = new JList<Appetizer>(appetizerListModel);
 	ArrayList<Dish> dishesList;
-	ArrayList<Dish> dishes;
+	ArrayList<Dish> dishes = new ArrayList<Dish>();
 
 	public DishChooser(JFrame parent) {
 		super(parent, "Dish chooser");
@@ -32,7 +32,6 @@ public class DishChooser extends BasicDialog {
 	    	}
 	    }
 		setLayout(new BorderLayout(5, 5));
-		add(new Labels(), BorderLayout.NORTH);
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
 	    pack();
@@ -40,6 +39,9 @@ public class DishChooser extends BasicDialog {
 	private class ListPanel extends JPanel {
 		public ListPanel() {
 			setLayout(new BorderLayout(5, 5));
+			add(new JLabel("Main courses", JLabel.RIGHT));
+			add(new JLabel("Desserts", JLabel.RIGHT));
+			add(new JLabel("Appetizers", JLabel.RIGHT));
 			list1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			JScrollPane listScroller1 = new JScrollPane(list1);
 			add(listScroller1, BorderLayout.WEST);
@@ -49,15 +51,6 @@ public class DishChooser extends BasicDialog {
 			list3.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			JScrollPane listScroller3 = new JScrollPane(list3);
 			add(listScroller3, BorderLayout.EAST);
-		}
-	}
-	private class Labels extends JPanel {
-		public Labels() {
-			setLayout(new BorderLayout());
-			add(new JLabel(" "), BorderLayout.NORTH);
-			add(new JLabel("Main courses:    "), BorderLayout.WEST);
-			add(new JLabel("Desserts:"), BorderLayout.CENTER);
-			add(new JLabel("Appetizers:"), BorderLayout.EAST);
 		}
 	}
 	public ArrayList<Dish> getDish() {
@@ -78,7 +71,7 @@ public class DishChooser extends BasicDialog {
 	    		}
 	    	}
 	    	if (!list3.isSelectionEmpty()) {
-	    		int[] index = list3.getSelectedIndices();
+	    		int[] index = list2.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
 	    			dishes.add(appetizerListModel.get(index[i]));
 	    		}
