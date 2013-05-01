@@ -230,11 +230,11 @@ class ClientMethods {
 			int kid = Integer.parseInt(res.getString("kid"));
 			String ordertime = res.getString("ordertime");
 			String deliverytime = res.getString("deliverytime");
-			String deliveryadress = res.getString("adress");
+			String deliveryadress = res.getString("deliveryadress");
 			String status = res.getString("status");
 			Double price = Double.parseDouble(res.getString("price"));
 			
-			sql = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
+			sql = "Select * from orderContent c, dishes d, orders o where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
 			Statement state2 = connection.createStatement();
 			ResultSet res2 = state2.executeQuery(sql);
 			while(res2.next()) {
@@ -280,6 +280,7 @@ class ClientMethods {
 			System.out.print(kundeinfo); */
 		return orders;
 	}
+	
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -302,6 +303,7 @@ class ClientMethods {
 		
 		return ingredients;
 	}
+	
 	public ArrayList<Dish> listDishes() throws Exception {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -354,7 +356,7 @@ class ClientMethods {
 		
 		return dishes;
 	}
-	public boolean addDish() throws Exception { //add dish//
+	public boolean addDish() throws Exception {
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
 		reg.setVisible(true);
@@ -421,27 +423,29 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	/*public boolean editDish(Dish dish) { //COPYPASTA INN EDITORDER DEM BLIR SIKKERT LIK TODO
-		OrderMenu orderMenu = new OrderMenu(parent);
-		orderMenu.setLocation(350, 350);
-		orderMenu.setVisible(true);
-		Order newOrder = orderMenu.editOrder(order);
+	public boolean editDish(Dish dish)throws Exception {
+		DishRegistration reg = new DishRegistration(parent);
+		reg.setLocation(350, 350);
+		reg.setVisible(true);
+		Dish newDish = reg.editDish(dish);
+		
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    ConnectionManager.setAutoCommit(connection, false); //turns off autocommit
+	    
 	    boolean j = false, k = false, l = false;
-		if(!order.getDeliveryTime().equals(newOrder.getDeliveryTime())){
-			j = order.setDeliveryTime(newOrder.getDeliveryTime(), connection);
+		if(!dish.getName().equals(newDish.getName())){
+			j = dish.setName(newDish.getName(), connection);
 		} else {
 			j = true;
 		}
-		if(!order.getDeliveryAdress().equals(newOrder.getDeliveryAdress())) {
-			k = order.setDeliveryAdress(newOrder.getDeliveryAdress(), connection);
+		if(dish.getPrice() != newDish.getPrice()) {
+			k = dish.setName(newDish.getName(), connection);
 		} else {
 			k = true;
 		}
-		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
-			l = order.setOrderContent(newOrder.getOrderContent(), connection);
+		if((!dish.getIngredients().equals(newDish.getIngredients()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
+			l = dish.setIngredients(newDish.getIngredients(), connection);
 		} else {
 			l = true;
 		}
@@ -454,7 +458,7 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 		}
-	}*/
+	}
 	public Dish findDish(String name) throws Exception{
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
@@ -552,7 +556,7 @@ class ClientMethods {
 		} else {
 			k = true;
 		}
-		if((order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
+		if((!order.getOrderContent().equals(newOrder.getOrderContent()))) { //denne må endres, trur ikke den sammenligner korrekt TODO
 			l = order.setOrderContent(newOrder.getOrderContent(), connection);
 		} else {
 			l = true;

@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class CustomerOrdersWind extends JFrame { 
-   static final String [][] DISHES = new String[][];
-   ArrayList<Order> ordersCustomer = methods.listOrdersOnCustomer();
-   Object[] tabledata = new Object[ordersCustomer.size()];
-   tabledata[] = ordersCustomer.toArray();
-   for(int i=0; tabledata.lentgh; i++){
-	   for(int k= 0; k< tabledata[i].length, k++){
-		   DISHES[i][k] = tabledata[i].getname(), tabledata[i].getOrderTime();
-	   }
-   }
+public class CustomerOrdersWind extends JFrame {
+	static final String [][] DISHES = new String[][];
+	ArrayList<Order> ordersCustomer = methods.listOrdersOnCustomer();
+	Object[] tabledata = new Object[ordersCustomer.size()];
+	tabledata[] = ordersCustomer.toArray();
+	for(int i=0; tabledata.lentgh; i++){
+		for(int k= 0; k< tabledata[i].length, k++){
+			DISHES[i][k] = tabledata[i].getname(), tabledata[i].getOrderTime();
+		}
+	}
    
    
   

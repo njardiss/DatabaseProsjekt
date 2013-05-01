@@ -62,5 +62,5 @@ public class UpdateStockpile extends BasicDialog {
 			}
 			list.clearSelection();
 		}
-	}
+	}	
 }

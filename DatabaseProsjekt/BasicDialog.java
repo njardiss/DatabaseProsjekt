@@ -65,16 +65,13 @@ public class BasicDialog extends JDialog {
 	private class WindowListener extends WindowAdapter {
 		public void windowClosing(WindowEvent event) {
 			int svar = showConfirmDialog(BasicDialog.this,
-                 "Do you want to save? ",
+                 "Do you want to exit? ",
                  "Exiting", YES_NO_OPTION);
 			if (svar == YES_OPTION) {
-				if (okData()) {
-					ok = true;
-					setVisible(false);
-				}
+				setVisible(false);
 			} else {
-			ok = false;
-			setVisible(false);
+				ok = false;
+				setVisible(false);
 			}
 		}
 	}
