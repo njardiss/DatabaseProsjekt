@@ -216,62 +216,69 @@ class ClientMethods {
 		return order;
 	}
 	public ArrayList<Order> listOrders() throws Exception{
+		Class.forName(dbdriver);
+		Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
 
-	Class.forName(dbdriver);
-	Connection connection = DriverManager.getConnection(dbname);
-	Statement state = connection.createStatement();
+		String sql = "SELECT * FROM orders";
+		ResultSet res = state.executeQuery(sql);
+		ArrayList<Order> orders = new ArrayList<Order>();
+		ArrayList<Dish> dishes = new ArrayList<Dish>();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		while(res.next()){
+			int orderId = Integer.parseInt(res.getString("orderid"));
+			int kid = Integer.parseInt(res.getString("kid"));
+			String ordertime = res.getString("ordertime");
+			String deliverytime = res.getString("deliverytime");
+			String deliveryadress = res.getString("adress");
+			String status = res.getString("status");
+			Double price = Double.parseDouble(res.getString("price"));
+			
+			sql = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
+			Statement state2 = connection.createStatement();
+			ResultSet res2 = state2.executeQuery(sql);
+			while(res2.next()) {
+				int dishID = Integer.parseInt(res2.getString("dishid"));
+				String name = res2.getString("name");
+				double price2 = Double.parseDouble(res2.getString("price"));
+				String type = res2.getString("type");
+				sql = "Select * from ingredients i, dishContent c where c.dishid = "+ dishID +" AND i.ingredientid = c.ingredientid"; //må addes
+				Statement state3 = connection.createStatement();
+				ResultSet res3 = state3.executeQuery(sql);
+				while(res3.next()) {
+					String name2 = res3.getString("name");
+					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
+					String metric = res3.getString("metric");
+					int amount = Integer.parseInt(res3.getString("amount"));
 
-	String status = "Bestilt"; //må spørre om status
-	String sql = findOrdersByStatus(status);
-	ResultSet res = state.executeQuery(sql);
-	int orderId;
-	int kid = 0;
-	String ordertime;
-	String deliverytime;
-	String deliveryadress;
-	int typen = 0;
-	double price = 0;
-	ArrayList<Order> orders = new ArrayList<Order>();
-	ArrayList<Dish> dishes = new ArrayList<Dish>();
-	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-	String sql1 = "";
-	String sql2 = "";
-	while(res.next()){
-		orderId = Integer.parseInt(res.getString("orderid"));
-		kid = Integer.parseInt(res.getString("kid"));
-		ordertime = res.getString("ordertime");
-		deliverytime = res.getString("deliverytime");
-		deliveryadress = res.getString("adress");
-		status = res.getString("status");
-		sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
-		ResultSet res2 = state.executeQuery(sql1);
-		while(res2.next()) {
-			int dishID = Integer.parseInt(res2.getString("dishid"));
-			String name = res2.getString("name");
-			price = Double.parseDouble(res2.getString("price"));
-
-			sql2 = "Select * from ingredients i, dishContent c where c.dishid = "+ dishID +" AND i.ingredientid = c.ingredientid"; //må addes
-			ResultSet res3 = state.executeQuery(sql2);
-			while(res3.next()) {
-				String name2 = res3.getString("name");
-				int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
-				String metric = res3.getString("metric");
-				int amount = Integer.parseInt(res3.getString("amount"));
-
-				Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
-				ingredients.add(ingredient);
+					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+					ingredients.add(ingredient);
+				}
+				ConnectionManager.closeResSet(res3);
+				ConnectionManager.closeStatement(state3);
+				if(type.equals("MainCourse")) {
+					MainCourse dish = new MainCourse(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else if(type.equals("Appetizer")) {
+					Appetizer dish = new Appetizer(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else {
+					Dessert dish = new Dessert(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				}
 			}
-			Dish dish2 = new Dish(dishID, name, ingredients, price);
-			dishes.add(dish2);
+			ConnectionManager.closeResSet(res2);
+			ConnectionManager.closeStatement(state2);
+			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
+			orders.add(order);
 		}
-		Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
-		orders.add(order);
-	}
-	res.close();
-	/*for(Order enOrder : orders) {
-		String kundeinfo = enOrder.toString();
-		System.out.print(kundeinfo); */
-	return orders;
+		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
+		/*for(Order enOrder : orders) {
+			String kundeinfo = enOrder.toString();
+			System.out.print(kundeinfo); */
+		return orders;
 	}
 	public ArrayList<Ingredient> listIngredients() throws Exception {
 		Class.forName(dbdriver);
@@ -560,61 +567,71 @@ class ClientMethods {
 			return false;
 		}
 	}
-	
-	/*public  ArrayList<Order> listOrdersOnCustomer(int mrdudeKid) throws Exception{ // laget tirsdag 30. //
-			Class.forName(dbdriver);
-			Connection connection = DriverManager.getConnection(dbname);
-			Statement state = connection.createStatement();
-			
-			String Kid = mrdudeKid; //må spørre om status
-			String sql = findOrdersByStatus(Kid);   // denne må vel lages!!!//
-			ResultSet res = state.executeQuery(sql);
-			int orderId;
-			int kid = 0;
-			String ordertime;
-			String deliverytime;
-			String deliveryadress;
-			int typen = 0;
-			double price = 0;
-			ArrayList<Order> orders = new ArrayList<Order>();
-			ArrayList<Dish> dishes = new ArrayList<Dish>();
-			ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-			String sql1 = "";
-			String sql2 = "";
-			while(res.next()){
-				orderId = Integer.parseInt(res.getString("orderid"));
-				kid = Integer.parseInt(res.getString("kid"));
-				ordertime = res.getString("ordertime");
-				deliverytime = res.getString("deliverytime");
-				deliveryadress = res.getString("adress");
-				status = res.getString("status");
-				sql1 = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid"; //må addes
-				ResultSet res2 = state.executeQuery(sql1);
-				while(res2.next()) {
-					int dishID = Integer.parseInt(res2.getString("dishid"));
-					String name = res2.getString("name");
-					price = Double.parseDouble(res2.getString("price"));
-
-					sql2 = "Select * from ingredients i, dishContent c where c.dishid = "+ dishID +" AND i.ingredientid = c.ingredientid"; //må addes
-					ResultSet res3 = state.executeQuery(sql2);
-					while(res3.next()) {
-						String name2 = res3.getString("name");
-						int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
-						String metric = res3.getString("metric");
-						int amount = Integer.parseInt(res3.getString("amount"));
-
-						Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
-						ingredients.add(ingredient);
-					}
-					Dish dish2 = new Dish(dishID, name, ingredients, price);
-					dishes.add(dish2);
+	public  ArrayList<Order> listOrdersOnCustomer(int phone) throws Exception{
+		Class.forName(dbdriver);
+		Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+		
+		Customer customer = getCustomer(phone);
+		int kid  = customer.getKid();
+		
+		String sql = "SELECT * FROM orders WHERE kid = " + kid + " ORDER BY deliverytime DESC";
+		ResultSet res = state.executeQuery(sql);
+		ArrayList<Order> orders = new ArrayList<Order>();
+		ArrayList<Dish> dishes = new ArrayList<Dish>();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		while(res.next()){
+			int orderId = Integer.parseInt(res.getString("orderid"));
+			String ordertime = res.getString("ordertime");
+			String deliverytime = res.getString("deliverytime");
+			String deliveryadress = res.getString("adress");
+			String status = res.getString("status");
+			double price = Double.parseDouble(res.getString("price"));
+					
+			sql = "Select * from orderContent c, dish d, orders o where where o.orderid = c.orderid AND c.dishid = d.dishid";
+			Statement state2 = connection.createStatement();
+			ResultSet res2 = state2.executeQuery(sql);
+			while(res2.next()) {
+				int dishID = Integer.parseInt(res2.getString("dishid"));
+				String name = res2.getString("name");
+				Double price2 = Double.parseDouble(res2.getString("price"));
+				String type = res2.getString("type");
+				
+				sql = "Select * from ingredients i, dishContent c where c.dishid = "+ dishID +" AND i.ingredientid = c.ingredientid";
+				Statement state3 = connection.createStatement();
+				ResultSet res3 = state3.executeQuery(sql);
+				while(res3.next()) {
+					String name2 = res3.getString("name");
+					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
+					String metric = res3.getString("metric");
+					int amount = Integer.parseInt(res3.getString("amount"));
+					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
+					ingredients.add(ingredient);
 				}
-				Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
-				orders.add(order);
+				ConnectionManager.closeResSet(res3);
+				ConnectionManager.closeStatement(state3);
+				if(type.equals("MainCourse")) {
+					MainCourse dish = new MainCourse(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else if(type.equals("Appetizer")) {
+					Appetizer dish = new Appetizer(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else {
+					Dessert dish = new Dessert(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				}
 			}
-			res.close();
-			for(Order enOrder : orders) {
-				String kundeinfo = enOrder.toString();
-				System.out.print(kundeinfo); 
-			return orders;*/	
+			ConnectionManager.closeResSet(res2);
+			ConnectionManager.closeStatement(state2);
+			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);				orders.add(order);
+		}
+		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
+		for(Order enOrder : orders) {
+			String kundeinfo = enOrder.toString();
+			System.out.print(kundeinfo); 
+		}
+		return orders;
+	}
 }
