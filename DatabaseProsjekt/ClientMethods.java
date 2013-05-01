@@ -116,14 +116,6 @@ class ClientMethods {
 		ConnectionManager.closeStatement(state);
 		ConnectionManager.closeConnection(connection);
 		return hanher;
-	}	
-	public String findOrders(int kid) {
-		String sql = "SELECT * from orders where kid = " + kid + "";
-		return sql;
-	}
-	public String findOrdersByStatus(String status) {
-		String sql = "SELECT * from orders where status = '" + status + "'";
-		return sql;
 	}
 	public boolean addOrder(int phone) throws Exception {
 		Customer customer = getCustomer(phone);
@@ -195,6 +187,7 @@ class ClientMethods {
 				int dishID = Integer.parseInt(res2.getString("dishid"));
 				String name = res2.getString("name");
 				Double price2 = Double.parseDouble(res2.getString("price"));
+				String type = res2.getString("type");
 				
 				sql = "SELECT * FROM ingredients i, dishContent c where c.dishid = " + dishID + " AND i.ingredientid = c.ingredientid";
 				Statement state3 = connection.createStatement();
@@ -208,11 +201,26 @@ class ClientMethods {
 					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 					ingredients.add(ingredient);
 				}
-				Dish dish = new Dish(dishID, name, ingredients, price2);
-				dishes.add(dish);
+				ConnectionManager.closeResSet(res3);
+    			ConnectionManager.closeStatement(state3);
+    			if(type.equals("MainCourse")) {
+					MainCourse dish = new MainCourse(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else if(type.equals("Appetizer")) {
+					Appetizer dish = new Appetizer(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				} else {
+					Dessert dish = new Dessert(dishID, name, ingredients, price2);
+					dishes.add(dish);
+				}
 			}
+			ConnectionManager.closeResSet(res2);
+			ConnectionManager.closeStatement(state2);
 			order = new Order(orderid, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
 		}
+		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
 		return order;
 	}
 	public ArrayList<Order> listOrders() throws Exception{
@@ -474,13 +482,14 @@ class ClientMethods {
 			price = Double.parseDouble(res.getString("price"));
 			System.out.println(dishID + ":" + name + "" + "" + price);		
 		}
-		res.close();
+		ConnectionManager.closeResSet(res);
+		
 		sql = "SELECT ingredientid FROM dishcontent WHERE dishID = " + dishID + "";
 		res = state.executeQuery(sql);
 		while(res.next()){
 			ingredientID.add(Integer.parseInt(res.getString("IngredientID")));
 		}
-		res.close();
+		ConnectionManager.closeResSet(res);
 		int x;
 		String ingredname;
 		String metric;
@@ -498,8 +507,8 @@ class ClientMethods {
 			}
 		}
 		Dish retten = new Dish(dishID, name, ingredients, price);
-		state.close();
-		connection.close();
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
 		return retten;
 	}
 	public boolean addIngredient() throws Exception{    
