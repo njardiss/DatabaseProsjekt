@@ -6,23 +6,30 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class CustomerOrdersWind extends JFrame {
-	static final String [][] DISHES = new String[][];
-	ArrayList<Order> ordersCustomer = methods.listOrdersOnCustomer();
+	
+	ClientMethods methods = new ClientMethods();
+	int tlf;
+   
+   public CustomerOrdersWind(int tlf){
+	   this.tlf = tlf;
+   }
+   
+	ArrayList<Order> ordersCustomer = methods.getCustomerOrders(tlf);
+	static final String [][] DISHES = new String[ordersCustomer.size()][];
 	Object[] tabledata = new Object[ordersCustomer.size()];
-	tabledata[] = ordersCustomer.toArray();
+	tabledata = ordersCustomer.toArray();
+	
 	for(int i=0; tabledata.lentgh; i++){
 		for(int k= 0; k< tabledata[i].length, k++){
 			DISHES[i][k] = tabledata[i].getname(), tabledata[i].getOrderTime();
 		}
 	}
-   
-   
   
   //FEIL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//////
 		   
    static final String [] KOLONNENAVN = {"Dish", "OrderDate"}; 
    
-   private JLabel chosen = new Jlabel ("Choose a dish, please");
+   private JLabel chosen = new JLabel ("Choose a dish, please");
    private JTable dishtable = new JTable(DISHES, KOLONNENAVN); 
    
    
@@ -37,7 +44,7 @@ public class CustomerOrdersWind extends JFrame {
 	   JScrollPane scrollTable = new JScrollPane(dishtable);
 	   add(scrollTable, BorderLayout.CENTER);
 	   
-	   dishtable.setPrefferedScrollableViewportSize(new Dimension(300,100));
+	   dishtable.setPreferredScrollableViewportSize(new Dimension(300,100));
 	   
 	   dishtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  // only choose 1 dish at a time//
 	   

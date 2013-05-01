@@ -424,7 +424,6 @@ class ClientMethods {
 	 	if(answer>0){ //input dish content into db	
 	 		int i = 1;
 	    	int answer2;
-	    	System.out.println("Test1");
 	    	for(Ingredient anIngredient : ingredients) {
 	    		sql = "INSERT INTO dishcontent(dishid, ingredientid, orderline) values(" + dishid + "," + anIngredient.getIngredientId() + "," + i + ")";
 	    		answer2 = state.executeUpdate(sql);
@@ -661,6 +660,12 @@ class ClientMethods {
 			System.out.print(kundeinfo); 
 		}
 		return orders;
+	}
+	public ArrayList<Order> getCustomerOrders(int tlf){
+		
+	}
+	public void showOrderList() throws Exception{
+		tableView.createAndShowGUI();
 	}
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);

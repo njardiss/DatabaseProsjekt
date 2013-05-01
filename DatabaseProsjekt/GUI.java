@@ -51,7 +51,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					tableView.createAndShowGUI();
+					methods.showOrderList();
 					break;
 				case 1: //add order
 					int phone;
