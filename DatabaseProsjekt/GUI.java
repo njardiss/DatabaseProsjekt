@@ -51,10 +51,7 @@ class GUI {
 			int ordchoice = showOptionDialog(null, "Choose Order function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, ord, ord[0]);
 			switch(ordchoice){
 				case 0: //List orders
-					ArrayList<Order> orders = methods.listOrders();
-					for(Order aOrder : orders) {               // kan være feil //
-						System.out.println(aOrder);
-					}
+					tableView.createAndShowGUI();
 					break;
 				case 1: //add order
 					int phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));

@@ -56,9 +56,9 @@ public class tableView extends JPanel {
 	add(scrollPane);
 	}
 	
-    private static void createAndShowGUI() throws Exception {
+    static void createAndShowGUI() throws Exception {
         //Create and set up the window.
-        JFrame frame = new JFrame("SimpleTableDemo");
+        JFrame frame = new JFrame("Orderlist");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Create and set up the content pane.
