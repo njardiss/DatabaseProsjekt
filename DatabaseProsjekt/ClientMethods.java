@@ -823,7 +823,12 @@ class ClientMethods {
 		while(check) {
 			LoginView login = new LoginView(parent);
 			login.setLocation(350, 350);
-			Employee employee = login.login();
+			Employee employee;
+			try {
+				employee = login.login();
+			} catch (NullPointerException e) {
+				employee = null;
+			}
 			if(!(employee == null)) {
 				return employee;
 			} else {
