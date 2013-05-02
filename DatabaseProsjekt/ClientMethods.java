@@ -316,7 +316,16 @@ class ClientMethods {
 		ArrayList<Order> orders = new ArrayList<Order>();
 		ArrayList<Dish> dishes = new ArrayList<Dish>();
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		int[] array = new int[7];
+		boolean test = false;
 		while(res.next()){
+			if(!(res.getString("reccuring")== null)){
+				String reccuring = res.getString("reccuring");
+				test = true;
+				for(int i = 0; i<array.length;i++){
+					array[i] = (reccuring.charAt(i));
+				}
+			}
 			int orderId = Integer.parseInt(res.getString("orderid"));
 			int kid = Integer.parseInt(res.getString("kid"));
 			String ordertime = res.getString("ordertime");
@@ -361,6 +370,10 @@ class ClientMethods {
 			ConnectionManager.closeResSet(res2);
 			ConnectionManager.closeStatement(state2);
 			Order order = new Order(orderId, kid, status, ordertime, deliverytime, deliveryadress, dishes, price);
+			if(test) {
+				order.setReccuring(array);
+				test = false;
+			}
 			orders.add(order);
 		}
 		ConnectionManager.closeResSet(res);
