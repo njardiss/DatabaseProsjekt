@@ -548,25 +548,28 @@ class ClientMethods {
 			System.out.println(dishID + ":" + name + "" + "" + price);		
 		}
 		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
 		
+		state = connection.createStatement();
 		sql = "SELECT ingredientid FROM dishcontent WHERE dishID = " + dishID + "";
 		res = state.executeQuery(sql);
+		
 		while(res.next()){
 			ingredientID.add(Integer.parseInt(res.getString("IngredientID")));
+			for(Integer anInteger : ingredientID) {
+				System.out.println(anInteger);
+			}
 		}
 		ConnectionManager.closeResSet(res);
-		int x;
-		String ingredname;
-		String metric;
-		int amount;
+		
 		for(int i = 0; i < ingredientID.size(); i++) {
-			x = ingredientID.get(i);
+			int x = ingredientID.get(i);
 			sql = "SELECT * FROM ingredients WHERE ingredientid = " + x + "";
 			res = state.executeQuery(sql);
 			while(res.next()) {
-				ingredname = res.getString("name");
-				metric = res.getString("metric");
-				amount = Integer.parseInt(res.getString("amount"));
+				String ingredname = res.getString("name");
+				String metric = res.getString("metric");
+				int amount = Integer.parseInt(res.getString("amount"));
 				Ingredient namm = new Ingredient(ingredname, x, metric, amount);
 				ingredients.add(namm);
 			}
