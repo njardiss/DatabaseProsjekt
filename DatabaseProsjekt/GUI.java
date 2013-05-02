@@ -9,8 +9,6 @@ class GUI {
     while(!login){
     	if(methods.startLogin()){
     		login = true;
-    	} else {
-    		System.exit(0);
     	}
     }
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};

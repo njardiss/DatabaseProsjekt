@@ -37,12 +37,12 @@ public class Employee {
 		return true;
 	}
 }
-class Chef extends Employee {
+class Chef extends Employee { //type 4 (from database)
 	public Chef(int phone, String name, double monthlySalary, String dateHired) {
 		super(phone, name, monthlySalary, dateHired);
 	}
 }
-class Salesman extends Employee {
+class Salesman extends Employee { //type 1 (from database)
 	private double commission;
 	public Salesman(int phone, String name, double monthlySalary, String dateHired) {
 		super(phone, name, monthlySalary, dateHired);
@@ -55,17 +55,17 @@ class Salesman extends Employee {
 		return true;
 	}
 }
-class Driver extends Employee {
+class Driver extends Employee { //type 2 (from database)
 	public Driver(int phone, String name, double monthlySalary, String dateHired) {
 		super(phone, name, monthlySalary, dateHired);
 	}
 }
-class CEO extends Employee {
+class CEO extends Employee { //type 0 (from database)
 	public CEO(String birthdate, int phone, String name, double monthlySalary, String dateHired) {
 		super(phone, name, monthlySalary, dateHired);
 	}
 }
-class Secretary extends Employee {
+class Secretary extends Employee { //type 3 (from database)
 	public Secretary(String birthdate, int phone, String name, double monthlySalary, String dateHired) {
 		super(phone, name, monthlySalary, dateHired);
 	}

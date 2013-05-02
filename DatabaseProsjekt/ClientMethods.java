@@ -736,22 +736,49 @@ class ClientMethods {
 		Class.forName(dbdriver);
 		Connection connection = DriverManager.getConnection(dbname);
 		Statement state = connection.createStatement();
-		String sql = "SELECT hash FROM employees WHERE username = '" + username + "'d";
+		String sql = "SELECT hash FROM employees WHERE username = '" + username + "'";
 		ResultSet res = state.executeQuery(sql);
 		res.next();
-		if(hash.equals(res.getString("hash"))){
+		String dbHash;
+		try {
+			dbHash = res.getString("hash");
+		} catch (SQLException e) {
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;
+		}
+		if(hash.equals(dbHash)){
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
 			return false;
 		}
 	}
 	public boolean startLogin() {
-		LoginView login = new LoginView(parent);
-		login.setLocation(350, 350);
-		if(login.login()) {
-			return true;
-		} else {
-			return false;
+		boolean check = true;
+		while(check) {
+			LoginView login = new LoginView(parent);
+			login.setLocation(350, 350);
+			if(login.login()) {
+				return true;
+			} else {
+				int answer = showConfirmDialog(null,
+		                 "Wrong password or username, try again? ",
+		                 "Error", YES_NO_OPTION);
+				if (answer == YES_OPTION) {
+					check = true;
+					continue;
+				} else {
+					check = false;
+				}
+			}
 		}
+		return false;
 	}
 }
