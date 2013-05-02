@@ -104,11 +104,9 @@ public class OrderMenu extends BasicDialog {
 				for(Dish aDish : newDish) {
 					dishListModel.addElement(aDish);
 					dish.add(aDish);
-				}
-				list.clearSelection();
-				for(Dish aDish : dish) {
 					price += aDish.getPrice();
 				}
+				list.clearSelection();
 				priceField.setText(Double.toString(price));
 			} else if(event.getSource() == removeDish) {
 				int index = list.getSelectedIndex();

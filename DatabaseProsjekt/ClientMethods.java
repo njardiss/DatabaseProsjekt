@@ -819,4 +819,6 @@ class ClientMethods {
 		}
 		return false;
 	}
+	public boolean regNewEmployee() {		
+	}
 }
