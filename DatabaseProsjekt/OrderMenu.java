@@ -42,11 +42,11 @@ public class OrderMenu extends BasicDialog {
 	private class OrderDatapanel extends JPanel {
 		public OrderDatapanel() {
 			setLayout(new GridLayout(3, 6, 5, 5));
-			add(new JLabel("Delivery date: (yyyy-mm-dd) ", JLabel.RIGHT));
+			add(new JLabel("Delivery date: (yyyy) ", JLabel.RIGHT));
 		    add(year);
-		    add(new JLabel("-", JLabel.RIGHT));
+		    add(new JLabel("mm", JLabel.RIGHT));
 		    add(month);
-		    add(new JLabel("-", JLabel.RIGHT));
+		    add(new JLabel("dd", JLabel.RIGHT));
 		    add(day);
 		    add(new JLabel("Time:", JLabel.RIGHT));
 		    add(hour);
