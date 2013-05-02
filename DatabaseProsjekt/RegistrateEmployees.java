@@ -55,33 +55,26 @@ public class RegistrateEmployees extends BasicDialog {
 	    String sql = "";
 	    phone.requestFocusInWindow();
 	    setVisible(true);
+	    Employee employee;
 	    if (isOk()) {
 	    	if(Salesman.isSelected()) {
-	    		Salesman dude = new Salesman(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
-	    		return dude;
+	    		employee = new Salesman(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		return employee;
 	    	}else if(Chef.isSelected()) {
-	    		Chef chefdude = new Chef(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
-	    		return chefdude;
+	    		employee = new Chef(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		return employee;
 	    	}else if(Driver.isSelected()) {
-	    		Driver driverdude = new Driver(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
-	    		return driverdude;
+	    		employee = new Driver(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		return employee;
 	    	}else if(CEO.isSelected()) {
-	    		CEO ceodude = new CEO(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
-	    		return ceodude;
+	    		employee = new CEO(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		return employee;
 	    	}else if(Secretary.isSelected()) {
-	    		Secretary secretary = new Secretary(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
-	    		return secretary;
+	    		employee = new Secretary(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		return employee;
 	    	}
-	    	else{
-	    		return null;
-	    	}
-	    }	
-	    		
-	    
 	    }
-	
-	
-	
+	}
 	protected boolean okData() { //trenger bedre kontroll av data
 		String phone2 = phone.getText();
 		String name2 = name.getText().trim();
