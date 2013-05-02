@@ -46,9 +46,7 @@ public class RegistrateEmployees extends BasicDialog {
 		    add(CEO);
 		    add(Secretary);
 		}
-	}
-
-	   	
+	}  	
 	public Employee regEmployee() {
 	    setOk(false);
 	    int type;
@@ -69,10 +67,12 @@ public class RegistrateEmployees extends BasicDialog {
 	    	}else if(CEO.isSelected()) {
 	    		employee = new CEO(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
 	    		return employee;
-	    	}else if(Secretary.isSelected()) {
+	    	}else {
 	    		employee = new Secretary(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
 	    		return employee;
 	    	}
+	    } else {
+	    	return null;
 	    }
 	}
 	protected boolean okData() { //trenger bedre kontroll av data
@@ -84,8 +84,8 @@ public class RegistrateEmployees extends BasicDialog {
 		boolean driver2 = Driver.isSelected();
 		boolean ceo2 = CEO.isSelected();
 		boolean secretary2 = Secretary.isSelected();
-	    if (phone2.equals("")||name2.equals("") || monthlySalary2.equals("")|| (!salesman2 && !chef2 && !driver2 && !ceo2 && !secretary2){
-	    	if (phone2 == null) {
+	    if (phone2.equals("")||name2.equals("") || monthlySalary2.equals("")|| (!salesman2 && !chef2 && !driver2 && !ceo2 && !secretary2)){
+	    	if (phone2.equals("")) {
 	    		showMessageDialog(RegistrateEmployees.this, "You have to input phone!");
 	    		phone.requestFocusInWindow();
 	    	} else if (name2.equals("")) {
