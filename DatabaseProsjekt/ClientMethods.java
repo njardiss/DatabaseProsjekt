@@ -716,9 +716,11 @@ class ClientMethods {
 	/*public ArrayList<Order> getCustomerOrders(int tlf){
 		
 	}*/
-	public void showOrderList() throws Exception{
+	public boolean showOrderList() throws Exception{
 		tableView.createAndShowGUI();
 	}
+	
+	public boolean 
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);
 		stockpile.setLocation(350, 350);
