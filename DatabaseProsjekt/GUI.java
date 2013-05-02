@@ -7,7 +7,7 @@ class GUI {
     ClientMethods methods = new ClientMethods();
     Employee employee;
     boolean login = false;
-    while(!login){
+    while(!login){ //determines which employee is logging in
     	employee = methods.startLogin();
     	if(!(employee == null)){
     		login = true;

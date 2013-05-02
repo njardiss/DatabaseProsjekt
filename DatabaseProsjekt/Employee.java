@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.sql.*;
 
 public class Employee {
@@ -49,9 +48,19 @@ class Salesman extends Employee { //type 1 (from database)
 	public double getCommission() {
 		return commission;
 	}
-	public boolean addCommission(double newCommission) {
+	public boolean addCommission(double newCommission, Connection connection) throws Exception {
+		Statement state = connection.createStatement();
 		commission += newCommission;
-		return true;
+		String sql = "UPDATE employees SET commission = " + commission + " where phone = " + getPhone() + "";
+			
+		int answer = state.executeUpdate(sql);
+		if(answer>0){
+			ConnectionManager.closeStatement(state);
+			return true;
+		}else{
+			ConnectionManager.closeStatement(state);
+			return false;
+		}
 	}
 }
 class Driver extends Employee { //type 2 (from database)
