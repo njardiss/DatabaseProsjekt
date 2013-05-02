@@ -53,6 +53,10 @@ class Order {
 	public int[] getReccuring() {
 		return reccuringOrder;
 	}
+	public boolean setReccuring(int[] newReccuring) {
+		reccuringOrder = newReccuring;
+		return true;
+	}
 	public boolean setPaymentStatus(Connection connection, String date) throws Exception {
 		Statement state = connection.createStatement();
 		paid = date;

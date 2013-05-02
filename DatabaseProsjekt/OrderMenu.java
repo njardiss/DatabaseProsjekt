@@ -2,6 +2,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
 import java.text.*;
 import java.util.*;
 import java.util.regex.*;
@@ -21,7 +22,7 @@ public class OrderMenu extends BasicDialog {
 	private JTextField minutes = new JTextField(2);
 	private JTextField priceField = new JTextField();
 	private double price = 0;
-	private JCheckBox recurring = new JCheckBox("Recurring");
+	private JCheckBox reccuring = new JCheckBox("reccuring");
 	private JCheckBox monday = new JCheckBox("Mondays");
 	private JCheckBox tuesday = new JCheckBox("Tuesdays");
 	private JCheckBox wednesday = new JCheckBox("Wednesdays");
@@ -74,7 +75,16 @@ public class OrderMenu extends BasicDialog {
 	private class ReccuringOrder extends JPanel {
 		public ReccuringOrder() {
 			setLayout(new GridLayout(2 ,4 ,5 , 5));
-			add(recurring);
+			ButtonGroup group = new ButtonGroup();
+			group.add(reccuring);
+			group.add(monday);
+			group.add(tuesday);
+			group.add(wednesday);
+			group.add(thursday);
+			group.add(friday);
+			group.add(saturday);
+			group.add(sunday);
+			add(reccuring);
 			add(monday);
 			add(tuesday);
 			add(wednesday);
@@ -153,6 +163,17 @@ public class OrderMenu extends BasicDialog {
 	    if (isOk()) {
 	    	String deliveryTime = "" + year.getText() + "-" + month.getText() + "-" + day.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
+	    	if(reccuring.isSelected()){
+	    		int[] array = order.getReccuring();
+	    		if(monday.isSelected()) array[0] = 0;
+	    		if(tuesday.isSelected()) array[0] = 0;
+	    		if(wednesday.isSelected()) array[0] = 0;
+	    		if(thursday.isSelected()) array[0] = 0;
+	    		if(friday.isSelected()) array[0] = 0;
+	    		if(saturday.isSelected()) array[0] = 0;
+	    		if(sunday.isSelected()) array[0] = 0;
+	    		order.setReccuring(array);
+	    	}
 	    	return order;
 	    } else {
 	    	return  null;
