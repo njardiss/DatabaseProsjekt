@@ -5,7 +5,14 @@ import static javax.swing.JOptionPane.*;
 class GUI {
 	public static void main(String[] args) throws Exception {
     ClientMethods methods = new ClientMethods();
-
+    boolean login = false;
+    while(!login){
+    	if(methods.startLogin()){
+    		login = true;
+    	} else {
+    		System.exit(0);
+    	}
+    }
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"List orders", "Add order", "Edit order", "Back"};

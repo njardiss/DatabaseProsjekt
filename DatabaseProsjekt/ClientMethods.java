@@ -732,5 +732,17 @@ class ClientMethods {
 		}
 		return true;
 	}*/
-	public boolean login(String username, String hash) {
+	public boolean login(String username, String hash) throws Exception {
+		System.out.println(username+ " hash:"+ hash);
+	    return true;
+	}
+	public boolean startLogin() {
+		LoginView login = new LoginView(parent);
+		login.setLocation(350, 350);
+		if(login.login()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
