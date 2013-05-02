@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.text.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class OrderMenu extends BasicDialog {
 	private DefaultListModel<Dish> dishListModel = new DefaultListModel<Dish>();
@@ -186,8 +187,16 @@ public class OrderMenu extends BasicDialog {
 	    		minutes.requestFocusInWindow();
 	    	} 
 	    	return false;
-	    } else {
+	    }else if(deliveryAdress2.matches("[a-zA-Z]")== false){
+	    	showMessageDialog(OrderMenu.this, "Illegal input!");
+	    	deliveryAdress.requestFocusInWindow();
+	    	return false;
+	    }
+	    else {
 	    	return true;
 	    }
-	}
+	   
+	  
+	    }
+	} 
 }
