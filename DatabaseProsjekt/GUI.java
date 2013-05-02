@@ -12,12 +12,12 @@ class GUI {
     	}
     }
     
-    String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
+    String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Administration", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"List orders", "Add order", "Edit order", "Back"};
     String[] dish = {"List dishes", "Add dish", "Edit dish", "Back"};
     String[] stock = {"Stockpile", "Add ingredient", "Edit ingredient", "Back"};
-    String[] eco = {"Check funds", "Withdraw", "Deposit", "Check profit"};
+    String[] eco = {"Add employee", "Withdraw", "Deposit", "Check profit"};
 
     boolean meny1 = true;
     while(meny1) {
