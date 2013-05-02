@@ -103,9 +103,11 @@ public class OrderMenu extends BasicDialog {
 				for(Dish aDish : newDish) {
 					dishListModel.addElement(aDish);
 					dish.add(aDish);
-					price += aDish.getPrice();
 				}
 				list.clearSelection();
+				for(Dish aDish : dish) {
+					price += aDish.getPrice();
+				}
 				priceField.setText(Double.toString(price));
 			} else if(event.getSource() == removeDish) {
 				int index = list.getSelectedIndex();
@@ -185,7 +187,7 @@ public class OrderMenu extends BasicDialog {
 	    		minutes.requestFocusInWindow();
 	    	} 
 	    	return false;
-	    }else if(deliveryAdress2.matches("[a-zA-Z]")== false){
+	    }else if(deliveryAdress2.matches("[a-zA-Z-1-9]")== false){
 	    	showMessageDialog(OrderMenu.this, "Illegal input!");
 	    	deliveryAdress.requestFocusInWindow();
 	    	return false;
@@ -193,5 +195,7 @@ public class OrderMenu extends BasicDialog {
 	    else {
 	    	return true;
 	    }
-	}
-}
+	   
+	  
+	    }
+	} 
