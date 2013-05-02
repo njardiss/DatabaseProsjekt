@@ -9,7 +9,7 @@ class GUI {
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"List orders", "Add order", "Edit order", "Back"};
-    String[] dish = {"List dishes", "Add dish", "Find dish", "Back"};
+    String[] dish = {"List dishes", "Add dish", "Edit dish", "Back"};
     String[] stock = {"List stockpile", "Add ingredient", "Update stockpile", "Back"};
     String[] eco = {"Check funds", "Withdraw", "Deposit", "Check profit"};
 
@@ -95,11 +95,13 @@ class GUI {
 					}
 					break;
 					
-				case 2: // find dish//
-					String rettnavn = showInputDialog(null,"Skriv inn rettens navn:");
-					Dish retten = methods.findDish(rettnavn);
-					String rettinfo = retten.toString();
-					System.out.println(rettinfo);
+				case 2: // edit dish
+					boolean test = methods.editDish();
+					if(test){
+						showMessageDialog(null, "Dish changes saved.");
+					}else{
+						showMessageDialog(null, "No changes saved.");
+					}
 					break;
 				}
 				break;

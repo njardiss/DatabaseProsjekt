@@ -119,7 +119,7 @@ class ClientMethods {
 			ConnectionManager.closeResSet(res);
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
-			return null;
+			throw new NullPointerException();
 		}
 		String name = res.getString("name");
 		String adress = res.getString("adress");
@@ -144,30 +144,29 @@ class ClientMethods {
 				int answer = showConfirmDialog(null,
 		                 "Phone number format error, try again? ",
 		                 "Error", YES_NO_OPTION);
-					if (answer == YES_OPTION) {
+				if (answer == YES_OPTION) {
+					check = true;
+					continue;
+				} else {
+					return false;
+				}
+			}
+			boolean check2 = true;
+			while(check2) {
+				try {
+					customer = getCustomer(phone);
+					check2 = false;
+				} catch (NullPointerException e) {
+					int answer2 = showConfirmDialog(null,
+			                 "No customer registered with this phone number, try again? ",
+			                 "Error", YES_NO_OPTION);
+					if (answer2 == YES_OPTION) {
+						check2 = true;
 						check = true;
-						continue;
+						break;
 					} else {
 						return false;
 					}
-			}
-		}
-		boolean check2 = true;
-		while(check2) {
-			try {
-				customer = getCustomer(phone);
-				check2 = false;
-				if(customer.getName() == null) {
-					throw new NullPointerException();
-				}
-			} catch (NullPointerException e) {
-				int answer2 = showConfirmDialog(null,
-		                 "No customer registered with this phone number, do you want to try again? ",
-		                 "Error", YES_NO_OPTION);
-				if (answer2 == YES_OPTION) {
-					check2 = true;
-				} else {
-					return false;
 				}
 			}
 		}
@@ -495,7 +494,9 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return true;
 	}
-	public boolean editDish(Dish dish)throws Exception {
+	public boolean editDish()throws Exception {
+		String dishName = showInputDialog(null,"Input the name of the dish");
+		Dish dish = findDish(dishName);
 		DishRegistration reg = new DishRegistration(parent);
 		reg.setLocation(350, 350);
 		Dish newDish = reg.editDish(dish);
