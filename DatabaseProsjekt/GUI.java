@@ -11,6 +11,7 @@ class GUI {
     		login = true;
     	}
     }
+    
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"List orders", "Add order", "Edit order", "Back"};
@@ -34,7 +35,7 @@ class GUI {
 					}
 					break;
 				case 1: //Find Customer
-					String kundeid = showInputDialog(null,"Enter customer identification number:");
+					String kundeid = showInputDialog(null,"Enter customer telephone number:");
 					int kid = Integer.parseInt(kundeid);
 					Customer hanher = methods.getCustomer(kid);
 					String kundeinfo = hanher.toString();
@@ -57,6 +58,7 @@ class GUI {
 			switch(ordchoice){
 				case 0: //List orders
 					methods.showOrderList();
+					System.exit(20);
 					break;
 				case 1: //add order
 					boolean check = methods.addOrder();
