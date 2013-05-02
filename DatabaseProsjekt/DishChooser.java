@@ -71,7 +71,7 @@ public class DishChooser extends BasicDialog {
 	    		}
 	    	}
 	    	if (!list3.isSelectionEmpty()) {
-	    		int[] index = list2.getSelectedIndices();
+	    		int[] index = list3.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
 	    			dishes.add(appetizerListModel.get(index[i]));
 	    		}

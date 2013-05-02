@@ -20,7 +20,7 @@ class Order {
 		this.orderTime = orderTime;
 		this.deliveryTime = deliveryTime;
 		this.deliveryAdress = deliveryAdress;
-		this.orderContent = new ArrayList<Dish>();
+		this.orderContent = orderContent;
 		this. price = price;
 	}
 	public int getOrderid() {

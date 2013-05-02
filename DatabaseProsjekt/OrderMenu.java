@@ -95,7 +95,7 @@ public class OrderMenu extends BasicDialog {
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String button = event.getActionCommand();
-			if(event.getSource() == newDish) {
+			if(event.getSource() == newDish) { 
 				DishChooser dishChooser = new DishChooser(parent);
 				dishChooser.setLocation(350, 350);
 				ArrayList <Dish> newDish = dishChooser.getDish();

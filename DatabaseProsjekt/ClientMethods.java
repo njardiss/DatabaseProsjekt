@@ -145,8 +145,9 @@ class ClientMethods {
 	    
 	    int answer = state.executeUpdate(sql);
 	    ArrayList<Dish> dishes = order.getOrderContent();
-	    sql = "SELECT orderid FROM orders WHERE kid = " + customer.getKid() + " AND where deliverytime = '" + order.getDeliveryTime() + "' AND pirce = " + order.getPrice() + "";
+	    sql = "SELECT orderid FROM orders WHERE kid = " + customer.getKid() + " AND deliverytime = '" + order.getDeliveryTime() + "' AND price = " + order.getPrice() + "";
 	    ResultSet res = state.executeQuery(sql);
+	    res.next();
 	    int orderid = Integer.parseInt(res.getString("orderid"));
 	    if(answer>0) {
 	    	int i = 1;
@@ -336,7 +337,6 @@ class ClientMethods {
 		ResultSet res = state.executeQuery(sql);
 		int i = 0;
 		while(res.next()) {
-			System.out.println(i);
 			i++;
 			int dishID = Integer.parseInt(res.getString("dishid"));
 			String name = res.getString("name");
@@ -661,9 +661,9 @@ class ClientMethods {
 		}
 		return orders;
 	}
-	public ArrayList<Order> getCustomerOrders(int tlf){
+	/*public ArrayList<Order> getCustomerOrders(int tlf){
 		
-	}
+	}*/
 	public void showOrderList() throws Exception{
 		tableView.createAndShowGUI();
 	}
