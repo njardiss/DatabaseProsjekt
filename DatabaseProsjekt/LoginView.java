@@ -31,7 +31,7 @@ public class LoginView extends BasicDialog {
 		setOk(false);
 	    setVisible(true);
 	    if (isOk()) {
-	    	String hash;
+	    	String hash = "";
 	    	String username = usernameField.getText();
 	    	try {
 				hash = DoSHA1.SHA1(new String (passwordField.getPassword()));
@@ -43,7 +43,13 @@ public class LoginView extends BasicDialog {
 				e.printStackTrace();
 			}
 	    	ClientMethods methods = new ClientMethods();
-	    	boolean login = methods.login(username, hash);
+	    	boolean login = false;
+			try {
+				login = methods.login(username, hash);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    	if(login) {
 	    		return true;
 	    	} else {

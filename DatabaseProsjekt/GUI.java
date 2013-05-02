@@ -5,12 +5,18 @@ import static javax.swing.JOptionPane.*;
 class GUI {
 	public static void main(String[] args) throws Exception {
     ClientMethods methods = new ClientMethods();
-
+    boolean login = false;
+    while(!login){
+    	if(methods.startLogin()){
+    		login = true;
+    	}
+    }
+    
     String[] choices = {"Customer menu", "Order menu", "Dish menu",  "Stockpile menu", "Economic menu", "Exit"};
     String[] cust = {"Add customer", "Find customer", "Edit customer", "Back"};
     String[] ord = {"List orders", "Add order", "Edit order", "Back"};
     String[] dish = {"List dishes", "Add dish", "Edit dish", "Back"};
-    String[] stock = {"List stockpile", "Add ingredient", "Update stockpile", "Back"};
+    String[] stock = {"Stockpile", "Add ingredient", "Edit ingredient", "Back"};
     String[] eco = {"Check funds", "Withdraw", "Deposit", "Check profit"};
 
     boolean meny1 = true;
@@ -29,7 +35,7 @@ class GUI {
 					}
 					break;
 				case 1: //Find Customer
-					String kundeid = showInputDialog(null,"Enter customer identification number:");
+					String kundeid = showInputDialog(null,"Enter customer telephone number:");
 					int kid = Integer.parseInt(kundeid);
 					Customer hanher = methods.getCustomer(kid);
 					String kundeinfo = hanher.toString();
@@ -52,6 +58,7 @@ class GUI {
 			switch(ordchoice){
 				case 0: //List orders
 					methods.showOrderList();
+					System.exit(20);
 					break;
 				case 1: //add order
 					boolean check = methods.addOrder();
@@ -108,10 +115,10 @@ class GUI {
 		case 3:
 			int stochoice = showOptionDialog(null, "Choose Stockpile function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, stock, stock[0]);
 			switch(stochoice){
-				case 0: // list stockpile //
+				case 0: //Stockpileview
 					//methods.viewStockpile();
 					break;
-				case 1: // add ingredient //
+				case 1: //Add ingredient //
 					boolean check = methods.addIngredient();
 					if(check){
 						showMessageDialog(null,"Registration successful.");
@@ -120,9 +127,9 @@ class GUI {
 					}
 					break;
 					
-				case 2: // update stockpile//
+				case 2: //Edit ingredient
 
-				case 3: //
+				case 3: //Back
 					break;
 				}
 				break;

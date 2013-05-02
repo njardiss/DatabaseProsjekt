@@ -716,9 +716,11 @@ class ClientMethods {
 	/*public ArrayList<Order> getCustomerOrders(int tlf){
 		
 	}*/
-	public void showOrderList() throws Exception{
+	public boolean showOrderList() throws Exception{
 		tableView.createAndShowGUI();
 	}
+	
+	public boolean 
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);
 		stockpile.setLocation(350, 350);
@@ -732,5 +734,54 @@ class ClientMethods {
 		}
 		return true;
 	}*/
-	public boolean login(String username, String hash) {
+	public boolean login(String username, String hash) throws Exception {
+		Class.forName(dbdriver);
+		Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+		String sql = "SELECT hash FROM employees WHERE username = '" + username + "'";
+		ResultSet res = state.executeQuery(sql);
+		res.next();
+		String dbHash;
+		try {
+			dbHash = res.getString("hash");
+		} catch (SQLException e) {
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;
+		}
+		if(hash.equals(dbHash)){
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return true;
+		} else {
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;
+		}
+	}
+	public boolean startLogin() {
+		boolean check = true;
+		while(check) {
+			LoginView login = new LoginView(parent);
+			login.setLocation(350, 350);
+			if(login.login()) {
+				return true;
+			} else {
+				int answer = showConfirmDialog(null,
+		                 "Wrong password/username or you are exiting, try again? ",
+		                 "Error", YES_NO_OPTION);
+				if (answer == YES_OPTION) {
+					check = true;
+					continue;
+				} else {
+					check = false;
+					System.exit(0);
+				}
+			}
+		}
+		return false;
+	}
 }
