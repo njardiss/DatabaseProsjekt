@@ -732,4 +732,5 @@ class ClientMethods {
 		}
 		return true;
 	}*/
+	public boolean login(String username, String hash) {
 }
