@@ -776,6 +776,7 @@ class ClientMethods {
 					continue;
 				} else {
 					check = false;
+					System.exit(0);
 				}
 			}
 		}
