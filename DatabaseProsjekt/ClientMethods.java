@@ -176,7 +176,20 @@ class ClientMethods {
 		order = orderMenu.getOrder();
 		String sql;
 		try {
-			sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", null)";
+			String reccuring = "";
+			boolean t = false;
+			int[] array = order.getReccuring();
+			for(int i = 0; i< array.length; i++){
+				reccuring += array[i];
+				if(array[i] == 0) {
+					t = true;
+				}
+			}	
+			if(t){
+				sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, reccuring, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", " + reccuring + ",null)";
+			} else {
+				sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", null)";
+			}
 		} catch(NullPointerException e) {
 			return false;
 		}
@@ -718,9 +731,8 @@ class ClientMethods {
 	}*/
 	public boolean showOrderList() throws Exception{
 		tableView.createAndShowGUI();
-	}
-	
-	public boolean 
+		return true;
+	} 
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);
 		stockpile.setLocation(350, 350);
