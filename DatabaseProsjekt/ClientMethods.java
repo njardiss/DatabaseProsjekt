@@ -733,8 +733,17 @@ class ClientMethods {
 		return true;
 	}*/
 	public boolean login(String username, String hash) throws Exception {
-		System.out.println(username+ " hash:"+ hash);
-	    return true;
+		Class.forName(dbdriver);
+		Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+		String sql = "SELECT hash FROM employees WHERE username = '" + username + "'d";
+		ResultSet res = state.executeQuery(sql);
+		res.next();
+		if(hash.equals(res.getString("hash"))){
+			return true;
+		} else {
+			return false;
+		}
 	}
 	public boolean startLogin() {
 		LoginView login = new LoginView(parent);
