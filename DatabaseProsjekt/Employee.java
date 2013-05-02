@@ -5,12 +5,11 @@ public class Employee {
 	private int phone;
 	private String name;
 	private double monthlySalary;
-	private final String dateHired;
-	public Employee(int phone, String name, double monthlySalary, String dateHired) {
+	private String dateHired;
+	public Employee(int phone, String name, double monthlySalary) {
 		this.phone = phone;
 		this.name = name;
 		this.monthlySalary = monthlySalary;
-		this.dateHired = dateHired;
 	}
 	public int getPhone() {
 		return phone;
@@ -38,14 +37,14 @@ public class Employee {
 	}
 }
 class Chef extends Employee { //type 4 (from database)
-	public Chef(int phone, String name, double monthlySalary, String dateHired) {
-		super(phone, name, monthlySalary, dateHired);
+	public Chef(int phone, String name, double monthlySalary) {
+		super(phone, name, monthlySalary);
 	}
 }
 class Salesman extends Employee { //type 1 (from database)
 	private double commission;
-	public Salesman(int phone, String name, double monthlySalary, String dateHired) {
-		super(phone, name, monthlySalary, dateHired);
+	public Salesman(int phone, String name, double monthlySalary) {
+		super(phone, name, monthlySalary);
 	}
 	public double getCommission() {
 		return commission;
@@ -56,17 +55,17 @@ class Salesman extends Employee { //type 1 (from database)
 	}
 }
 class Driver extends Employee { //type 2 (from database)
-	public Driver(int phone, String name, double monthlySalary, String dateHired) {
-		super(phone, name, monthlySalary, dateHired);
+	public Driver(int phone, String name, double monthlySalary) {
+		super(phone, name, monthlySalary);
 	}
 }
 class CEO extends Employee { //type 0 (from database)
-	public CEO(String birthdate, int phone, String name, double monthlySalary, String dateHired) {
-		super(phone, name, monthlySalary, dateHired);
+	public CEO(String birthdate, int phone, String name, double monthlySalary) {
+		super(phone, name, monthlySalary);
 	}
 }
 class Secretary extends Employee { //type 3 (from database)
-	public Secretary(String birthdate, int phone, String name, double monthlySalary, String dateHired) {
-		super(phone, name, monthlySalary, dateHired);
+	public Secretary(String birthdate, int phone, String name, double monthlySalary) {
+		super(phone, name, monthlySalary);
 	}
 }
