@@ -58,7 +58,6 @@ class GUI {
 			switch(ordchoice){
 				case 0: //List orders
 					methods.showOrderList();
-					System.exit(20);
 					break;
 				case 1: //add order
 					boolean check = methods.addOrder();

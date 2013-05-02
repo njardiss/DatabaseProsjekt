@@ -718,9 +718,9 @@ class ClientMethods {
 	}*/
 	public boolean showOrderList() throws Exception{
 		tableView.createAndShowGUI();
+		return true;
 	}
 	
-	public boolean 
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);
 		stockpile.setLocation(350, 350);
