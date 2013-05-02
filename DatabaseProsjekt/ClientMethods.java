@@ -880,4 +880,17 @@ class ClientMethods {
 			return false;
 		}
 	}
+	public boolean selectOrderOnCust(int phone) {
+		OrderCustListMenu orderCustListMenu = new OrderCustListMenu(parent, phone);
+		orderCustListMenu.setLocation(350, 350);
+		Order newOrder = orderCustListMenu.getOrder();
+		boolean check = false;
+		try {
+			check = editOrder(newOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return check;
+	}
 }
