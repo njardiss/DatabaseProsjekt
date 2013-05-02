@@ -71,13 +71,12 @@ class GUI {
 					//find ordesronCustomer
 					String customerphone = showInputDialog(null,"Enter customers phone number:");
 					int phone2 = Integer.parseInt(customerphone);
-					boolean check2 = methods.listOrdersOnCust(phone2);
-					
-				    // nå skal forhåpentligvis alle ordre på ønsket kunde være i en liste //
-				    // så må man kunne redigere //
-				    
-					
-					
+					boolean check2 = methods.selectOrderOnCust(phone2);
+					if(check2){
+						showMessageDialog(null,"Registration successful.");
+					}else{
+						showMessageDialog(null,"No update was comitted."); //meldingen må utvides elnz
+					}	
 					break;
 			}
 			break;
