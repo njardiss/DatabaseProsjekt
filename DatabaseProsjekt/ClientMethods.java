@@ -183,12 +183,13 @@ class ClientMethods {
 			String reccuring = "";
 			boolean t = false;
 			int[] array = order.getReccuring();
-			for(int i = 0; i< array.length; i++){
+	
+			for(int i = 0; i< 7; i++){
 				reccuring += array[i];
 				if(array[i] == 0) {
 					t = true;
 				}
-			}	
+			}
 			if(t){
 				sql = "INSERT INTO orders(kid, status, ordertime, deliverytime, deliveryadress, price, reccuring, paid) values(" + customer.getKid() + ",'" + order.getStatus() + "', current_timestamp,'" + order.getDeliveryTime() + "', '" + order.getDeliveryAdress() + "', " + order.getPrice() + ", " + reccuring + ",null)";
 			} else {

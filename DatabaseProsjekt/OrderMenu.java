@@ -44,13 +44,13 @@ public class OrderMenu extends BasicDialog {
 			setLayout(new GridLayout(3, 6, 5, 5));
 			add(new JLabel("Delivery date: (yyyy) ", JLabel.RIGHT));
 		    add(year);
-		    add(new JLabel("mm", JLabel.RIGHT));
+		    add(new JLabel("(mm)", JLabel.RIGHT));
 		    add(month);
-		    add(new JLabel("dd", JLabel.RIGHT));
+		    add(new JLabel("(dd)", JLabel.RIGHT));
 		    add(day);
-		    add(new JLabel("Time:", JLabel.RIGHT));
+		    add(new JLabel("Time: (hh)", JLabel.RIGHT));
 		    add(hour);
-		    add(new JLabel(":", JLabel.RIGHT));
+		    add(new JLabel(": (mm)", JLabel.RIGHT));
 		    add(minutes);
 		    add(new JLabel("", JLabel.RIGHT));
 		    add(new JLabel("", JLabel.RIGHT));//moves deliveryAdress to the next line
@@ -131,14 +131,14 @@ public class OrderMenu extends BasicDialog {
 		price = order.getPrice();
 		ArrayList <Dish> newDish = order.getOrderContent();
 		int[] array = order.getReccuring();
-		if(array[0]==0 || array[1]==0 || array[2]==0 || array[3]==0 || array[4]==0 || array[5]==0 || array[6]==0) reccuring.setEnabled(true);
-		if(array[0]==0) monday.setEnabled(true);
-		if(array[1]==0) tuesday.setEnabled(true);
-		if(array[2]==0) wednesday.setEnabled(true);
-		if(array[3]==0) thursday.setEnabled(true);
-		if(array[4]==0) friday.setEnabled(true);
-		if(array[5]==0) saturday.setEnabled(true);
-		if(array[6]==0) sunday.setEnabled(true);
+		if(array[0]==0 || array[1]==0 || array[2]==0 || array[3]==0 || array[4]==0 || array[5]==0 || array[6]==0){ reccuring.setEnabled(true);}
+		if(array[0]==0) {monday.setEnabled(true);}
+		if(array[1]==0) {tuesday.setEnabled(true);}
+		if(array[2]==0) {wednesday.setEnabled(true);}
+		if(array[3]==0) {thursday.setEnabled(true);}
+		if(array[4]==0) {friday.setEnabled(true);}
+		if(array[5]==0) {saturday.setEnabled(true);}
+		if(array[6]==0) {sunday.setEnabled(true);}
 
 		for(Dish aDish : newDish) {
 			dishListModel.addElement(aDish);
@@ -152,13 +152,13 @@ public class OrderMenu extends BasicDialog {
 	    	deliveryTime = "" + year.getText() + "-" + month.getText() + "-" + day.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
 	    	if(reccuring.isSelected()){
-	    		if(monday.isSelected()) array[0] = 0;
-	    		if(tuesday.isSelected()) array[0] = 0;
-	    		if(wednesday.isSelected()) array[0] = 0;
-	    		if(thursday.isSelected()) array[0] = 0;
-	    		if(friday.isSelected()) array[0] = 0;
-	    		if(saturday.isSelected()) array[0] = 0;
-	    		if(sunday.isSelected()) array[0] = 0;
+	    		if(monday.isSelected()){ array[0] = 0;}
+	    		if(tuesday.isSelected()){ array[1] = 0;}
+	    		if(wednesday.isSelected()){ array[2] = 0;}
+	    		if(thursday.isSelected()){ array[3] = 0;}
+	    		if(friday.isSelected()){ array[4] = 0;}
+	    		if(saturday.isSelected()){ array[5] = 0;}
+	    		if(sunday.isSelected()){ array[6] = 0;}
 	    		order.setReccuring(array);
 	    	}
 	    	return order;
@@ -175,13 +175,13 @@ public class OrderMenu extends BasicDialog {
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
 	    	if(reccuring.isSelected()){
 	    		int[] array = order.getReccuring();
-	    		if(monday.isSelected()) array[0] = 0;
-	    		if(tuesday.isSelected()) array[0] = 0;
-	    		if(wednesday.isSelected()) array[0] = 0;
-	    		if(thursday.isSelected()) array[0] = 0;
-	    		if(friday.isSelected()) array[0] = 0;
-	    		if(saturday.isSelected()) array[0] = 0;
-	    		if(sunday.isSelected()) array[0] = 0;
+	    		if(monday.isSelected()){ array[0] = 0;}
+	    		if(tuesday.isSelected()){ array[1] = 0;}
+	    		if(wednesday.isSelected()){ array[2] = 0;}
+	    		if(thursday.isSelected()){ array[3] = 0;}
+	    		if(friday.isSelected()){ array[4] = 0;}
+	    		if(saturday.isSelected()){ array[5] = 0;}
+	    		if(sunday.isSelected()){ array[6] = 0;}
 	    		order.setReccuring(array);
 	    	}
 	    	return order;
