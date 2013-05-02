@@ -60,12 +60,12 @@ class Driver extends Employee { //type 2 (from database)
 	}
 }
 class CEO extends Employee { //type 0 (from database)
-	public CEO(String birthdate, int phone, String name, double monthlySalary) {
+	public CEO(int phone, String name, double monthlySalary) {
 		super(phone, name, monthlySalary);
 	}
 }
 class Secretary extends Employee { //type 3 (from database)
-	public Secretary(String birthdate, int phone, String name, double monthlySalary) {
+	public Secretary(int phone, String name, double monthlySalary) {
 		super(phone, name, monthlySalary);
 	}
 }
