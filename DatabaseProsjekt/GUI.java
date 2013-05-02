@@ -5,7 +5,7 @@ import static javax.swing.JOptionPane.*;
 class GUI {
 	public static void main(String[] args) throws Exception {
     ClientMethods methods = new ClientMethods();
-    Employee employee;
+    Employee employee = null;
     boolean login = false;
     while(!login){ //determines which employee is logging in
     	employee = methods.startLogin();
@@ -62,7 +62,7 @@ class GUI {
 					methods.showOrderList();
 					break;
 				case 1: //add order
-					boolean check = methods.addOrder();
+					boolean check = methods.addOrder(employee);
 					if(check){
 						showMessageDialog(null,"Registration successful.");
 					}else{

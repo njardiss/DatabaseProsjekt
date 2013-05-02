@@ -135,7 +135,7 @@ class ClientMethods {
 		ConnectionManager.closeConnection(connection);
 		return hanher;
 	}
-	public boolean addOrder() throws Exception {
+	public boolean addOrder(Employee employee) throws Exception {
 		int phone = 0;
 		Customer customer = null;
 		boolean check = true;
@@ -209,7 +209,13 @@ class ClientMethods {
 	    ResultSet res = state.executeQuery(sql);
 	    res.next();
 	    int orderid = Integer.parseInt(res.getString("orderid"));
-	    if(answer>0) {
+	    boolean p = true;
+	    if(employee instanceof Salesman){
+	    	p = false;
+	    	double commission = (order.getPrice() *0.13);
+	    	p =((Salesman) employee).addCommission(commission, connection);
+	    }
+	    if(answer>0 && p) {
 	    	int i = 1;
 	    	int answer2;
 	    	for(Dish aDish : dishes) {
