@@ -5,9 +5,11 @@ import static javax.swing.JOptionPane.*;
 class GUI {
 	public static void main(String[] args) throws Exception {
     ClientMethods methods = new ClientMethods();
+    Employee employee;
     boolean login = false;
     while(!login){
-    	if(methods.startLogin()){
+    	employee = methods.startLogin();
+    	if(!(employee == null)){
     		login = true;
     	}
     }
