@@ -56,7 +56,7 @@ public class RegistrateEmployees extends BasicDialog {
 	    System.out.println(isOk());
 	    if (isOk()) {
 	    	if(Salesman.isSelected()) {
-	    		employee = new Salesman(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
+	    		employee = new Salesman(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText()),0); 
 	    		return employee;
 	    	}else if(Chef.isSelected()) {
 	    		employee = new Chef(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
