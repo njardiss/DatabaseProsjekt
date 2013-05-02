@@ -46,7 +46,7 @@ public class stockpileView extends BasicDialog {
 					}
 				}
 			}
-			table.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+			table.setPreferredScrollableViewportSize(new Dimension(500, 500));
 			table.setFillsViewportHeight(true);
 			JScrollPane scrollPane = new JScrollPane(table);
 			add(scrollPane, BorderLayout.CENTER);

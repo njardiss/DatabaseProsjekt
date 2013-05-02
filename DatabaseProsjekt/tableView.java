@@ -12,14 +12,14 @@ public class tableView extends JPanel {
 	tableView() throws Exception{
 	ClientMethods methods = new ClientMethods();
 	ArrayList<Order> orders = methods.listOrders();
-	Object[][] data = new Object[orders.size()][8];
-	String[] columnNames = {"Order ID", "KID", "Status", "Time ordered", "Deliverytime", "Deliveryadress", "dishes", "Price"};
+	Object[][] data = new Object[orders.size()][7];
+	String[] columnNames = {"Order ID", "KID", "Status", "Time ordered", "Deliverytime", "Deliveryadress", "Price"};
 	
 	
 	
 	for(int lars=0;lars<orders.size();lars++){
-	for(int i=0;i<orders.size();i++){
-		for(int y=0;y<8;y++){
+		for(int i=0;i<orders.size();i++){
+			for(int y=0;y<7;y++){
 			Order aOrder = orders.get(i);
 			if(y==0){
 				data[i][y]=aOrder.getOrderid();
@@ -34,8 +34,6 @@ public class tableView extends JPanel {
 			} else if(y==5){
 				data[i][y]=aOrder.getDeliveryAdress();
 			} else if(y==6){
-				data[i][y]=aOrder.getOrderContent();
-			} else if(y==7){
 				data[i][y]=aOrder.getPrice();	
 			} else {
 				System.out.println("Feil!");
@@ -46,7 +44,7 @@ public class tableView extends JPanel {
 
 	
 	final JTable table = new JTable(data, columnNames);
-    table.setPreferredScrollableViewportSize(new Dimension(1500, 500));
+    table.setPreferredScrollableViewportSize(new Dimension(500, 500));
     table.setFillsViewportHeight(true);
     
     JScrollPane scrollPane = new JScrollPane(table);

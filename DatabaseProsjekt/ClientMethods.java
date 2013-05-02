@@ -176,7 +176,7 @@ class ClientMethods {
 		order = orderMenu.getOrder();
 		String sql;
 		try {
-			String reccuring;
+			String reccuring = "";
 			boolean t = false;
 			int[] array = order.getReccuring();
 			for(int i = 0; i< array.length; i++){
@@ -731,6 +731,7 @@ class ClientMethods {
 	}*/
 	public boolean showOrderList() throws Exception{
 		tableView.createAndShowGUI();
+		return true;
 	} 
 	/*public boolean viewStockpile() {
 		stockpileView stockpile = new stockpileView(parent);
