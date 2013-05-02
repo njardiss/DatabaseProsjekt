@@ -54,13 +54,7 @@ class GUI {
 					methods.showOrderList();
 					break;
 				case 1: //add order
-					int phone;
-					try {
-						phone = Integer.parseInt(showInputDialog(null,"Input the customers phone number"));
-					} catch(NumberFormatException e) {
-						break;
-					}
-					boolean check = methods.addOrder(phone);
+					boolean check = methods.addOrder();
 					if(check){
 						showMessageDialog(null,"Registration successful.");
 					}else{

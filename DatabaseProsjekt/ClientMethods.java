@@ -1,3 +1,4 @@
+import static javax.swing.JOptionPane.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -110,24 +111,66 @@ class ClientMethods {
 	    Statement state = connection.createStatement();
 		String sql = "SELECT * from customer where phone = " + phone + "";
 		ResultSet res = state.executeQuery(sql);
-		String name = "";
-		int kid = 0;
-		String adress = "";
-		int type = 0;
-		while(res.next()){
+		res.next();
+		int kid;
+		try {
 			kid = Integer.parseInt(res.getString("kid"));
-			name = res.getString("name");
-			adress = res.getString("adress");
-			type = Integer.parseInt(res.getString("type"));
+		} catch (SQLException e) {
+			ConnectionManager.closeResSet(res);
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return null;
 		}
+		String name = res.getString("name");
+		String adress = res.getString("adress");
+		int type = Integer.parseInt(res.getString("type"));
+
 		ConnectionManager.closeResSet(res);
 		Customer hanher = new Customer(kid, name, phone, adress, type);
 		ConnectionManager.closeStatement(state);
 		ConnectionManager.closeConnection(connection);
 		return hanher;
 	}
-	public boolean addOrder(int phone) throws Exception {
-		Customer customer = getCustomer(phone);
+	public boolean addOrder() throws Exception {
+		int phone = 0;
+		Customer customer = null;
+		boolean check = true;
+		while(check) {
+			try {
+				phone = Integer.parseInt(showInputDialog(null,
+						"Input the customers phone number"));
+				check = false;
+			} catch (NumberFormatException e) {
+				int answer = showConfirmDialog(null,
+		                 "Phone number format error, try again? ",
+		                 "Error", YES_NO_OPTION);
+					if (answer == YES_OPTION) {
+						check = true;
+						continue;
+					} else {
+						return false;
+					}
+			}
+		}
+		boolean check2 = true;
+		while(check2) {
+			try {
+				customer = getCustomer(phone);
+				check2 = false;
+				if(customer.getName() == null) {
+					throw new NullPointerException();
+				}
+			} catch (NullPointerException e) {
+				int answer2 = showConfirmDialog(null,
+		                 "No customer registered with this phone number, do you want to try again? ",
+		                 "Error", YES_NO_OPTION);
+				if (answer2 == YES_OPTION) {
+					check2 = true;
+				} else {
+					return false;
+				}
+			}
+		}
 		Order order;
 		OrderMenu orderMenu = new OrderMenu(parent);
 		orderMenu.setLocation(350, 350);
@@ -173,6 +216,10 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return false;
 	    }
+	    ConnectionManager.setAutoCommit(connection, true); //turns on autocommit
+		ConnectionManager.closeResSet(res);
+		ConnectionManager.closeStatement(state);
+		ConnectionManager.closeConnection(connection);
 		return true;
 	}
 	public Order getOrder(int orderid) throws Exception {

@@ -64,10 +64,10 @@ public class BasicDialog extends JDialog {
 	//programs what happens when user press exit window
 	private class WindowListener extends WindowAdapter {
 		public void windowClosing(WindowEvent event) {
-			int svar = showConfirmDialog(BasicDialog.this,
+			int answer = showConfirmDialog(BasicDialog.this,
                  "Do you want to exit? ",
                  "Exiting", YES_NO_OPTION);
-			if (svar == YES_OPTION) {
+			if (answer == YES_OPTION) {
 				setVisible(false);
 			} else {
 				ok = false;
