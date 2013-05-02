@@ -130,9 +130,16 @@ class GUI {
 				}
 				break;
 		case 4:
-			int ecochoice = showOptionDialog(null, "Choose Economic function: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);
+			int ecochoice = showOptionDialog(null, "Choose administration functions: ", "CateringBuddy", 0, PLAIN_MESSAGE, null, eco, eco[0]);
 			switch(ecochoice){
 				case 0:
+					boolean check = methods.regNewEmployee();
+					if(check){
+						showMessageDialog(null,"Registration successful.");
+					}else{
+						showMessageDialog(null,"No update was comitted."); 
+					}
+					break;
 				}
 		case 5:
 		case -1:
