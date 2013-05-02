@@ -68,13 +68,11 @@ class GUI {
 					}
 					break;
 				case 2: //edit order
-					//find ordesronCustomer //
-					/*String customerphone = showInputDialog(null,"Enter customers phone number:");
+					//find ordesronCustomer
+					String customerphone = showInputDialog(null,"Enter customers phone number:");
 					int phone2 = Integer.parseInt(customerphone);
-					Customer mrdude = methods.getCustomer(phone2);
-				    int mrdudeKid = mrdude.getKid();
-				    ArrayList<Order> mrdudesOrders =  methods.listOrdersOnCustomer(mrdudeKid);
-				    */
+					boolean check2 = methods.listOrdersOnCust(phone2);
+					
 				    // nå skal forhåpentligvis alle ordre på ønsket kunde være i en liste //
 				    // så må man kunne redigere //
 				    

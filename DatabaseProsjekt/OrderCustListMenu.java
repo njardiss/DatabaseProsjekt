@@ -8,7 +8,7 @@ public class OrderCustListMenu extends BasicDialog {
 	private DefaultListModel<Order> orderListModel = new DefaultListModel<Order>();
 	private JList<Order> list1 = new JList<Order>(orderListModel);
 	ArrayList<Order> orderList;
-	ArrayList<Order> orderSelection = new ArrayList<Order>();
+	Order orderSelection;
 	
 	public OrderCustListMenu(JFrame parent, int phone2) {
 		super(parent, "Order List");
@@ -33,7 +33,7 @@ public class OrderCustListMenu extends BasicDialog {
 			add(listScroller1, BorderLayout.CENTER);
 		}
 	}
-	public ArrayList<Order> getOrder() {
+	public Order getOrder() {
 	    setOk(false);
 		pack();
 	    setVisible(true);
@@ -41,7 +41,7 @@ public class OrderCustListMenu extends BasicDialog {
 	    	if(!list1.isSelectionEmpty()) {
 	    		int[] index = list1.getSelectedIndices();
 	    		for(int i = 0; i< index.length; i++) {
-	    			orderSelection.add(orderListModel.get(index[i]));
+	    			orderSelection = orderListModel.get(index[i]);
 	    		}
 	    	}
 	    	return orderSelection;
