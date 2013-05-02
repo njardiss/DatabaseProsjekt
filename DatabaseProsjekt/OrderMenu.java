@@ -10,7 +10,7 @@ import java.util.regex.*;
 public class OrderMenu extends BasicDialog {
 	private DefaultListModel<Dish> dishListModel = new DefaultListModel<Dish>();
 	private JList<Dish> list = new JList<Dish>(dishListModel);
-	private JButton newDish = new JButton("Add dish");
+	private JButton newDish = new JButton("Add dish");	
 	private JButton removeDish = new JButton("Remove dish");
 	private JFrame parent;
 	private ArrayList<Dish> dish = new ArrayList<Dish>();
@@ -22,7 +22,7 @@ public class OrderMenu extends BasicDialog {
 	private JTextField minutes = new JTextField(2);
 	private JTextField priceField = new JTextField();
 	private double price = 0;
-	private JCheckBox reccuring = new JCheckBox("reccuring");
+	private JCheckBox reccuring = new JCheckBox("Recurring");
 	private JCheckBox monday = new JCheckBox("Mondays");
 	private JCheckBox tuesday = new JCheckBox("Tuesdays");
 	private JCheckBox wednesday = new JCheckBox("Wednesdays");
@@ -75,15 +75,6 @@ public class OrderMenu extends BasicDialog {
 	private class ReccuringOrder extends JPanel {
 		public ReccuringOrder() {
 			setLayout(new GridLayout(2 ,4 ,5 , 5));
-			ButtonGroup group = new ButtonGroup();
-			group.add(reccuring);
-			group.add(monday);
-			group.add(tuesday);
-			group.add(wednesday);
-			group.add(thursday);
-			group.add(friday);
-			group.add(saturday);
-			group.add(sunday);
 			add(reccuring);
 			add(monday);
 			add(tuesday);
