@@ -861,7 +861,7 @@ class ClientMethods {
 		} else {
 			type = 4;
 		}
-		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + "," + employee.getName() + ", current_timestamp, " + 
+		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + ",'" + employee.getName() + "', current_timestamp, " + 
 				employee.getMonthlySalary() + ", '" + username + "', '" + hash + "'," + type + "";
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
