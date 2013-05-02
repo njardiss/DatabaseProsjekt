@@ -138,10 +138,12 @@ class GUI {
 					boolean check = methods.regNewEmployee();
 					if(check){
 						showMessageDialog(null,"Registration successful.");
-					}else{
+					}else if(!check){
 						showMessageDialog(null,"No update was comitted."); 
+					} else {
+						break;
 					}
-					break;
+
 				}
 		case 5:
 		case -1:

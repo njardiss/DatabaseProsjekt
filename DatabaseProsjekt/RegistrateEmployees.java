@@ -24,7 +24,7 @@ public class RegistrateEmployees extends BasicDialog {
 	}
 	private class EmployeeDatapanel extends JPanel {
 		public EmployeeDatapanel() {
-			setLayout(new GridLayout(5, 2, 5, 5));
+			setLayout(new GridLayout(2, 5, 5, 5));
 		    add(new JLabel("Employee phone:", JLabel.RIGHT));
 		    add(phone);
 		    add(new JLabel("Employee name:", JLabel.RIGHT));
@@ -53,6 +53,7 @@ public class RegistrateEmployees extends BasicDialog {
 	    phone.requestFocusInWindow();
 	    setVisible(true);
 	    Employee employee;
+	    System.out.println(isOk());
 	    if (isOk()) {
 	    	if(Salesman.isSelected()) {
 	    		employee = new Salesman(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
@@ -69,8 +70,9 @@ public class RegistrateEmployees extends BasicDialog {
 	    	}else {
 	    		employee = new Secretary(Integer.parseInt(phone.getText()), name.getText(), Double.parseDouble(monthlySalary.getText())); 
 	    		return employee;
-	    	}
+	    	} 
 	    } else {
+	    	System.out.println(isOk());
 	    	return null;
 	    }
 	}

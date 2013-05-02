@@ -708,7 +708,7 @@ class ClientMethods {
 			String status = res.getString("status");
 			double price = Double.parseDouble(res.getString("price"));
 					
-			sql = "Select * from orderContent c, dishes d, orders o where o.orderid = c.orderid AND c.dishid = d.dishid";
+			sql = "Select * from ordercontent c, dishes d, orders o where o.orderid = c.orderid AND c.dishid = d.dishid";
 			Statement state2 = connection.createStatement();
 			ResultSet res2 = state2.executeQuery(sql);
 			while(res2.next()) {
@@ -724,7 +724,7 @@ class ClientMethods {
 					String name2 = res3.getString("name");
 					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
 					String metric = res3.getString("metric");
-					int amount = Integer.parseInt(res3.getString("amount"));
+					double amount = Double.parseDouble(res3.getString("amount"));
 					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 					ingredients.add(ingredient);
 				}
@@ -878,7 +878,7 @@ class ClientMethods {
 		} else {
 			type = 4;
 		}
-		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + "," + employee.getName() + ", current_timestamp, " + 
+		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + ",'" + employee.getName() + "', current_timestamp, " + 
 				employee.getMonthlySalary() + ", '" + username + "', '" + hash + "'," + type + "";
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
