@@ -19,6 +19,9 @@ public class OrderCustListMenu extends BasicDialog {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    for(Order enOrder : orderList) {
+	    		orderListModel.addElement((Order) enOrder);
+	    }
 		setLayout(new BorderLayout(5, 5));
 	    add(new ListPanel(), BorderLayout.CENTER);
 	    add(getButtonpanel(), BorderLayout.SOUTH);
