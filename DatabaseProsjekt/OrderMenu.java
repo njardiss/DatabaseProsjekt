@@ -141,16 +141,37 @@ public class OrderMenu extends BasicDialog {
 		priceField.setText(Double.toString(order.getPrice()));
 		price = order.getPrice();
 		ArrayList <Dish> newDish = order.getOrderContent();
+		int[] array = order.getReccuring();
+		if(array[0]==0 || array[1]==0 || array[2]==0 || array[3]==0 || array[4]==0 || array[5]==0 || array[6]==0) reccuring.setEnabled(true);
+		if(array[0]==0) monday.setEnabled(true);
+		if(array[1]==0) tuesday.setEnabled(true);
+		if(array[2]==0) wednesday.setEnabled(true);
+		if(array[3]==0) thursday.setEnabled(true);
+		if(array[4]==0) friday.setEnabled(true);
+		if(array[5]==0) saturday.setEnabled(true);
+		if(array[6]==0) sunday.setEnabled(true);
+
 		for(Dish aDish : newDish) {
 			dishListModel.addElement(aDish);
 			dish.add(aDish);
 		}
+		//filled out the form with all existing info about the order so we can edit it
 		setOk(false);
 		pack();
 	    setVisible(true);
 	    if (isOk()) {
 	    	deliveryTime = "" + year.getText() + "-" + month.getText() + "-" + day.getText() + " " + hour.getText() + ":" + minutes.getText() + ":00";
 	    	order = new Order(1, 1, "Registered", "Placeholder", deliveryTime, deliveryAdress.getText(), dish, price); //orderid, customer id and ordertime placeholders
+	    	if(reccuring.isSelected()){
+	    		if(monday.isSelected()) array[0] = 0;
+	    		if(tuesday.isSelected()) array[0] = 0;
+	    		if(wednesday.isSelected()) array[0] = 0;
+	    		if(thursday.isSelected()) array[0] = 0;
+	    		if(friday.isSelected()) array[0] = 0;
+	    		if(saturday.isSelected()) array[0] = 0;
+	    		if(sunday.isSelected()) array[0] = 0;
+	    		order.setReccuring(array);
+	    	}
 	    	return order;
 	    } else {
 	    	return  null;
