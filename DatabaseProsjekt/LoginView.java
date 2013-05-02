@@ -27,7 +27,7 @@ public class LoginView extends BasicDialog {
 			add(passwordField);
 		}
 	}
-	public boolean login() {
+	public Employee login() {
 		setOk(false);
 	    setVisible(true);
 	    if (isOk()) {
@@ -43,20 +43,26 @@ public class LoginView extends BasicDialog {
 				e.printStackTrace();
 			}
 	    	ClientMethods methods = new ClientMethods();
+	    	Employee employee = null;
 	    	boolean login = false;
 			try {
-				login = methods.login(username, hash);
+				employee = methods.login(username, hash);
+				if(employee == null) {
+					throw new NullPointerException();
+				} else {
+					login = true;
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    	if(login) {
-	    		return true;
+	    		return employee;
 	    	} else {
-	    		return false;
+	    		return null;
 	    	}
 	    } else {
-	    	return false;
+	    	return null;
 	    }
 	}
 }

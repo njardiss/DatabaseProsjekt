@@ -774,41 +774,58 @@ class ClientMethods {
 		}
 		return true;
 	}*/
-	public boolean login(String username, String hash) throws Exception {
+	public Employee login(String username, String hash) throws Exception {
 		Class.forName(dbdriver);
 		Connection connection = DriverManager.getConnection(dbname);
 		Statement state = connection.createStatement();
-		String sql = "SELECT hash FROM employees WHERE username = '" + username + "'";
+		String sql = "SELECT * FROM employees WHERE username = '" + username + "'";
 		ResultSet res = state.executeQuery(sql);
 		res.next();
 		String dbHash;
+		Employee employee;
 		try {
 			dbHash = res.getString("hash");
 		} catch (SQLException e) {
 			ConnectionManager.closeResSet(res);
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
-			return false;
+			return null;
+		}
+		int type = Integer.parseInt(res.getString("type"));
+		int phone = Integer.parseInt(res.getString("phone"));
+		String name = res.getString("name");
+		Double monthlySalary = Double.parseDouble(res.getString("salary"));
+		if(type==0){
+			employee = new CEO(phone, name, monthlySalary);
+		} else if (type == 1){
+			employee = new Salesman(phone, name, monthlySalary);
+		} else if (type == 2) {
+			employee = new Driver(phone, name, monthlySalary);
+		} else if (type == 3) {
+			employee = new Secretary(phone, name, monthlySalary);
+		} else {
+			employee = new Chef(phone, name, monthlySalary);
 		}
 		if(hash.equals(dbHash)){
 			ConnectionManager.closeResSet(res);
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
-			return true;
+			return employee;
 		} else {
 			ConnectionManager.closeResSet(res);
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
-			return false;
+			return null;
 		}
 	}
-	public boolean startLogin() {
+	public Employee startLogin() {
 		boolean check = true;
 		while(check) {
 			LoginView login = new LoginView(parent);
 			login.setLocation(350, 350);
-			if(login.login()) {
-				return true;
+			Employee employee = login.login();
+			if(!(employee == null)) {
+				return employee;
 			} else {
 				int answer = showConfirmDialog(null,
 		                 "Wrong password/username or you are exiting, try again? ",
@@ -822,7 +839,7 @@ class ClientMethods {
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	public boolean regNewEmployee() throws Exception {
 		RegistrateEmployees registration = new RegistrateEmployees(parent);
