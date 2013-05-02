@@ -1,4 +1,8 @@
 import static javax.swing.JOptionPane.*;
+
+import java.awt.HeadlessException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -819,6 +823,61 @@ class ClientMethods {
 		}
 		return false;
 	}
-	public boolean regNewEmployee() {		
+	public boolean regNewEmployee() throws Exception {
+		RegistrateEmployees registration = new RegistrateEmployees(parent);
+		registration.setLocation(350, 350);
+		Employee employee;
+		int answer;
+		try {
+			employee = registration.regEmployee();
+		} catch (NullPointerException e) {
+			ConnectionManager.printMessage(e,"Some data is not present");
+			return false;
+		}
+		String username = showInputDialog(null,"Create a username for the employee");
+		String hash = "";
+		try {
+			hash = DoSHA1.SHA1(showInputDialog(null,"Type in the employees password to this system"));
+		} catch (HeadlessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int type;
+		if(employee instanceof CEO) {
+			type = 0;
+		} else if(employee instanceof Salesman) {
+			type = 1;
+		} else if(employee instanceof Driver) {
+			type = 2;
+		} else if(employee instanceof Secretary) {
+			type = 3;
+		} else {
+			type = 4;
+		}
+		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + "," + employee.getName() + ", current_timestamp, " + 
+				employee.getMonthlySalary() + ", '" + username + "', '" + hash + "'," + type + "";
+		Class.forName(dbdriver);
+	    Connection connection = DriverManager.getConnection(dbname);
+		Statement state = connection.createStatement();
+    	try {
+    		answer = state.executeUpdate(sql);
+    	} catch(SQLException e) {
+    		return false;
+    	}
+		if(answer>0){
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return true;
+		} else {
+			ConnectionManager.closeStatement(state);
+			ConnectionManager.closeConnection(connection);
+			return false;
+		}
 	}
 }
