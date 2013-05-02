@@ -798,7 +798,8 @@ class ClientMethods {
 		if(type==0){
 			employee = new CEO(phone, name, monthlySalary);
 		} else if (type == 1){
-			employee = new Salesman(phone, name, monthlySalary);
+			Double commission = Double.parseDouble(res.getString("commission"));
+			employee = new Salesman(phone, name, monthlySalary, commission);
 		} else if (type == 2) {
 			employee = new Driver(phone, name, monthlySalary);
 		} else if (type == 3) {

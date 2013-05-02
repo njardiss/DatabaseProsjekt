@@ -42,8 +42,9 @@ class Chef extends Employee { //type 4 (from database)
 }
 class Salesman extends Employee { //type 1 (from database)
 	private double commission;
-	public Salesman(int phone, String name, double monthlySalary) {
+	public Salesman(int phone, String name, double monthlySalary, double commission) {
 		super(phone, name, monthlySalary);
+		this.commission = commission;
 	}
 	public double getCommission() {
 		return commission;
