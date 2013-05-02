@@ -220,7 +220,7 @@ public class OrderMenu extends BasicDialog {
 	    		minutes.requestFocusInWindow();
 	    	} 
 	    	return false;
-	    }else if(deliveryAdress2.matches("[a-z1-9]")== false){
+	    }else if(deliveryAdress2.matches("[a-zA-Z1-9]")== false){
 	    	showMessageDialog(OrderMenu.this, "Illegal input!");
 	    	deliveryAdress.requestFocusInWindow();
 	    	return false;
