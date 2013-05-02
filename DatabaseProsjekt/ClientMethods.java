@@ -535,8 +535,9 @@ class ClientMethods {
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 	    Statement state = connection.createStatement();
-	    String sql = "SELECT * from dish where name = " + name + "";
+	    String sql = "SELECT * from dishes WHERE name = '" + name + "'";
 	    ResultSet res = state.executeQuery(sql);
+	    res.next();
 	    int dishID = 0;
 	    ArrayList<Integer> ingredientID = new ArrayList<>();
 	    ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
