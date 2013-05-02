@@ -862,13 +862,14 @@ class ClientMethods {
 			type = 4;
 		}
 		String sql = "INSERT INTO employees (phone, name, hireddate, salary, username, hash, type) values (" + employee.getPhone() + ",'" + employee.getName() + "', current_timestamp, " + 
-				employee.getMonthlySalary() + ", '" + username + "', '" + hash + "'," + type + "";
+				employee.getMonthlySalary() + ", '" + username + "', '" + hash + "'," + type + ")";
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
 		Statement state = connection.createStatement();
     	try {
     		answer = state.executeUpdate(sql);
     	} catch(SQLException e) {
+    		System.out.println("no skils");
     		return false;
     	}
 		if(answer>0){
@@ -876,6 +877,7 @@ class ClientMethods {
 			ConnectionManager.closeConnection(connection);
 			return true;
 		} else {
+			System.out.println("Hvertfall ingen skils");
 			ConnectionManager.closeStatement(state);
 			ConnectionManager.closeConnection(connection);
 			return false;
