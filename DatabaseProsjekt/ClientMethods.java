@@ -769,7 +769,7 @@ class ClientMethods {
 				return true;
 			} else {
 				int answer = showConfirmDialog(null,
-		                 "Wrong password or username, try again? ",
+		                 "Wrong password/username or you are exiting, try again? ",
 		                 "Error", YES_NO_OPTION);
 				if (answer == YES_OPTION) {
 					check = true;
