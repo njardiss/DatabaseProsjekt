@@ -925,4 +925,20 @@ class ClientMethods {
 		}
 		return check;
 	}
+	public boolean editIngredient(Ingredient ingredient) {
+		
+	}
+	public boolean IngredientList() {
+		IngredientListMenu ingredientListMenu = new IngredientListMenu(parent);
+		ingredientListMenu.setLocation(350, 350);
+		Ingredient newIngredient = ingredientListMenu.getIngredient();
+		boolean check = false;
+		try {
+			check = editIngredient(newIngredient);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return check;
+	}
 }
