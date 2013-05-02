@@ -14,7 +14,6 @@ public class RegistrateEmployees extends BasicDialog {
 	private JRadioButton Driver = new JRadioButton("Driver");
 	private JRadioButton CEO = new JRadioButton("CEO");
 	private JRadioButton Secretary = new JRadioButton("Secretary");
-	
 
 	public RegistrateEmployees(JFrame parent) {
 		super(parent, "Employee registration");
@@ -103,12 +102,4 @@ public class RegistrateEmployees extends BasicDialog {
 	    	return true;
 	    }
 	}
-
-	
-	    
-	
-	
-	
-	
-
-	}
+}
