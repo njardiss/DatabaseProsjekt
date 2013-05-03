@@ -101,7 +101,7 @@ class Order {
 	public boolean setDeliveryAdress(String newDeliveryAdress, Connection connection) throws Exception {
 	    Statement state = connection.createStatement();
 		deliveryAdress = newDeliveryAdress;
-		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where kid = " + kid + " and where orderid = " + orderid + "";
+		String sql = "update orders set deliveryadress = '" + deliveryAdress + "' where orderid = " + orderid + "";
 		int answer = state.executeUpdate(sql);
 		if(answer>0){
 			ConnectionManager.closeStatement(state);

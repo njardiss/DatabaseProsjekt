@@ -122,9 +122,9 @@ public class OrderMenu extends BasicDialog {
 		String deliveryTime;
 		StringTokenizer time = new StringTokenizer(order.getDeliveryTime(), "- :");
 		deliveryAdress.setText(order.getDeliveryAdress());
-		day.setText(time.nextToken());
-		month.setText(time.nextToken());
 		year.setText(time.nextToken());
+		month.setText(time.nextToken());
+		day.setText(time.nextToken());
 		hour.setText(time.nextToken());
 		minutes.setText(time.nextToken());
 		priceField.setText(Double.toString(order.getPrice()));

@@ -360,7 +360,7 @@ class ClientMethods {
 					String name2 = res3.getString("name");
 					int ingredientid = Integer.parseInt(res3.getString("ingredientid"));
 					String metric = res3.getString("metric");
-					int amount = Integer.parseInt(res3.getString("amount"));
+					double amount = Double.parseDouble(res3.getString("amount"));
 
 					Ingredient ingredient = new Ingredient(name2, ingredientid, metric, amount);
 					ingredients.add(ingredient);
@@ -661,8 +661,6 @@ class ClientMethods {
 	}
 	public boolean editOrder(Order order) throws Exception {
 		OrderMenu orderMenu = new OrderMenu(parent);
-		orderMenu.setLocation(350, 350);
-		orderMenu.setVisible(true);
 		Order newOrder = orderMenu.editOrder(order);
 		Class.forName(dbdriver);
 	    Connection connection = DriverManager.getConnection(dbname);
